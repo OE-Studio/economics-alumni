@@ -9,7 +9,7 @@ import "./navbar.css"
 const links = [
   {
     name: "About",
-    to: "/about",
+    to: "/about-us",
   },
   {
     name: "Contact Us",
