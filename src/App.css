@@ -1,3 +1,20 @@
 .pattern1, .pattern2{
   background-image:url('./assets/image/updatePattern.svg')
 }
+
+.heroGradient{
+  background: linear-gradient(119.37deg, #0082C8 1.95%, #003653 107.23%);
+}
+
+
+.galleryGrad{
+  background: linear-gradient(270deg, #005D8E -22.96%, #0085E6 123.08%);
+}
+
+.newsletterGrad{
+  background: linear-gradient(100.75deg, #E6D0F5 -14.51%, #FFFFFF 115.42%);
+}
+
+.registrationGrad{
+  background: linear-gradient(101.64deg, #404040 -3.72%, #222222 102.36%);
+}

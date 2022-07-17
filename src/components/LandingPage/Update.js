@@ -1,34 +1,48 @@
 import React from "react";
-// import pattern from "../../assets/image/updatePattern.svg";
+import { HiUserGroup } from "react-icons/hi";
+import {
+  MdEventNote,
+  MdFrontHand,
+} from "react-icons/md";
 
-const Update = () => {
+
+function Update() {
   return (
-    <section className="container mx-auto bg-[#EDD250] pattern1 bg-[url('./assets/image/updatePattern.svg)] font-campton lg:bg-none">
-      {/* <img src={pattern} alt="" /> */}
-      <div className="m-4 md:m-10 lg:mx-20 lg:my-10 bg-none lg:bg-[#EDD250] lg:bg-[url('../../assets/image/updatePattern.svg)] pattern2">
-        <div className="flex flex-col md:flex-row items-center justify-between space-y-20 lg:space-y-0 p-10">
-          <div class="inline-flex flex-col space-y-4 items-center">
-            <p class="text-7xl font-medium">1958</p>
-            <p class="text-2xl font-medium leading-snug">Year established</p>
-          </div>
-
-          <div class="inline-flex flex-col space-y-4 items-center justify-start">
-            <p class="text-7xl font-medium">10,000+</p>
-            <p class="text-2xl font-medium leading-snug">
-              Alumni across the world
-            </p>
-          </div>
-
-          <div class="inline-flex flex-col space-y-4 items-center justify-end w-64 h-32">
-            <p class="text-7xl font-medium">5,000+</p>
-            <p class="text-2xl font-medium leading-7 text-center">
-              Impactful projects
+    <section className="container mx-auto p-4 md:p-10 lg:px-20 lg:pt-0 w-screen">
+      <div className=" flex flex-col md:flex-row bg-[#F8FCFF] rounded-lg w-full justify-between  lg:px-20 lg:py-20 p-10 px-11 space-y-16 lg:space-y-0">
+        <div className="flex space-x-6 lg:space-x-8  ">
+          <MdEventNote className="text-[#FB9600] bg-white p-4 shadow-lg rounded-xl text-2xl box-content aspect-square" />
+          <div className="flex flex-col">
+            <p className=" text-5xl 2xl:text-7xl leading-none">1986</p>
+            <p className="lg:text-lg leading-none text-gray-400">
+              Year established
             </p>
           </div>
         </div>
+
+        <div className="flex space-x-6  lg:space-x-8 ">
+          <HiUserGroup className="text-[#FB9600] bg-white p-4 shadow-lg rounded-xl text-2xl box-content aspect-square" />
+          <div className="flex flex-col">
+            <p className="text-5xl 2xl:text-7xl leading-none">1000+</p>
+            <p className="lg:text-lg leading-none text-gray-400">
+              Members
+            </p>
+          </div>
+        </div>
+
+        <div className="flex space-x-6 lg:space-x-8">
+          <MdFrontHand className="text-[#FB9600] bg-white p-4 shadow-lg rounded-xl text-2xl box-content aspect-square" />
+          <div className="flex flex-col">
+            <p className="text-5xl 2xl:text-7xl leading-none">50+</p>
+            <p className="lg:text-lg leading-none text-gray-400">
+              Impact
+            </p>
+          </div>
+        </div>
+
       </div>
     </section>
   );
-};
+}
 
 export default Update;

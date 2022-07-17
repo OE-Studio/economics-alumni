@@ -43,6 +43,7 @@ module.exports = {
       },
       fontFamily: {
         'campton': ["Campton"],
+        'inter': ["Inter"],
       },
       backgroundImage: {
       }
