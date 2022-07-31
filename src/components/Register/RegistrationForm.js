@@ -73,12 +73,12 @@ const RegistrationForm = () => {
           );
         })}
         <div className="flex flex-col lg:flex-row lg:space-x-6 space-y-6 lg:space-y-0 lg:justify-between">
-          <div className="inline-flex items-center justify-center lg:w-[45%] h-14 px-14 pt-5 pb-4 border border-gray-300">
+          <div className="inline-flex items-center justify-center lg:w-[45%] h-14  pt-5 pb-4 border border-gray-300">
             <p className="text-base font-semibold text-gray-500 uppercase">
               Clear all answers
             </p>
           </div>
-          <div className="inline-flex items-center justify-center lg:w-[45%]  h-14 px-28 pt-5 pb-4 bg-blue-600">
+          <div className="inline-flex items-center justify-center lg:w-[45%]  h-14  pt-5 pb-4 bg-blue-600">
             <p className="text-base font-semibold text-white uppercase">
               Submit
             </p>
