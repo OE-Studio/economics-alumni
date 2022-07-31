@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 
 const AboutContent = () => {
   const [aboutAlumni, setAboutAlumni] = useState(true);
-  const [hODAddress, setHODAddressi] = useState(false);
+  // eslint-disable-next-line
+  const [hODAddress, setHODAddress] = useState(false);
+  // eslint-disable-next-line
   const [chairmanAddress, setChairmanAddress] = useState(false);
 
   const alumni = useRef(null);
@@ -33,6 +35,7 @@ const AboutContent = () => {
     });
 
     return () => {};
+    // eslint-disable-next-line
   }, []);
 
   return (
