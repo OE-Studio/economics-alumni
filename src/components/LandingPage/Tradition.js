@@ -66,7 +66,7 @@ const Tradition = () => {
         </button> */}
       </div>
 
-      <div className="lg:w-[40%] bg-[#dff1ff]">
+      <div className="lg:w-[40%]">
       <img src={tradition} alt="" />
       </div>
       </div>
