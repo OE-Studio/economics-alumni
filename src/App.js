@@ -15,6 +15,7 @@ import Newsletter from './views/Newsletter';
 import Impact from './views/Impact';
 import Give from './views/Give';
 import ScrollToTop from './components/shared/ScrollTop';
+import Register from './views/Register';
 
 function App() {
   useEffect(() => {
@@ -35,6 +36,7 @@ function App() {
       <Route exact path="/gallery" element={<Gallery />} />
       <Route exact path="/portal" element={<LandingPage />} />
       <Route exact path="/give" element={<Give />} />
+      <Route exact path="/register" element={<Register />} />
       
       </Routes>
     </div>

@@ -1,7 +1,7 @@
 import React from "react";
 
 
-const AboutHero = () => {
+const RegisterHero = () => {
     // const canvasRef = useRef();
 
 
@@ -11,16 +11,15 @@ const AboutHero = () => {
             <div className="flex flex-col justify-between lg:items-center  space-y-4 lg:space-y-10">
                 <div className="flex flex-col items-center space-y-6 lg:space-y-10">
                     <p className=" text-3xl md:text-5xl lg:text-[80px]  font-bold leading-12 text-center text-white w-[85%]">
-                        Consolidating a tradition
-                        of excellence.          </p>
+                    Welcome alumni, register here.</p>
                     <p className="md:text-xl lg:text-xl font-medium leading-7 lg:leading-9 text-center text-white lg:w-[60%] w-[85%]">
-                        Learn about the alumni, our history, the department of economics at UI and how we network with friends to foster meaningful and  impact-driven engagements
+                    Fill the fields below to have your details saved in the alumni database. Alumni members of UI economics Department only.
                     </p>
-                    
+
                 </div>
             </div>
         </section>
     );
 };
 
-export default AboutHero;
+export default RegisterHero;

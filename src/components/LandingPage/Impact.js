@@ -5,7 +5,7 @@ import {Link} from "react-router-dom"
 
 function Impact() {
   return (
-    <section className="container mx-auto p-4 pt-16 md:p-10 lg:p-20  space-y-12 lg:space-y-12 lg:pt-36">
+    <section className="container mx-auto p-4 pt-16 md:p-10 lg:p-20  space-y-0 lg:space-y-12 lg:pt-36">
       <p className="text-4xl font-bold">
         <span className="text-[#D0D0D0]">Track out recent </span>
         <br className="hidden lg:block" />

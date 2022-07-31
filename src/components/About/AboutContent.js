@@ -68,7 +68,7 @@ const AboutContent = () => {
             </p>
           </a>
           <a
-            href="#aboutAlumni"
+            href="#coucilMember"
             className="text-base font-medium  flex space-x-6"
           >
             <div className="-ml-1 w-2 bg-transparent" />

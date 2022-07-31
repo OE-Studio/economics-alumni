@@ -5,6 +5,7 @@ import AboutHero from '../components/About/AboutHero'
 import History from '../components/About/History'
 import Actions from '../components/LandingPage/Actions'
 import AboutContent from '../components/About/AboutContent'
+import Council from '../components/About/Council'
 
 const About = () => {
   return (
@@ -17,6 +18,7 @@ const About = () => {
       </div>
       <div className="h-20"></div>
       <AboutContent/>
+      <Council/>
       <Actions/>
       <Footer />
     </>

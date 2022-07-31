@@ -1,8 +1,8 @@
 import React from "react";
 import gallery from "../../assets/image/gallery.svg";
 import registration from "../../assets/image/registration.svg";
-import newsletter from "../../assets/image/newsletter.svg";
-import {Link} from "react-router-dom"
+import newsletter from "../../assets/image/newsletter.png";
+import { Link } from "react-router-dom"
 
 
 import { MdNorthEast } from "react-icons/md";
@@ -53,12 +53,12 @@ const Actions = () => {
               <img src={registration} alt="" />
             </div>
           </div>
-          
+
           <div className="flex  newsletterGrad shadow  w-full justify between md:flex-row flex-col">
-          <div className="md:w-[44%] h-full ">
-              <img src={newsletter} alt="" />
+            <div className="md:w-[44%] -mb-1 self-end ">
+              <img src={newsletter} alt="" className="w-full" />
             </div>
-            <div className="flex flex-col md:w-[56%] p-10 lg:p-12 lg:pr-0 space-y-6">
+            <div className="flex flex-col md:w-[56%] p-10 lg:p-6 lg:pr-6 space-y-6">
               <p className="text-4xl font-bold">Our newsletter</p>
               <p className="text-base font-medium leading-relaxed text-gray-700">
                 Be informed of the University of Ibadan, newsworthy events,
@@ -72,7 +72,7 @@ const Actions = () => {
                 </span>
               </Link>
             </div>
-            
+
           </div>
         </div>
       </div>

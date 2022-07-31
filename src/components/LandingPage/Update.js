@@ -8,8 +8,8 @@ import {
 
 function Update() {
   return (
-    <section className="container mx-auto p-4 md:p-6 lg:px-20 lg:pt-0 w-screen">
-      <div className=" flex flex-col md:flex-row bg-[#F8FCFF]  w-full justify-between shadow-2xl shadow-[#0000000D]  lg:px-20 lg:py-20 p-10 px-11 space-y-16 md:space-y-0">
+    <section className="container mx-auto pt-0 p-4 md:p-6 md:pt-0 lg:px-20 pb-10 lg:pt-0 w-screen">
+      <div className=" flex flex-col md:flex-row bg-[#F8FCFF]  w-full justify-between shadow-2xl shadow-[#0000000F]  lg:px-20 lg:py-20 p-10 px-11 space-y-16 md:space-y-0">
         <div className="flex space-x-6 lg:space-x-8  ">
           <MdEventNote className="text-[#FB9600] bg-white p-4 shadow-xl shadow-[#0000000D] text-2xl box-content aspect-square" />
           <div className="flex flex-col">

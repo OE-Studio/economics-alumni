@@ -17,8 +17,8 @@ import Navbar from "../components/shared/Navbar";
 const LandingPage = () => {
   return (
     <>
-      <div className="relative w-screen overflow-hidden">
-        <div className="heroGradient w-full h-[90%] absolute -z-10"></div>
+      <div className="relative w-screen overflow-hidden pb-10">
+        <div className="heroGradient w-full h-[80%] absolute -z-10"></div>
         <Navbar />
         <Hero />
         <Update />

@@ -7,6 +7,8 @@ import {
   MdFrontHand,
 } from "react-icons/md";
 
+import tradition from "../../assets/image/tradition.png"
+
 const Tradition = () => {
   return (
     <section className="p-4 py-16 md:p-10 lg:px-20 lg:py-20 container mx-auto lg:pb-36 2xl:pb-60 space-y-10">
@@ -17,7 +19,7 @@ const Tradition = () => {
       <div className="flex flex-col lg:flex-row space-y-10 lg:space-y-0 justify-between">
       <div className="flex flex-col space-y-9 lg:w-1/2 font-inter ">
         <div className="flex flex-wrap gap-10">
-          <div className="w-[45%] space-y-4">
+          <div className="md:w-[45%] space-y-4">
             <div className="inline-flex items-center justify-center  p-3 bg-[#EEF8FD]">
               <MdMilitaryTech className="text-[#33B8FF] text-4xl" />
             </div>
@@ -27,7 +29,7 @@ const Tradition = () => {
               bibendum sed tincidunt purus,{" "}
             </p>
           </div>
-          <div className="w-[45%] space-y-4">
+          <div className="md:w-[45%] space-y-4">
             <div className="inline-flex items-center justify-center w-16 h-16 p-3.5 bg-[#FFF5F0]">
               <MdAutoAwesome className="text-[#FF6E1C] text-4xl" />
             </div>
@@ -37,7 +39,7 @@ const Tradition = () => {
               bibendum sed tincidunt purus,{" "}
             </p>
           </div>
-          <div className="w-[45%] space-y-4">
+          <div className="md:w-[45%] space-y-4">
             <div className="inline-flex items-center justify-center p-3.5 bg-[#F4FFE5] ">
               <MdBusinessCenter className="text-[#64B300] text-4xl" />
             </div>
@@ -47,7 +49,7 @@ const Tradition = () => {
               bibendum sed tincidunt purus,{" "}
             </p>
           </div>
-          <div className="w-[45%] space-y-4">
+          <div className="md:w-[45%] space-y-4">
             <div className="inline-flex items-center justify-center p-3.5 bg-[#F6F0FF]">
               <MdFrontHand className="text-[#9747FF] text-4xl" />
             </div>
@@ -64,7 +66,9 @@ const Tradition = () => {
         </button> */}
       </div>
 
-      <div className="lg:w-[40%] bg-[#dff1ff]"></div>
+      <div className="lg:w-[40%] bg-[#dff1ff]">
+      <img src={tradition} alt="" />
+      </div>
       </div>
     </section>
   );

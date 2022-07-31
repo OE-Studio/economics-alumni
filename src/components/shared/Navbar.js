@@ -43,13 +43,14 @@ function NavLink(props) {
   const navClassName =
     location[1] === props.to.split("/")[1]
       ? `nav-link text-3xl py-5 px-4 lg:px-0 lg:py-0 lg:text-sm ${navTextColor}  active-nav-link block`
-      : `nav-link text-3xl  py-5 px-4 lg:px-0 lg:py-0 lg:text-sm ${navTextColor} block`;
+      : `nav-link text-3xl border-b  py-5 px-4 lg:px-0 lg:py-0 lg:text-sm ${navTextColor} block`;
 
   return (
-    <li className="flex flex-col items-center">
+    <li className="flex flex-col items-center mt-3 lg:mt-0">
       <Link to={props.to} className={navClassName} onClick={props.clickHandler}>
         {props.name}
       </Link>
+      <div className="lg:hidden bg-gray-100 w-full h-0.5 mt-2"/>
       {location[1] === props.to.split("/")[1] && (
         <div
           className={`hidden lg:inline-block ${indicatorColor} w-1.5 h-1.5 rounded-full -mt-2`}
@@ -81,8 +82,8 @@ const Navbar = () => {
 
   const navTextColor = location[1] === "impact" ? `text-black` : `text-white`;
   const navMenuContainer = navToggle
-    ? "nav-menu-container divide-y-2  active-nav-menu bg-white lg:bg-transparent"
-    : "nav-menu-container  bg-white lg:bg-transparent";
+    ? "nav-menu-container  active-nav-menu bg-white lg:bg-transparent"
+    : "nav-menu-container  gap-4 bg-white lg:bg-transparent";
   return (
     <section className="p-4 md:px-10 lg:px-20 container mx-auto">
       <nav className="flex py-4 justify-between items-center relative z-20">
@@ -94,23 +95,22 @@ const Navbar = () => {
           />
         </Link>
 
-        {navToggle ? (
-          <HiX
-            className={`nav-toggle-icon text-2xl text-white lg:hidden ${navTextColor}`}
-            onClick={clickHandler}
-          />
-        ) : (
-          <HiMenu
-            style={{
-              fontSize: "24px",
-              textColor: "white",
-            }}
-            className={`nav-toggle-icon text-2xl text-white lg:hidden ${navTextColor}`}
-            onClick={clickHandler}
-          />
-        )}
+        <HiMenu
+          style={{
+            fontSize: "24px",
+            textColor: "white",
+          }}
+          className={`nav-toggle-icon text-2xl text-white lg:hidden ${navTextColor}`}
+          onClick={clickHandler}
+        />
+
 
         <ul className={navMenuContainer}>
+        <HiX
+            className={`nav-toggle-icon text-2xl text-black lg:hidden self-end p-10`}
+            onClick={clickHandler}
+          />
+
           {links.map((link, index) => {
             return (
               <NavLink
@@ -121,14 +121,14 @@ const Navbar = () => {
               />
             );
           })}
-          <div
-            className={`ml-3 flex w-full lg:w-auto items-center justify-center px-6 py-3 ${portalBGColor} self-center`}
-            clickHandler={clickHandler}
+          <Link to='/register'
+            className={`ml-3 flex w-[95%] mx-auto mt-2 lg:w-auto items-center justify-center px-6 py-6 lg:py-3 ${portalBGColor} self-center`}
+            onClick={clickHandler}
           >
-            <p className={`text-sm font-semibold ${textColor} font-campton`}>
-              Alumni Portal
+            <p className={`lg:text-sm font-semibold ${textColor} font-campton`}>
+              Register
             </p>
-          </div>
+          </Link>
         </ul>
       </nav>
     </section>
