@@ -1,16 +1,22 @@
 import React from 'react'
 import Navbar from '../components/shared/Navbar'
 import Footer from '../components/shared/Footer'
-import GalleryComp from '../components/LandingPage/Gallery'
+
+import GalleryHero from '../components/Gallery/GalleryHero'
+import GalleryList from '../components/Gallery/GalleryList'
 
 
 
 const Gallery = () => {
   return (
     <>
-    <Navbar/>
-    <GalleryComp/>
-    <Footer/>
+      <div className="relative w-screen overflow-hidden font-inter">
+        <div className="heroGradient w-full h-[100%] absolute -z-10"></div>
+        <Navbar />
+        <GalleryHero />
+      </div>
+      <GalleryList />
+      <Footer />
     </>
   )
 }

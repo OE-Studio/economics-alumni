@@ -11,11 +11,11 @@ const Footer = () => {
         <img src={logo} alt="" className="w-1/2 md:w-1/3 lg:w-52 mx-auto" />
       </Link>
 
-      <div class="inline-flex space-x-14 items-center justify-center">
-        <p class="text-lg font-medium leading-relaxed text-center text-white lg:text-left">
+      <div className="inline-flex space-x-14 items-center justify-center">
+        <p className="text-lg font-medium leading-relaxed text-center text-white lg:text-left">
           All rigths resrvered
         </p>
-        <p class="text-lg font-medium leading-relaxed text-center text-white">
+        <p className="text-lg font-medium leading-relaxed text-center text-white">
           ©2022
         </p>
       </div>

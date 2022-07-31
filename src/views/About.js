@@ -1,18 +1,24 @@
 import React from 'react'
 import Navbar from '../components/shared/Navbar'
 import Footer from '../components/shared/Footer'
-import Tradition from '../components/LandingPage/Tradition'
-import Message from '../components/LandingPage/Message'
-import Projects from '../components/LandingPage/Projects'
+import AboutHero from '../components/About/AboutHero'
+import History from '../components/About/History'
+import Actions from '../components/LandingPage/Actions'
+import AboutContent from '../components/About/AboutContent'
 
 const About = () => {
   return (
     <>
-    <Navbar/>
-    <Tradition/>
-    <Message/>
-    <Projects/>
-    <Footer/>
+      <div className="relative w-screen overflow-hidden">
+        <div className="heroGradient w-full h-[75%] absolute -z-10"></div>
+        <Navbar />
+        <AboutHero />
+        <History/>
+      </div>
+      <div className="h-20"></div>
+      <AboutContent/>
+      <Actions/>
+      <Footer />
     </>
   )
 }

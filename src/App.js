@@ -11,6 +11,10 @@ import ContactUs from './views/ContactUs';
 import Projects from './views/Projects';
 import Events from './views/Events';
 import Gallery from './views/Gallery';
+import Newsletter from './views/Newsletter';
+import Impact from './views/Impact';
+import Give from './views/Give';
+import ScrollToTop from './components/shared/ScrollTop';
 
 function App() {
   useEffect(() => {
@@ -18,14 +22,20 @@ function App() {
   }, [])
   return (
     <div className="App">
+      
+      <ScrollToTop/>
       <Routes>
       <Route exact path="/" element={<LandingPage />} />
-      <Route exact path="/about-us" element={<About />} />
+      <Route exact path="/about" element={<About />} />
+      <Route exact path="/impact" element={<Impact />} />
       <Route exact path="/contact-us" element={<ContactUs />} />
+      <Route exact path="/newsletter" element={<Newsletter />} />
       <Route exact path="/projects" element={<Projects />} />
       <Route exact path="/events" element={<Events />} />
       <Route exact path="/gallery" element={<Gallery />} />
       <Route exact path="/portal" element={<LandingPage />} />
+      <Route exact path="/give" element={<Give />} />
+      
       </Routes>
     </div>
   );

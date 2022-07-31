@@ -11,20 +11,21 @@
 
 .nav-menu-container {
   display: none;
-  position: absolute;
+  position: fixed;
   top: 12vh;
   flex-direction: column;
-  z-index: 60;
-  left: 0;
+  z-index: 100;
+  left: 50%;
+  transform: translateX(-50%);
   height: 88vh;
   padding: 0 var(--padding);
-  width: 100%;
+  width: 100vw;
   /* background-color: var(--primaryColor); */
   /* justify-content: space-around; */
 }
 
 .nav-link {
-  padding: 2.5rem var(--padding);
+  
   width: 100%;
   border-bottom: 1px solid white;
   display: block;
@@ -56,6 +57,7 @@
     height: unset;
     padding: 0;
     width: fit-content;
+    transform:unset;
   }
   .nav-toggle-icon {
     display: none;

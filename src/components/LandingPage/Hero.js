@@ -43,28 +43,28 @@ const Hero = () => {
     <section className="p-4 md:p-10 lg:px-16 lg:pb-0 container mx-auto">
       <div className="flex flex-col justify-between lg:items-center  space-y-4 lg:space-y-10">
         <div className="flex flex-col items-center space-y-6 lg:space-y-10">
-          <p className=" text-6xl md:text-5xl lg:text-8xl font-bold leading-12 text-center text-white">
+          <p className=" text-6xl md:text-5xl lg:text-[80px] font-bold leading-12 text-center text-white">
             University of Ibadan <br className="hidden lg:block" />
             Economics Alumni
           </p>
-          <p className="text-2xl font-medium leading-9 text-center text-white lg:w-full w-[85%]">
+          <p className="text-xl font-medium leading-9 text-center text-white lg:w-full w-[85%]">
             An enduring legacy of leadership & excellence.{" "}
           </p>
           <div className="flex space-x-10 items-center font-campton">
-            <div className="inline-flex items-center justify-center px-10 pt-5 pb-4 bg-yellow-300 rounded-lg">
-              <p className="text-base font-semibold text-blue-900">
+            <div className="inline-flex items-center justify-center px-7 py-3 bg-yellow-300 cursor-pointer">
+              <p className=" sm:text-sm text-base font-semibold text-blue-900">
                 Alumni Portal
               </p>
             </div>
-            <div className="flex space-x-4 items-center">
+            <div className="flex space-x-4 items-center cursor-pointer">
               <p className="text-base font-semibold text-white">Get started</p>
               <MdSouth className="bg-[#FB7800] rounded-full text-white text-2xl p-2 box-content" />
             </div>
           </div>
         </div>
 
-        <div className="w-full h-[30vh] lg:h-[40vh] 2xl:h-[30vh] overflow-hidden flex justify-center">
-          <img src={globe} alt="" className="w-full" />
+        <div className="w-full h-[30vh] lg:h-[30vh] 2xl:h-[30vh] overflow-hidden flex justify-center">
+          <img src={globe} alt="" className="lg:h-[60vh]" />
         </div>
       </div>
     </section>

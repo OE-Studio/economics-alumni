@@ -74,7 +74,7 @@ import "./UpcomingEvents.css";
 function UpcomingEvents() {
   return (
     <section className="container mx-auto p-4 md:p-10 lg:p-20  space-y-12 lg:space-y-12 lg:pt-36 pt-20">
-      <p className="text-4xl font-bold">
+      <p className="text-4xl lg:text-[64px] leading-[105%] font-bold ">
         <span className="text-[#D0D0D0]">Our upcoming</span>
         <br className="hidden lg:block" />
         events

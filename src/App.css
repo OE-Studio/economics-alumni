@@ -3,7 +3,7 @@
 }
 
 .heroGradient{
-  background: linear-gradient(119.37deg, #0082C8 1.95%, #003653 107.23%);
+  background: linear-gradient(117.01deg, #007DF0 -22.06%, #030D6C 65.18%);
 }
 
 
@@ -12,9 +12,22 @@
 }
 
 .newsletterGrad{
-  background: linear-gradient(100.75deg, #E6D0F5 -14.51%, #FFFFFF 115.42%);
+  background: linear-gradient(100.75deg, #ECD844 -14.51%, #FFFFFF 115.42%);
 }
 
 .registrationGrad{
+  background: linear-gradient(101.64deg, #404040 -3.72%, #222222 102.36%);
+}
+
+*{
+  scroll-behavior: smooth;
+}
+
+
+.impactGradient {
+  background: linear-gradient(100.75deg, #ECD844 -14.51%, #FFFFFF 115.42%);
+}
+
+.giveGradient{
   background: linear-gradient(101.64deg, #404040 -3.72%, #222222 102.36%);
 }
