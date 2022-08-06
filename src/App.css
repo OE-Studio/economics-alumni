@@ -1,38 +1,33 @@
-.App {
-  text-align: center;
+.pattern1, .pattern2{
+  background-image:url('./assets/image/updatePattern.svg')
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.heroGradient{
+  background: linear-gradient(117.01deg, #007DF0 -22.06%, #030D6C 65.18%);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+.galleryGrad{
+  background: linear-gradient(270deg, #005D8E -22.96%, #0085E6 123.08%);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.newsletterGrad{
+  background: linear-gradient(100.75deg, #ECD844 -14.51%, #FFFFFF 115.42%);
 }
 
-.App-link {
-  color: #61dafb;
+.registrationGrad{
+  background: linear-gradient(101.64deg, #404040 -3.72%, #222222 102.36%);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+*{
+  scroll-behavior: smooth;
+}
+
+
+.impactGradient {
+  background: linear-gradient(100.75deg, #ECD844 -14.51%, #FFFFFF 115.42%);
+}
+
+.giveGradient{
+  background: linear-gradient(101.64deg, #404040 -3.72%, #222222 102.36%);
 }
