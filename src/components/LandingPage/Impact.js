@@ -11,6 +11,7 @@ function Impact() {
         <br className="hidden lg:block" />
         impacts
       </p>
+      <div className="h-10"/>
       <ImpactCard />
       <ImpactCard />
       <ImpactCard />

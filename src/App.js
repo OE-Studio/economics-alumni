@@ -6,6 +6,12 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+
+import { fetchTraining } from './features/training/trainingSlice';
+import { fetchResearch } from './features/research/researchSlice';
+import { fetchImage } from './features/image/imageSlice';
+import { useDispatch, useSelector } from 'react-redux'
+
 import About from './views/About';
 import ContactUs from './views/ContactUs';
 import Projects from './views/Projects';
@@ -24,6 +30,28 @@ function App() {
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, [])
+
+
+  const dispatch = useDispatch()
+  const trainingStatus = useSelector(state => state.training.status)
+  const researchStatus = useSelector(state => state.research.status)
+  const imageStatus = useSelector(state => state.image.status)
+
+  useEffect(() => {
+
+    if (trainingStatus === "idle") {
+      dispatch(fetchTraining())
+    }
+    if (researchStatus === "idle") {
+      dispatch(fetchResearch())
+    }
+    if (imageStatus === "idle") {
+      dispatch(fetchImage())
+    }
+    return () => { }
+  }, [dispatch, trainingStatus, researchStatus, imageStatus])
+
+
   return (
     <div className="App">
       

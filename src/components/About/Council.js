@@ -4,7 +4,7 @@ import { council } from "../../assets/council";
 
 function CouncilMember({ image, name }) {
   return (
-    <div className="w-[180px] lg:w-[200px] shadow-xl shadow-[#0000000D]">
+    <div className="w-[180px] xl:w-[200px] shadow-xl shadow-[#0000000D]">
       <img src={image} alt="" />
       <div className="bg-white p-6">
         <p className=" md:text-lg lg:text-xl font-light">{name}</p>

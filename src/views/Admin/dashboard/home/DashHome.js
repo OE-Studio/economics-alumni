@@ -10,10 +10,105 @@ import {
 } from "react-icons/md";
 import { RiSunCloudyLine } from "react-icons/ri";
 import CompCard from "../../CompCard";
+import { useSelector } from "react-redux";
+import EmptyField from "../EmptyField";
+import { format } from "date-fns";
 
+import { RiFileLine } from "react-icons/ri";
 
+const RecentUploadProp = ({ title, author, date, description, last }) => {
+  return (
+    <div
+      className={`space-x-6 flex ${!last && "border-b"} mx-4 py-4`}
+      onClick={() => {}}
+    >
+      <div className="bg-[#ecffcc] p-1.5 rounded-full self-start">
+        <RiFileLine className="text-[#69a700] text-xl" />
+      </div>
+      <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:justify-between w-full">
+        <div className="space-y-1.5">
+          <p className="text-base font-medium text-gray-700">{title}</p>
+          <p className="text-sm leading-none text-gray-400">
+            {description
+              .substring(0, 100)
+              .padEnd(103, description.length > 103 ? "..." : "")}
+          </p>
+        </div>
+        <div className="flex md:flex-col md:items-end justify-between">
+          <p className="text-xs font-medium text-gray-500">
+            {author} / {date}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const DashHome = () => {
+  // 
+  let recentList;
+  const data = useSelector((state) => state);
+
+  let dataArray; 
+
+  const renderList = (List) => {
+    recentList = List.map((trainings, index, list) => {
+      let date = format(Date.parse(trainings.created_at), "dd/MM/yyyy");
+
+      
+      return (
+        <RecentUploadProp
+          title={trainings.title}
+          author="Admin"
+          date={date}
+          description={trainings.description}
+          id={trainings.uuid}
+          key={index}
+          last={index === list.length - 1}
+        />
+      );
+    });
+  };
+
+  if (
+    data.research.status === "idle" ||
+    data.image.status === "idle" ||
+    data.training.status === "idle"
+  ) {
+recentList = <EmptyField />;
+  } else if (
+    data.research.status === "pending" ||
+    data.image.status === "pending" ||
+    data.training.status === "pending"
+  ) {
+    // eslint-disable-next-line
+    recentList = <EmptyField />;
+  }
+
+  if (
+    data.research.status === "fulfilled" &&
+    data.image.status === "fulfilled" &&
+    data.training.status === "fulfilled"
+  ) {
+    let allData = [
+      ...data.research.item,
+      ...data.training.item,
+      ...data.image.item,
+    ];
+
+    dataArray = [...allData];
+
+    const byDate = (a, b) => {
+      return (
+        parseInt(Date.parse(a.created_at)) - parseInt(Date.parse(b.created_at))
+      );
+    };
+
+    dataArray = allData.sort(byDate).reverse().slice(0, 3);
+
+
+    renderList(dataArray)
+  }
   return (
     <div className="mb-10">
       

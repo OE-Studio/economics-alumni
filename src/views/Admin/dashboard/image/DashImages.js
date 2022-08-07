@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { format } from "date-fns";
 
 import {
   MdPublic,
@@ -7,13 +9,171 @@ import {
   MdOutlineSearch,
   MdOutlineDelete,
   MdOutlineFolderOpen,
-  MdOutlineHistory,
-  MdBolt,
 } from "react-icons/md";
+
+import {
+  RiMoreFill,
+  RiEdit2Line,
+  RiImageLine,
+} from "react-icons/ri";
+
 import UploadButton from "../../UploadButton";
+import SideBarWrapper from "../SideBarWrapper";
+import ImageForm from "./ImageForm";
+import EmptyField from "../EmptyField";
+import Pagination from "../Pagination";
+
 
 // const baseURL = "http://localhost:3001";
 const baseURL = "https://htprtp.herokuapp.com";
+
+
+const ImageCard = ({
+  title,
+  author,
+  date,
+  description,
+  imageURL,
+  id,
+  last,
+  toggleEditNotification,
+  setEditId,
+  handleClick,
+  isChecked,
+}) => {
+  const [toggle, setToggle] = React.useState(false);
+
+  const popUp = React.useRef(null);
+
+  const updateStatus = () => {
+    const options = {
+      headers: { "Content-Type": undefined },
+      url: `${baseURL}/image/update-status`,
+      method: "POST",
+      data: {
+        uuid: id,
+        status: "archive",
+      },
+    };
+
+    axios(options).then((result) => {
+      if (result.status !== 200) {
+        window.alert("Error updating");
+      }
+
+      if (result.status === 200) {
+        window.location.reload();
+      }
+    });
+  };
+  const deleteImage = () => {
+    const options = {
+      headers: { "Content-Type": undefined },
+      url: `${baseURL}/image/delete/${id}`,
+      method: "DELETE",
+    };
+
+    axios(options).then((result) => {
+      if (result.status !== 200) {
+        window.alert("Error updating");
+      }
+
+      if (result.status === 200) {
+        window.location.reload();
+      }
+    });
+  };
+
+  return (
+    <div className="md:w-1/2 lg:w-1/3 md:p-4 2xl:w-1/4 relative">
+      <div className=" absolute z-10 p-5">
+        <input
+          id={id}
+          type="checkbox"
+          onChange={handleClick}
+          checked={isChecked}
+        />
+      </div>
+      <div className="p-2.5 border space-y-4">
+
+        {!imageURL && (
+          <div className="flex p-6 items-center justify-center md:h-32 lg:h-40 2xl:h-64 bg-[#f2f2f2]">
+            <div className="bg-white p-6 rounded-full">
+              <RiImageLine className="text-[#acacac] text-3xl font-bold" />
+            </div>
+          </div>
+        )}
+        {imageURL && (
+          <div
+            className="md:h-32 lg:h-40 2xl:h-64 bg-cover hover:bg-contain bg-no-repeat"
+            style={{ backgroundImage: `url(${imageURL.toString()})` }}
+          >
+            {/* <img src={imageURL} alt="" /> */}
+          </div>
+        )}
+        <div className="border">
+          <p className="p-4 border-b text-xs font-medium text-gray-500">
+            {title}
+          </p>
+          <p className="p-4 text-xs font-medium text-gray-500">{description}</p>
+        </div>
+        <div className="flex md:items-end justify-between">
+          <p className="text-xs font-medium text-gray-500">
+            {author} / {date}
+          </p>
+          <div className=" py-1.5 px-1 cursor-pointer relative">
+            <RiMoreFill
+              className="editPopup text-xl text-[#737373]"
+              onClick={() => {
+                setToggle(!toggle);
+              }}
+            />
+
+            {toggle && (
+              <div
+                className={`editPopup absolute bg-white shadow-xl flex flex-col right-0 rounded-lg p-2 space-y-1.5 z-10 ${last && "bottom-10"
+                  }`}
+                ref={popUp}
+              >
+                <div
+                  className="flex space-x-2 p-2.5 items-center pr-4 lg:pr-6 hover:bg-gray-100 rounded-lg"
+                  onClick={() => {
+                    toggleEditNotification();
+                    setEditId(id);
+                    setToggle(false);
+                  }}
+                >
+                  <RiEdit2Line />
+                  <p>Edit</p>
+                </div>
+                <div
+                  className="flex space-x-2 p-2.5 items-center pr-4 lg:pr-6 hover:bg-gray-100 rounded-lg"
+                  onClick={() => {
+                    updateStatus();
+                    setToggle(false);
+                  }}
+                >
+                  <MdOutlineFolderOpen />
+                  <p>Archive</p>
+                </div>
+                <div
+                  className="flex space-x-2 p-2.5 items-center text-red-500 bg-[#F9F2F2] pr-4 lg:pr-6 hover:bg-red-500 hover:text-white rounded-lg"
+                  onClick={() => {
+                    deleteImage();
+                    setToggle(false);
+                  }}
+                >
+                  <MdOutlineDelete />
+                  <p>Delete</p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const SelectAllButton = ({ onChangeHandler, checkHandler }) => {
   return (
@@ -37,8 +197,7 @@ const SelectAllButton = ({ onChangeHandler, checkHandler }) => {
 };
 
 const DashImages = () => {
-  const [tab, setTab] = React.useState("publish");
-  const [searchTerm, setSearchTerm] = React.useState("");
+
 
   //   Tabs
   const tabActiveClass =
@@ -60,33 +219,172 @@ const DashImages = () => {
     }
   };
 
+
+  const [toggleEdit, setToggleEdit] = React.useState(false);
+  const toggleEditNotification = () => {
+    setToggleEdit(!toggleEdit);
+  };
+
+
+  const [draftListStart, setDraftListStart] = React.useState(0);
+  const [draftListEnd, setDraftListEnd] = React.useState(0);
+  const [publishListStart, setPublishListStart] = React.useState(0);
+  const [publishListEnd, setPublishListEnd] = React.useState(0);
+  const [archiveListStart, setArchiveListStart] = React.useState(0);
+  const [archiveListEnd, setArchiveListEnd] = React.useState(0);
+  // eslint-disable-next-line
+  const [editId, setEditId] = React.useState("");
+
+  const [tab, setTab] = React.useState("publish");
+  const [searchTerm, setSearchTerm] = React.useState("");
+
+  const Images = useSelector((state) => state.image);
+  let imageList;
+
+  let publishedImage = [];
+  let draftedImage = [];
+  let archivedImage = [];
+
+  if (Images.status === "fulfilled") {
+
+    let allImages = Images.item.filter(
+      // eslint-disable-next-line
+      (item) => {
+        if (searchTerm === "") {
+          return item;
+        } else if (item.title.toLowerCase().includes(searchTerm.toLowerCase())) {
+          return item;
+        }
+      });
+
+
+    publishedImage = allImages.filter(
+      (training) => training.status === "publish"
+    );
+    draftedImage = allImages.filter(
+      (training) => training.status === "draft"
+    );
+    archivedImage = allImages.filter(
+      (training) => training.status === "archive"
+    );
+  }
+
+  if (Images.status === "idle" || Images.status === "pending") {
+    imageList = <EmptyField />;
+  } else if (Images.status === "fulfilled") {
+    if (Images.item.length === 0) {
+      imageList = <EmptyField />;
+    }
+
+    const renderList = (List) => {
+      imageList = List.map((trainings, index, list) => {
+        let date = format(Date.parse(trainings.created_at), "dd/MM/yyyy");
+        console.log(isCheck.includes(trainings.uuid))
+        return (
+          <ImageCard
+            title={trainings.title}
+            author="Admin"
+            date={date}
+            description={trainings.description}
+            id={trainings.uuid}
+            key={index}
+            toggleEditNotification={toggleEditNotification}
+            setEditId={setEditId}
+            imageURL={trainings.documentURL}
+            last={index === list.length - 1}
+            handleClick={handleClick}
+            isChecked={isCheck.includes(trainings.uuid)}
+          />
+        );
+      });
+    };
+    if (Images.item.length !== 0) {
+      if (tab === "publish") {
+        if (publishedImage.length === 0) {
+          imageList = <EmptyField />;
+        } else {
+          renderList(
+            publishedImage.slice(
+              publishListStart,
+              publishedImage.length < publishListEnd
+                ? publishedImage.length
+                : publishListEnd
+            )
+          );
+        }
+      }
+
+      if (tab === "draft") {
+        if (draftedImage.length === 0) {
+          imageList = <EmptyField />;
+        } else {
+          renderList(
+            draftedImage.slice(
+              draftListStart,
+              draftedImage.length < draftListEnd
+                ? draftedImage.length
+                : draftListEnd
+            )
+          );
+        }
+      }
+
+      if (tab === "archive") {
+        if (archivedImage.length === 0) {
+          imageList = <EmptyField />;
+        } else {
+          // archiveListStart
+          renderList(
+            archivedImage.slice(
+              archiveListStart,
+              archivedImage.length < archiveListEnd
+                ? archivedImage.length
+                : archiveListEnd
+            )
+          );
+        }
+      }
+    }
+  } else if (Images.status === "failed") {
+    imageList = <EmptyField />;
+  }
+
+
+
+  // ACTION FUNCTIONS
+
   const publishSelectAll = (e) => {
     setIsCheckAllPublish(!isCheckAllPublish);
-    setIsCheck();
-    //   publishedImage
-    //     .slice(
-    //       publishListStart,
-    //       publishedImage.length < publishListEnd
-    //         ? publishedImage.length
-    //         : publishListEnd
-    //     )
-    //     .map((li) => li.uuid)
+    setIsCheck(
+      publishedImage
+        .slice(
+          publishListStart,
+          publishedImage.length < publishListEnd
+            ? publishedImage.length
+            : publishListEnd
+        )
+        .map((li) => li.uuid)
+    );
+
     if (isCheckAllPublish) {
       setIsCheck([]);
     }
   };
 
   const archiveSelectAll = (e) => {
+
     setIsCheckAllArchive(!isCheckAllArchive);
-    setIsCheck();
-    //   archivedImage
-    //     .slice(
-    //       archiveListStart,
-    //       archivedImage.length < archiveListEnd
-    //         ? archivedImage.length
-    //         : archiveListEnd
-    //     )
-    //     .map((li) => li.uuid)
+    setIsCheck(
+      archivedImage
+        .slice(
+          archiveListStart,
+          archivedImage.length < archiveListEnd
+            ? archivedImage.length
+            : archiveListEnd
+        )
+        .map((li) => li.uuid)
+    );
+
     if (isCheckAllArchive) {
       setIsCheck([]);
     }
@@ -94,15 +392,17 @@ const DashImages = () => {
 
   const draftSelectAll = (e) => {
     setIsCheckAllDraft(!isCheckAllDraft);
-    setIsCheck();
-    //   draftedImage
-    //     .slice(
-    //       draftListStart,
-    //       draftedImage.length < draftListEnd
-    //         ? draftedImage.length
-    //         : draftListEnd
-    //     )
-    //     .map((li) => li.uuid)
+    setIsCheck(
+      draftedImage
+        .slice(
+          draftListStart,
+          draftedImage.length < draftListEnd
+            ? draftedImage.length
+            : draftListEnd
+        )
+        .map((li) => li.uuid)
+    );
+
     if (isCheckAllDraft) {
       setIsCheck([]);
     }
@@ -130,6 +430,7 @@ const DashImages = () => {
     });
   };
 
+  // eslint-disable-next-line
   const deleteAll = () => {
     const options = {
       headers: { "Content-Type": undefined },
@@ -151,11 +452,24 @@ const DashImages = () => {
     });
   };
 
+  // Form Overlay
+  const [toggle, setToggle] = React.useState(false);
+  const toggleNotification = () => {
+    setToggle(!toggle);
+  };
+
+
   return (
-    <div className="mb-10">
+    <div className="mb-10 relative">
+
+      {/* CREATE FORMS */}
+      <SideBarWrapper toggleNotification={toggleNotification} toggle={toggle}>
+        <ImageForm />
+      </SideBarWrapper>
+
+
       {/* First Tab */}
       <section className="md:mt-[36px] p-[20px] md:p-0 md:px-[40px] lg:px-[60px]">
-        {tab}
         <div className="flex justify-between">
           <div className="flex items-center space-x-3">
             <p className="text-4xl">Images</p>
@@ -165,7 +479,7 @@ const DashImages = () => {
               </p>
             </div>
           </div>
-          <UploadButton customStyle="hidden md:inline-flex" />
+          <UploadButton customStyle="hidden md:inline-flex" clickHandler={() => { toggleNotification() }} />
         </div>
       </section>
 
@@ -191,21 +505,26 @@ const DashImages = () => {
                 onChangeHandler={publishSelectAll}
                 checkHandler={isCheckAllPublish}
               />
+
             )}
             {tab === "draft" && (
               <SelectAllButton
                 onChangeHandler={draftSelectAll}
                 checkHandler={isCheckAllDraft}
               />
+
             )}
             {tab === "archive" && (
               <SelectAllButton
                 onChangeHandler={archiveSelectAll}
                 checkHandler={isCheckAllArchive}
               />
+
             )}
           </div>
-          <UploadButton customStyle="inline-flex md:hidden" />
+
+          <UploadButton customStyle="inline-flex md:hidden" clickHandler={() => { toggleNotification() }} />
+
           {(isCheckAllArchive || isCheckAllDraft || isCheckAllPublish) && (
             <div className="gap-5 items-center flex flex-wrap 2xl:hidden">
               {tab !== "archive" && (
@@ -244,7 +563,7 @@ const DashImages = () => {
 
               <div
                 className="flex items-center space-x-4 bg-[#F9F2F2] text-[#F90000] px-4 py-2"
-                onClick={() => {}}
+                onClick={() => { }}
               >
                 <MdOutlineDelete className=" text-xl" />
                 <p className="text-base">Delete all</p>
@@ -272,8 +591,7 @@ const DashImages = () => {
               <p className="text-base text-gray-700">Published</p>
               <div className="px-2 py-1 bg-white border rounded-full border-grey-100">
                 <p className="text-xs font-medium text-grey-200">
-                  {/* {publishedImage.length} */}
-                  2000
+                  {publishedImage.length}
                 </p>
               </div>
             </div>
@@ -291,8 +609,7 @@ const DashImages = () => {
               <p className="text-base text-gray-700">Draft</p>
               <div className="px-2 py-1 bg-white border rounded-full border-grey-100">
                 <p className="text-xs font-medium text-grey-200">
-                  {/* {draftedImage.length} */}
-                  200
+                  {draftedImage.length}
                 </p>
               </div>
             </div>
@@ -310,8 +627,7 @@ const DashImages = () => {
               <p className="text-base text-gray-700">Archive</p>
               <div className="px-2 py-1 bg-white border rounded-full border-grey-100">
                 <p className="text-xs font-medium text-grey-200">
-                  {/* {archivedImage.length} */}
-                  2000
+                  {archivedImage.length}
                 </p>
               </div>
             </div>
@@ -354,7 +670,7 @@ const DashImages = () => {
 
               <div
                 className="flex items-center space-x-4 bg-[#F9F2F2] text-[#F90000] px-4 py-2"
-                onClick={() => {}}
+                onClick={() => { }}
               >
                 <MdOutlineDelete className=" text-xl" />
                 <p className="text-base">Delete all</p>
@@ -363,6 +679,42 @@ const DashImages = () => {
           )}
         </div>
       </section>
+
+
+      {/* Table */}
+      <div className="w-full h-full bg-[#EFF6FA] p-4 lg:px-7">
+        {/* Table Content */}
+        <div className="w-full bg-white rounded-lg">
+          <div className="flex flex-col md:flex-row flex-wrap">{imageList}</div>
+        </div>
+        <div></div>
+
+        {/* Pagination */}
+        {tab === "draft" && (
+          <Pagination
+            list={draftedImage}
+            setlistStart={setDraftListStart}
+            setlistEnd={setDraftListEnd}
+          />
+        )}
+
+        {tab === "publish" && (
+          <Pagination
+            list={publishedImage}
+            setlistStart={setPublishListStart}
+            setlistEnd={setPublishListEnd}
+          />
+        )}
+
+        {tab === "archive" && (
+          <Pagination
+            list={archivedImage}
+            setlistStart={setArchiveListStart}
+            setlistEnd={setArchiveListEnd}
+          />
+        )}
+      </div>
+
     </div>
   );
 };

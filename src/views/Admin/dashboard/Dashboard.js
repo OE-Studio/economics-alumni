@@ -1,6 +1,6 @@
 import React from "react";
-import logo from "../../../assets/image/logoHeader.svg";
-import { Link, Outlet } from "react-router-dom";
+
+import { Outlet } from "react-router-dom";
 import {} from "react-icons/md";
 import { MdOutlinePerson } from "react-icons/md";
 

@@ -1,90 +1,124 @@
 import React from "react";
 import "./UpcomingEvents.css";
 
-
-
-// function EventCard(props) {
-//   return (
-//     <div
-//       className="flex space-x-4 p-4 md:p-8 bg-white hover:shadow-2xl w-full md:w-4.5/10 border border-gray-200 hover:border-transparent"
-//       data-aos="fade-up"
-//     >
-//       <div className="flex flex-col justify-between">
-//         <div>
-//           <p className="text-2xl lg:text-5xl font-medium text-gray-500">
-//             {props.day}
-//           </p>
-//           <p className="text-xs lg:text-xl font-medium text-gray-500 -mt-2">
-//             {props.month}
-//           </p>
-//         </div>
-//         <div>
-//           {props.video && (
-//             <div className="videoMeeting">
-//               <RiVidiconLine></RiVidiconLine>
-//             </div>
-//           )}
-//           {props.private && (
-//             <div className="privateMeeting">
-//               <RiLockLine></RiLockLine>
-//             </div>
-//           )}
-//           {props.audio && (
-//             <div className="audioMeeting">
-//               <RiMicLine></RiMicLine>
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//       <div className="flex flex-col space-y-6">
-//         <div className="space-y-3">
-//           <p className="text-sm lg:text-2xl font-medium text-gray-500">
-//             {props.eventTitle}
-//           </p>
-//           <div className="transform -rotate-180 opacity-10 w-full h-0.5 bg-black" />
-
-//           <p className="text-lg font-semibold tracking-wide leading-normal capitalize">
-//             {props.eventGuest}
-//           </p>
-//         </div>
-//         <div className="flex flex-col space-y-1">
-//           <p className="text-sm font-bold tracking-wide leading-tight uppercase">
-//             Venue
-//           </p>
-//           <p className="text-base font-medium tracking-wide leading-normal text-gray-600">
-//             {props.eventVenue}
-//           </p>
-//         </div>
-
-//         <div className="flex flex-col space-y-2">
-//           <p className="text-sm font-bold tracking-wide leading-tight uppercase">
-//             Time
-//           </p>
-//           <p className="text-base font-medium tracking-wide leading-normal text-gray-600">
-//             {props.eventTime}
-//           </p>
-//         </div>
-
-//         <FlatButton name="View More" className="flatButton"></FlatButton>
-//       </div>
-//     </div>
-//   );
-// }
+import {
+  MdOutlinePinDrop,
+  MdOutlineAlarm,
+  MdOutlineDateRange,
+} from "react-icons/md";
 
 function UpcomingEvents() {
   return (
-    <section className="container mx-auto p-4 md:p-10 lg:p-20  space-y-12 lg:space-y-12 lg:pt-36 pt-20">
-      <p className="text-4xl lg:text-[64px] leading-[105%] font-bold ">
-        <span className="text-[#D0D0D0]">Our upcoming </span>
-        <br className="hidden lg:block" />
-        events
-      </p>
-      <div className="flex gap-[1%] justify-between flex-col lg:flex-row space-y-6 lg:space-y-0">
-        <div className="bg-[#ebf5fd] lg:w-[31%]" style={{ height: 500 }}></div>
-        <div className="bg-[#ebf5fd] lg:w-[31%]" style={{ height: 500 }}></div>
-        <div className="bg-[#ebf5fd] lg:w-[31%]" style={{ height: 500 }}></div>
-      </div>
-    </section>
+    <div className="bg-[#F8FCFF] lg:pt-36 pt-20 font-inter">
+      <section className="container mx-auto p-4 md:p-10 lg:p-20  space-y-12 lg:space-y-12 ">
+        <p className="text-4xl lg:text-[64px] leading-[105%] font-bold ">
+          <span className="text-[#D0D0D0]">Our upcoming </span>
+          <br className="hidden lg:block" />
+          events
+        </p>
+        <div className="flex flex-wrap lg:flex-nowrap overflow-scroll w-auto md:gap-[25px] gap-[1%] flex-col md:flex-row space-y-6 md:space-y-0">
+          <div className="md:w-[330px] lg:w-[340px] bg-white shadow-2xl shadow-[#0000000F] p-[22px] space-y-[24px] lg:space-y-[60px]">
+            <div className="space-y-[24px]">
+              <div className="h-[146px] bg-[#F0F8FF] border border-[#007DF0]"></div>
+              <div className="space-y-[12px]">
+                <p className="transform text-xs font-medium text-gray-400 uppercase">
+                  Event title
+                </p>
+                <p className="transform lg:text-[18px] xl:text-2xl font-medium leading-tight text-gray-600">
+                  The event title comes here and truncates when it is longer
+                  than this character...
+                </p>
+              </div>
+            </div>
+            <div className="space-y-[14px]">
+              <div className="border-b border-[#CAEDFF] py-2 flex items-center space-x-2 ">
+                <MdOutlineDateRange className="text-[#007DF0]" />
+                <div className="h-[20px] w-[1px] bg-[#4b8cad]" />
+              </div>
+              <div className="border-b border-[#CAEDFF] py-2 flex items-center space-x-2 ">
+                <MdOutlineAlarm className="text-[#007DF0]" />
+                <div className="h-[20px] w-[1px] bg-[#4b8cad]" />
+              </div>
+              <div className="border-b border-[#CAEDFF] py-2 flex items-center space-x-2 ">
+                <MdOutlinePinDrop className="text-[#007DF0]" />
+                <div className="h-[20px] w-[1px] bg-[#4b8cad]" />
+              </div>
+              <button className="bg-[#007DF0] text-white uppercase w-full p-3 font-medium">
+Button Text
+              </button>
+            </div>
+          </div>
+          <div className="md:w-[330px] lg:w-[340px] bg-white shadow-2xl shadow-[#0000000F] p-[22px] space-y-[24px] lg:space-y-[60px] flex flex-col justify-between">
+            <div className="space-y-[40px]">
+              <div className="h-[64px] w-[64px] rounded-full bg-[#F0F8FF] border-[2.41px] border-[#007DF0]"></div>
+              <div className="space-y-[12px]">
+                <p className="transform text-xs font-medium text-gray-400 uppercase">
+                  Event title
+                </p>
+                <p className="transform lg:text-[18px] xl:text-2xl font-medium leading-tight text-gray-600">
+                  The event title comes here and truncates when it is longer
+                  than this character...
+                </p>
+              </div>
+            </div>
+            <div className="space-y-[14px]">
+              <div className="border-b border-[#CAEDFF] py-2 flex items-center space-x-2 ">
+                <MdOutlineDateRange className="text-[#007DF0]" />
+                <div className="h-[20px] w-[1px] bg-[#4b8cad]" />
+              </div>
+              <div className="border-b border-[#CAEDFF] py-2 flex items-center space-x-2 ">
+                <MdOutlineAlarm className="text-[#007DF0]" />
+                <div className="h-[20px] w-[1px] bg-[#4b8cad]" />
+              </div>
+              <div className="border-b border-[#CAEDFF] py-2 flex items-center space-x-2 ">
+                <MdOutlinePinDrop className="text-[#007DF0]" />
+                <div className="h-[20px] w-[1px] bg-[#4b8cad]" />
+              </div>
+              <button className="bg-[#007DF0] text-white uppercase w-full p-3 font-medium">
+Button Text
+              </button>
+            </div>
+          </div>
+
+          <div className="md:w-[330px] lg:w-[340px] bg-white shadow-2xl shadow-[#0000000F] p-[22px] space-y-[24px] lg:space-y-[60px] flex flex-col justify-between">
+            <div className="space-y-[40px]">
+              <div className="space-y-[12px]">
+                <p className="transform text-xs font-medium text-gray-400 uppercase">
+                  Event title
+                </p>
+                <p className="transform lg:text-[18px] xl:text-2xl font-medium leading-tight text-gray-600">
+                  The event title comes here and truncates when it is longer
+                  than this character...
+                </p>
+              </div>
+              <div className="flex -space-x-[19px]">
+              <div className="h-[64px] w-[64px] rounded-full bg-[#F0F8FF] border-[2.41px] border-[#007DF0]"></div>
+              <div className="h-[64px] w-[64px] rounded-full bg-[#F0F8FF] border-[2.41px] border-[#007DF0]"></div>
+              <div className="h-[64px] w-[64px] rounded-full bg-[#F0F8FF] border-[2.41px] border-[#007DF0]"></div>
+              <div className="h-[64px] w-[64px] rounded-full bg-[#F0F8FF] border-[2.41px] border-[#007DF0]"></div>
+              </div>
+            </div>
+            <div className="space-y-[14px]">
+              <div className="border-b border-[#CAEDFF] py-2 flex items-center space-x-2 ">
+                <MdOutlineDateRange className="text-[#007DF0]" />
+                <div className="h-[20px] w-[1px] bg-[#4b8cad]" />
+              </div>
+              <div className="border-b border-[#CAEDFF] py-2 flex items-center space-x-2 ">
+                <MdOutlineAlarm className="text-[#007DF0]" />
+                <div className="h-[20px] w-[1px] bg-[#4b8cad]" />
+              </div>
+              <div className="border-b border-[#CAEDFF] py-2 flex items-center space-x-2 ">
+                <MdOutlinePinDrop className="text-[#007DF0]" />
+                <div className="h-[20px] w-[1px] bg-[#4b8cad]" />
+              </div>
+              <button className="bg-[#007DF0] text-white uppercase w-full p-3 font-medium">
+Button Text
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
 

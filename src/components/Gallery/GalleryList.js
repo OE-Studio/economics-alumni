@@ -31,7 +31,7 @@ function GalleryOverlay({ setOverlay, imageId }) {
 function GalleryCard({ cardid, title, date, description, setOverlay, setImageId }) {
   return (
     <motion.div
-     layoutId={cardid} className="w-full border md:w-[48%] lg:w-[23.3%] font-inter" onClick={()=>{setOverlay(true)
+     layoutId={cardid} className="w-full border md:w-[48%] xl:w-[23.3%] font-inter" onClick={()=>{setOverlay(true)
       setImageId(cardid)
     }}>
       <div className="flex items-center justify-center overflow-hidden h-[240px]">
