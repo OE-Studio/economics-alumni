@@ -11,7 +11,7 @@ import telegram from "../../assets/image/SocialMedia/telegram.svg";
 const Footer = () => {
   return (
     <div className="bg-[#747474] relative overflow-hidden font-inter ">
-      <img src={globe} alt="" className="absolute top-[80%]" />
+      <img src={globe} alt="" className="absolute top-[70%] md:top-[80%]" />
       <section className="container mx-auto p-4 py-10 md:p-10 lg:p-16 pb-60 md:pb-48 lg:pb-0 space-y-[58px]">
         <div>
           <div className="flex flex-col gap-[58px] lg:gap-0 md:flex-row flex-wrap lg:justify-between lg:items-center">
@@ -85,15 +85,18 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex justify-between md:space-y-0">
-          <Link to="/" className="w-1/2  lg:w-52">
+          <Link
+            to="/"
+            className="w-1/3 border p-2 border-[#898888] md:w-1/2  lg:w-52"
+          >
             <img src={logo} alt="" className="" />
           </Link>
 
-          <div className="inline-flex lg:space-x-14 items-center justify-center">
-            <p className=" font-medium leading-relaxed text-center text-gray-300">
+          <div className="inline-flex space-x-1 lg:space-x-14 items-center justify-center">
+            <p className=" text-sm font-medium leading-relaxed text-center text-gray-300">
               All rigths resrvered
             </p>
-            <p className=" font-medium leading-relaxed text-center text-gray-300">
+            <p className=" text-sm font-medium leading-relaxed text-center text-gray-300">
               ©2022
             </p>
           </div>
