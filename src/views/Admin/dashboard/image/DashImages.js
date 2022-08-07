@@ -85,7 +85,7 @@ const ImageCard = ({
   };
 
   return (
-    <div className="md:w-1/2 lg:w-1/3 md:p-4 2xl:w-1/4 relative">
+    <div className="w-full md:w-[48%] lg:w-[48%] xl:w-[32%] 2xl:w-[380px] relative">
       <div className=" absolute z-10 p-5">
         <input
           id={id}
@@ -682,10 +682,10 @@ const DashImages = () => {
 
 
       {/* Table */}
-      <div className="w-full h-full bg-[#EFF6FA] p-4 lg:px-7">
+      <div className=" p-[20px]  md:p-0 md:px-[40px] lg:px-[60px]">
         {/* Table Content */}
-        <div className="w-full bg-white rounded-lg">
-          <div className="flex flex-col md:flex-row flex-wrap">{imageList}</div>
+        <div className="w-full">
+          <div className="flex flex-col md:flex-row flex-wrap gap-[20px] mt-[30px]">{imageList}</div>
         </div>
         <div></div>
 
