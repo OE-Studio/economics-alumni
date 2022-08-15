@@ -15,7 +15,7 @@ const Hero = () => {
     
    
     
-    let y= 2700
+    let y= 5450
      
     
  
@@ -27,7 +27,7 @@ const Hero = () => {
     const globe = createGlobe(canvasRef.current, {
       devicePixelRatio: 2,
       width: window.innerWidth,
-      height: 1000 * 2,
+      height: 1000 * 3.5,
       phi: 0,
       theta: -0.17,
       dark: 1,
