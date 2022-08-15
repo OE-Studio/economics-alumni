@@ -1,26 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
+
+
 import {
   MdVerified,
   MdError,
 } from "react-icons/md";
 
-function InputComponent({ label, placeholder, name, handleClick }) {
-  return (
-    <div className="flex flex-col lg:flex-row lg:justify-between w-full">
-      <p className="text-sm font-semibold leading-tight text-gray-500 lg:w-[30%]">{label}</p>
-      <input
-        name={name}
-        type="text"
-        onChange={e => {
-          handleClick(name, e.target.value)
-        }}
-        placeholder={placeholder}
-        className="bg-white p-4 w-full lg:w-[60%] placeholder:text-[12px]"
-      />
-    </div>
-  );
-}
+
+
+// const baseURL = "http://localhost.:3001";
+const baseURL = "https://uieaa.herokuapp.com";
 
 
 const fields = [
@@ -81,12 +71,27 @@ const fields = [
   },
 ];
 
+function InputComponent({ label, placeholder, name, handleClick }) {
+  return (
+    <div className="flex flex-col lg:flex-row lg:justify-between w-full">
+      <p className="text-sm font-semibold leading-tight text-gray-500 lg:w-[30%]">{label}</p>
+      <input
+        name={name}
+        type="text"
+        onChange={e => {
+          handleClick(name, e.target.value)
+        }}
+        placeholder={placeholder}
+        className="bg-white p-4 w-full lg:w-[60%] placeholder:text-[12px]"
+      />
+    </div>
+  );
+}
 
-// const baseURL = "http://localhost.:3001";
-const baseURL = "https://uieaa.herokuapp.com";
 
-const RegistrationForm = () => {
-
+const CreateForm = () => {
+  // eslint-disable-next-line
+  const [documentName, setDocumentName] = useState();
   const [formDetails, setFormDetails] = useState({
     fullName: "",
     degree: "",
@@ -101,10 +106,8 @@ const RegistrationForm = () => {
     isAdmin: "",
   });
   const [error, setError] = useState("");
-
   const [message, setMessage] = useState(true);
   const [success, setSuccess] = useState("");
-
 
   const handleClick = (item_id, e) => {
     let copiedShopCart = { ...formDetails };
@@ -114,10 +117,12 @@ const RegistrationForm = () => {
     }));
   };
 
+  
+
   const uploadDocument = (result) => {
     const options = {
       headers: { "Content-Type": undefined },
-      url: `${baseURL}/member/upload-member`,
+      url: `${baseURL}/newsletter/upload-newsletter`,
       method: "POST",
       data: result,
     };
@@ -164,18 +169,50 @@ const RegistrationForm = () => {
 
 
   const upload = (status) => {
+    const { title, description, fileImage, fileDocument } = formDetails;
     const data = new FormData();
-    for (var key in formDetails) {
-      data.append(key, formDetails[key]);
-    }
+    data.append("file", fileImage);
+    data.append("file", fileDocument);
+    data.append("title", title);
+    data.append("description", description);
+    data.append("status", status);
     uploadDocument(data);
   };
 
+  // let status = "draft";
+
+
+  // WIFI
+  const [internet, setInternet] = React.useState(true)
+
+  React.useEffect(() => {
+    window.navigator.onLine ? setInternet(true) : setInternet(false)
+  }, [internet])
 
   return (
-    <section className="my-10 p-4 md:p-10 lg:px-16 pb-0 md:pb-0 container mx-auto font-inter">
-      <div className="bg-[#F8F8F8] space-y-5 p-4 lg:p-10 lg:w-[60%] lg:mx-auto">
-      {fields.map((field, index) => {
+    <div className="p-3 full lg:p-4 space-y-4">
+      <p className="text-2xl font-semibold text-[#404040]">New Newsletter</p>
+
+      <form
+        className="space-y-[24px] w-full"
+        encType="multipart/form-data"
+        onSubmit={(e) => {
+          e.preventDefault();
+          let activeElementAction =
+            document.activeElement.getAttribute("formaction");
+          if (activeElementAction === "publish") {
+            upload("publish");
+          }
+          if (activeElementAction === "draft") {
+            upload("draft");
+          }
+        }}
+      >
+
+
+
+
+        {fields.map((field, index) => {
           return (
             <InputComponent
               label={field.label}
@@ -185,6 +222,22 @@ const RegistrationForm = () => {
             />
           );
         })}
+        <div className="flex flex-col lg:flex-row lg:space-x-6 space-y-6 lg:space-y-0 lg:justify-between">
+          <div className="inline-flex items-center justify-center lg:w-[45%] h-14  pt-5 pb-4 border border-gray-300">
+            <p className="text-base font-semibold text-gray-500 uppercase">
+              Delete
+            </p>
+          </div>
+          <div className="inline-flex items-center justify-center lg:w-[45%]  h-14  pt-5 pb-4 bg-blue-600">
+            <p className="text-base font-semibold text-white uppercase">
+              Edit
+            </p>
+          </div>
+        </div>
+
+
+        <p className="text-sm">{documentName}</p>
+
         {message && success && (
           <div className=" bg-[#64B300] flex text-white font-semibold space-x-4 p-4 items center left-1/2 -translate-x-1/2 fixed top-[2vh] md:top-[70vh] lg:top-[75vh] mt-[18px] z-90 w-full  lg:w-124 md:w-[80vw]">
             <MdVerified className="text-xl" />
@@ -197,25 +250,9 @@ const RegistrationForm = () => {
             <span>{error}</span>
           </div>
         )}
-        <div className="flex flex-col lg:flex-row lg:space-x-6 space-y-6 lg:space-y-0 lg:justify-between">
-          <div className="inline-flex items-center justify-center lg:w-[45%] h-14  pt-5 pb-4 border border-gray-300">
-            <p className="text-base font-semibold text-gray-500 uppercase">
-              Clear all answers
-            </p>
-          </div>
-          <div className="inline-flex items-center justify-center lg:w-[45%]  h-14  pt-5 pb-4 bg-blue-600"
-          onClick={()=>{
-            upload("publish")
-          }}
-          >
-            <p className="text-base font-semibold text-white uppercase">
-              Submit
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+      </form>
+    </div>
   );
 };
 
-export default RegistrationForm;
+export default CreateForm;

@@ -7,6 +7,9 @@ import {
   MdOutlineDateRange,
 } from "react-icons/md";
 
+
+
+
 function UpcomingEvents() {
   return (
     <div className="bg-[#F8FCFF] lg:pt-36 pt-20 font-inter">

@@ -20,7 +20,7 @@ const CompCard = ({ type, title, subTitle, date }) => {
           <div className="space-y-2 ">
             <p className="text-base font-medium">{title}</p>
             <p className="text-sm font-medium leading-tight text-grey-200">
-              Description comes here...{" "}
+              {subTitle}
             </p>
           </div>
   

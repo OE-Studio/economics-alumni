@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Aos from 'aos';
+import "aos/dist/aos.css"
 import './App.css';
 import LandingPage from './views/LandingPage';
 import {
@@ -7,8 +8,7 @@ import {
   Route,
 } from "react-router-dom";
 
-import { fetchTraining } from './features/training/trainingSlice';
-import { fetchResearch } from './features/research/researchSlice';
+import { fetchNewsletter } from './features/newsletter/newsletterSlice';
 import { fetchImage } from './features/image/imageSlice';
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -25,6 +25,13 @@ import Register from './views/Register';
 import Dashboard from './views/Admin/dashboard/Dashboard';
 import DashHome from './views/Admin/dashboard/home/DashHome';
 import DashImages from './views/Admin/dashboard/image/DashImages';
+import DashNewsletter from './views/Admin/dashboard/newsletter/DashNewsletter';
+import DashImpact from './views/Admin/dashboard/impact/DashImpact';
+import { fetchImpacts } from './features/impact/impactSlice';
+import DashEvents from './views/Admin/dashboard/events/DashEvents';
+import { fetchEvent } from './features/event/eventSlice';
+import DashMember from './views/Admin/dashboard/members/DashMember';
+import { fetchMember } from './features/member/memberSlice';
 
 function App() {
   useEffect(() => {
@@ -33,23 +40,32 @@ function App() {
 
 
   const dispatch = useDispatch()
-  const trainingStatus = useSelector(state => state.training.status)
-  const researchStatus = useSelector(state => state.research.status)
+ 
+  const newsletterStatus = useSelector(state => state.newsletter.status)
+  const impactStatus = useSelector(state => state.impact.status)
   const imageStatus = useSelector(state => state.image.status)
+  const eventStatus = useSelector(state => state.event.status)
+  const memberStatus = useSelector(state => state.member.status)
 
   useEffect(() => {
 
-    if (trainingStatus === "idle") {
-      dispatch(fetchTraining())
+    if (impactStatus === "idle") {
+      dispatch(fetchImpacts())
     }
-    if (researchStatus === "idle") {
-      dispatch(fetchResearch())
+    if (newsletterStatus === "idle") {
+      dispatch(fetchNewsletter())
     }
     if (imageStatus === "idle") {
       dispatch(fetchImage())
     }
+    if (eventStatus === "idle") {
+      dispatch(fetchEvent())
+    }
+    if (memberStatus === "idle") {
+      dispatch(fetchMember())
+    }
     return () => { }
-  }, [dispatch, trainingStatus, researchStatus, imageStatus])
+  }, [dispatch, impactStatus, newsletterStatus, imageStatus, eventStatus, memberStatus])
 
 
   return (
@@ -73,9 +89,11 @@ function App() {
       <Route exact path="/dashboard" element={<Dashboard />}>
           <Route exact path="/dashboard/" element={<DashHome />} />
           <Route exact path="/dashboard/images" element={<DashImages/>} />
-          {/* <Route exact path="/dashboard/research" element={<DashResearch />} /> */}
-          {/* <Route exact path="/dashboard/training" element={<DashTraining />} /> */}
-          {/* <Route exact path="/dashboard/pages" element={<Login />} /> */}
+          <Route exact path="/dashboard/newsletter" element={<DashNewsletter />} />
+          <Route exact path="/dashboard/impacts" element={<DashImpact />} />
+          <Route exact path="/dashboard/events" element={<DashEvents />} />
+          <Route exact path="/dashboard/members" element={<DashMember />} />
+          {/* <Route exact path="/dashboard/events" element={<Login />} /> */}
 
         </Route>
       

@@ -1,42 +1,37 @@
-import React, { useState, useEffect, useRef } from "react";
-
+import React, { useRef } from "react";
+import { useInView } from "framer-motion"
 const AboutContent = () => {
-  const [aboutAlumni, setAboutAlumni] = useState(true);
-  // eslint-disable-next-line
-  const [hODAddress, setHODAddress] = useState(false);
-  // eslint-disable-next-line
-  const [chairmanAddress, setChairmanAddress] = useState(false);
 
   const alumni = useRef(null);
+  const isInViewAlumni = useInView(alumni)
 
-  const alumniIndicator = aboutAlumni ? "bg-black" : "bg-transparent";
-  const hODAddressIndicator = hODAddress ? "bg-black" : "bg-transparent";
-  const chairmanAddressIndicator = chairmanAddress
-    ? "bg-black"
-    : "bg-transparent";
+  let empty = "-ml-1 w-2 bg-transparent"
+  let alumniIndicator = empty
 
-  let options = {
-    root: null,
-    rootMargin: "0px",
-    threshold: [0, 1],
-  };
+  const hODAddress = useRef(null);
+  const isInViewhODAddress = useInView(hODAddress)
+  let hODAddressIndicator = empty
+  const chairmanAddress = useRef(null);
+  const isInViewchairmanAddress = useInView(chairmanAddress)
+  let chairmanAddressIndicator = empty
 
-  let callback = (entries, observer) => {
-    entries.forEach((entry) => {
-      setAboutAlumni(entry.isVisible);
-    });
-  };
+  if (isInViewAlumni) {
+    alumniIndicator = "-ml-1 w-2 bg-black"
+    hODAddressIndicator = chairmanAddressIndicator = empty
+  }
 
-  useEffect(() => {
-    window.addEventListener("scroll", (e) => {
-      let observer = new IntersectionObserver(callback, options);
+  if (isInViewhODAddress) {
+    hODAddressIndicator = "-ml-1 w-2 bg-black"
+    alumniIndicator = chairmanAddressIndicator = empty
+  }
 
-      observer.observe(alumni.current);
-    });
+  if (isInViewchairmanAddress) {
+    chairmanAddressIndicator = "-ml-1 w-2 bg-black"
+    alumniIndicator = hODAddressIndicator = empty
+  }
 
-    return () => {};
-    // eslint-disable-next-line
-  }, []);
+
+
 
   return (
     <section className="container mx-auto p-4 md:p-10 lg:px-20 lg:pt-0 w-screen flex justify-between">
@@ -47,21 +42,21 @@ const AboutContent = () => {
             href="#aboutAlumni"
             className="text-base font-medium flex space-x-6"
           >
-            <div className={`-ml-1 w-2 ${alumniIndicator}`} />
+            <div className={alumniIndicator} />
             <p className="py-1"> About the Alumni</p>
           </a>
           <a
             href="#HODAddress"
             className="text-base font-medium  flex space-x-6"
           >
-            <div className={`-ml-1 w-2 ${hODAddressIndicator}`} />
+            <div className={hODAddressIndicator} />
             <p className="py-1"> A Word from the Head of Department</p>
           </a>
           <a
             href="#chairmanAddress"
             className="text-base font-medium  flex space-x-6"
           >
-            <div className={`-ml-1 w-2 ${chairmanAddressIndicator}`} />
+            <div className={chairmanAddressIndicator} />
             <p className="py-1">
               {" "}
               A Word from the Chairman of the Interim Council
@@ -121,7 +116,7 @@ const AboutContent = () => {
 
         <hr className="border-[#CAEDFF]  border w-full h-0.5" />
 
-        <div className="space-y-6" id="HODAddress">
+        <div className="space-y-6" id="HODAddress" ref={hODAddress}>
           <div className="h-10 hidden lg:block"></div>
           <p className="text-5xl font-semibold leading-snug">
             A Word from the Head of Department
@@ -153,7 +148,7 @@ const AboutContent = () => {
 
         <hr className="border-[#CAEDFF]  border w-full h-0.5" />
 
-        <div className="space-y-6" id="chairmanAddress">
+        <div className="space-y-6" id="chairmanAddress" ref={chairmanAddress}>
           <div className="h-10 hidden lg:block"></div>
           <p className="text-5xl font-semibold leading-snug">
             A Word from the Chairman of the Interim Council

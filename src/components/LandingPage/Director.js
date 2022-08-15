@@ -6,7 +6,7 @@ function Director() {
   return (
     <div className="">
       <section className="container mx-auto p-4 md:px-10 lg:px-20 lg:py-10 w-full space-y-6 lg:space-y-20">
-        <p className="text-4xl lg:text-[64px] leading-[105%] font-bold">
+        <p className="text-4xl lg:text-[64px] leading-[105%] font-bold" data-aos="fade-up" data-aos-delay="100">
           <span className="text-[#D0D0D0]">Welcome address from </span>
           <br className="hidden lg:block" />
           the chairman

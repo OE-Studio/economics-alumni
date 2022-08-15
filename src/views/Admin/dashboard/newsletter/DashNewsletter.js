@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { format } from "date-fns";
+
 
 import {
   MdPublic,
@@ -9,31 +10,35 @@ import {
   MdOutlineSearch,
   MdOutlineDelete,
   MdOutlineFolderOpen,
+  MdOutlineFeed,
 } from "react-icons/md";
 
 import {
   RiMoreFill,
   RiEdit2Line,
-  RiImageLine,
+  RiDeleteBin6Line, RiFolderLine,
 } from "react-icons/ri";
+
+
+
 
 import UploadButton from "../../UploadButton";
 import SideBarWrapper from "../SideBarWrapper";
-import ImageForm from "./ImageForm";
+import CreateForm from "./CreateForm";
 import EmptyField from "../EmptyField";
 import Pagination from "../Pagination";
+import EditForm from "./EditForm.js";
 
 
 // const baseURL = "http://localhost:3001";
 const baseURL = "https://uieaa.herokuapp.com";
 
 
-const ImageCard = ({
+const NewsletterComp = ({
   title,
   author,
   date,
-  description,
-  imageURL,
+  subTitle,
   id,
   last,
   toggleEditNotification,
@@ -43,16 +48,16 @@ const ImageCard = ({
 }) => {
   const [toggle, setToggle] = React.useState(false);
 
-  const popUp = React.useRef(null);
+  const popUp = useRef(null);
 
-  const updateStatus = () => {
+  const updateStatus = (status) => {
     const options = {
       headers: { "Content-Type": undefined },
-      url: `${baseURL}/image/update-status`,
+      url: `${baseURL}/newsletter/update-status`,
       method: "POST",
       data: {
         uuid: id,
-        status: "archive",
+        status: status,
       },
     };
 
@@ -66,10 +71,10 @@ const ImageCard = ({
       }
     });
   };
-  const deleteImage = () => {
+  const deleteEntry = () => {
     const options = {
       headers: { "Content-Type": undefined },
-      url: `${baseURL}/image/delete/${id}`,
+      url: `${baseURL}/newsletter/delete/${id}`,
       method: "DELETE",
     };
 
@@ -85,8 +90,10 @@ const ImageCard = ({
   };
 
   return (
-    <div className="w-full md:w-[48%] lg:w-[48%] xl:w-[32%] 2xl:w-[380px] relative">
-      <div className=" absolute z-10 p-5">
+    <div
+      className={`p-5 flex space-x-[16px]`}
+      onClick={() => { }}>
+      <div className="mt-1">
         <input
           id={id}
           type="checkbox"
@@ -94,32 +101,21 @@ const ImageCard = ({
           checked={isChecked}
         />
       </div>
-      <div className="p-2.5 border space-y-4">
-
-        {!imageURL && (
-          <div className="flex p-6 items-center justify-center md:h-32 lg:h-40 2xl:h-64 bg-[#f2f2f2]">
-            <div className="bg-white p-6 rounded-full">
-              <RiImageLine className="text-[#acacac] text-3xl font-bold" />
-            </div>
-          </div>
-        )}
-        {imageURL && (
-          <div
-            className="md:h-32 lg:h-40 2xl:h-64 bg-cover hover:bg-contain bg-no-repeat"
-            style={{ backgroundImage: `url(${imageURL.toString()})` }}
-          >
-            {/* <img src={imageURL} alt="" /> */}
-          </div>
-        )}
-        <div className="border">
-          <p className="p-4 border-b text-xs font-medium text-gray-500">
-            {title}
+      <div className="h-[48px] w-[48px] flex items-center bg-grey-50 justify-center">
+        <MdOutlineFeed className="text-xl" />
+      </div>
+      <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:justify-between w-full">
+        <div className="space-y-2">
+          <p className="text-base font-medium">{title}</p>
+          <p className="text-sm font-medium leading-tight text-grey-200">
+            {subTitle
+              .substring(0, 100)
+              .padEnd(103, subTitle.length > 103 ? "..." : "")}
           </p>
-          <p className="p-4 text-xs font-medium text-gray-500">{description}</p>
         </div>
-        <div className="flex md:items-end justify-between">
+        <div className="flex md:flex-col md:items-end justify-between">
           <p className="text-xs font-medium text-gray-500">
-            {author} / {date}
+            {date}
           </p>
           <div className=" py-1.5 px-1 cursor-pointer relative">
             <RiMoreFill
@@ -149,21 +145,21 @@ const ImageCard = ({
                 <div
                   className="flex space-x-2 p-2.5 items-center pr-4 lg:pr-6 hover:bg-gray-100 rounded-lg"
                   onClick={() => {
-                    updateStatus();
+                    updateStatus("archive");
                     setToggle(false);
                   }}
                 >
-                  <MdOutlineFolderOpen />
+                  <RiFolderLine />
                   <p>Archive</p>
                 </div>
                 <div
                   className="flex space-x-2 p-2.5 items-center text-red-500 bg-[#F9F2F2] pr-4 lg:pr-6 hover:bg-red-500 hover:text-white rounded-lg"
                   onClick={() => {
-                    deleteImage();
+                    deleteEntry();
                     setToggle(false);
                   }}
                 >
-                  <MdOutlineDelete />
+                  <RiDeleteBin6Line />
                   <p>Delete</p>
                 </div>
               </div>
@@ -196,7 +192,7 @@ const SelectAllButton = ({ onChangeHandler, checkHandler }) => {
   );
 };
 
-const DashImages = () => {
+const DashNewsletter = () => {
 
 
   //   Tabs
@@ -238,16 +234,16 @@ const DashImages = () => {
   const [tab, setTab] = React.useState("publish");
   const [searchTerm, setSearchTerm] = React.useState("");
 
-  const Images = useSelector((state) => state.image);
-  let imageList;
+  const loadedData = useSelector((state) => state.newsletter);
+  let loadedDataList;
 
-  let publishedImage = [];
-  let draftedImage = [];
-  let archivedImage = [];
+  let publishedData = [];
+  let draftedData = [];
+  let archivedData = [];
 
-  if (Images.status === "fulfilled") {
+  if (loadedData.status === "fulfilled") {
 
-    let allImages = Images.item.filter(
+    let allData = loadedData.item.filter(
       // eslint-disable-next-line
       (item) => {
         if (searchTerm === "") {
@@ -258,34 +254,35 @@ const DashImages = () => {
       });
 
 
-    publishedImage = allImages.filter(
+    publishedData = allData.filter(
       (training) => training.status === "publish"
     );
-    draftedImage = allImages.filter(
+    draftedData = allData.filter(
       (training) => training.status === "draft"
     );
-    archivedImage = allImages.filter(
+    archivedData = allData.filter(
       (training) => training.status === "archive"
     );
   }
 
-  if (Images.status === "idle" || Images.status === "pending") {
-    imageList = <EmptyField />;
-  } else if (Images.status === "fulfilled") {
-    if (Images.item.length === 0) {
-      imageList = <EmptyField />;
+  if (loadedData.status === "idle" || loadedData.status === "pending") {
+    loadedDataList = <EmptyField />;
+  } else if (loadedData.status === "fulfilled") {
+    if (loadedData.item.length === 0) {
+      loadedDataList = <EmptyField />;
     }
 
     const renderList = (List) => {
-      imageList = List.map((trainings, index, list) => {
+      loadedDataList = List.map((trainings, index, list) => {
         let date = format(Date.parse(trainings.created_at), "dd/MM/yyyy");
-        console.log(isCheck.includes(trainings.uuid))
+      
         return (
-          <ImageCard
+          <NewsletterComp
+            type="newsletter"
             title={trainings.title}
             author="Admin"
             date={date}
-            description={trainings.description}
+            subTitle={trainings.description}
             id={trainings.uuid}
             key={index}
             toggleEditNotification={toggleEditNotification}
@@ -298,16 +295,16 @@ const DashImages = () => {
         );
       });
     };
-    if (Images.item.length !== 0) {
+    if (loadedData.item.length !== 0) {
       if (tab === "publish") {
-        if (publishedImage.length === 0) {
-          imageList = <EmptyField />;
+        if (publishedData.length === 0) {
+          loadedDataList = <EmptyField />;
         } else {
           renderList(
-            publishedImage.slice(
+            publishedData.slice(
               publishListStart,
-              publishedImage.length < publishListEnd
-                ? publishedImage.length
+              publishedData.length < publishListEnd
+                ? publishedData.length
                 : publishListEnd
             )
           );
@@ -315,14 +312,14 @@ const DashImages = () => {
       }
 
       if (tab === "draft") {
-        if (draftedImage.length === 0) {
-          imageList = <EmptyField />;
+        if (draftedData.length === 0) {
+          loadedDataList = <EmptyField />;
         } else {
           renderList(
-            draftedImage.slice(
+            draftedData.slice(
               draftListStart,
-              draftedImage.length < draftListEnd
-                ? draftedImage.length
+              draftedData.length < draftListEnd
+                ? draftedData.length
                 : draftListEnd
             )
           );
@@ -330,23 +327,23 @@ const DashImages = () => {
       }
 
       if (tab === "archive") {
-        if (archivedImage.length === 0) {
-          imageList = <EmptyField />;
+        if (archivedData.length === 0) {
+          loadedDataList = <EmptyField />;
         } else {
           // archiveListStart
           renderList(
-            archivedImage.slice(
+            archivedData.slice(
               archiveListStart,
-              archivedImage.length < archiveListEnd
-                ? archivedImage.length
+              archivedData.length < archiveListEnd
+                ? archivedData.length
                 : archiveListEnd
             )
           );
         }
       }
     }
-  } else if (Images.status === "failed") {
-    imageList = <EmptyField />;
+  } else if (loadedData.status === "failed") {
+    loadedDataList = <EmptyField />;
   }
 
 
@@ -356,11 +353,11 @@ const DashImages = () => {
   const publishSelectAll = (e) => {
     setIsCheckAllPublish(!isCheckAllPublish);
     setIsCheck(
-      publishedImage
+      publishedData
         .slice(
           publishListStart,
-          publishedImage.length < publishListEnd
-            ? publishedImage.length
+          publishedData.length < publishListEnd
+            ? publishedData.length
             : publishListEnd
         )
         .map((li) => li.uuid)
@@ -375,11 +372,11 @@ const DashImages = () => {
 
     setIsCheckAllArchive(!isCheckAllArchive);
     setIsCheck(
-      archivedImage
+      archivedData
         .slice(
           archiveListStart,
-          archivedImage.length < archiveListEnd
-            ? archivedImage.length
+          archivedData.length < archiveListEnd
+            ? archivedData.length
             : archiveListEnd
         )
         .map((li) => li.uuid)
@@ -393,11 +390,11 @@ const DashImages = () => {
   const draftSelectAll = (e) => {
     setIsCheckAllDraft(!isCheckAllDraft);
     setIsCheck(
-      draftedImage
+      draftedData
         .slice(
           draftListStart,
-          draftedImage.length < draftListEnd
-            ? draftedImage.length
+          draftedData.length < draftListEnd
+            ? draftedData.length
             : draftListEnd
         )
         .map((li) => li.uuid)
@@ -408,14 +405,14 @@ const DashImages = () => {
     }
   };
 
-  const archiveAll = () => {
+  const updateMultiple = (status) => {
     const options = {
       headers: { "Content-Type": undefined },
-      url: `${baseURL}/image/archive-multiple`,
+      url: `${baseURL}/newsletter/update-multiple`,
       method: "POST",
       data: {
         ids: isCheck,
-        status: "archive",
+        status: status,
       },
     };
 
@@ -434,7 +431,7 @@ const DashImages = () => {
   const deleteAll = () => {
     const options = {
       headers: { "Content-Type": undefined },
-      url: `${baseURL}/image/delete-many`,
+      url: `${baseURL}/newsletter/delete-many`,
       method: "POST",
       data: {
         ids: isCheck,
@@ -463,19 +460,31 @@ const DashImages = () => {
     <div className="mb-10 relative">
 
       {/* CREATE FORMS */}
-      <SideBarWrapper toggleNotification={toggleNotification} toggle={toggle}>
-        <ImageForm />
+      <SideBarWrapper toggleNotification={toggleNotification} toggle={toggle} setToggle={setToggle}>
+        
+        <CreateForm />
+      </SideBarWrapper>
+
+      <SideBarWrapper
+        toggleNotification={toggleEditNotification}
+        toggle={toggleEdit}
+      >
+        <EditForm
+          currentImage={loadedData.item.filter(
+            (research) => research.uuid === editId
+          )}
+        />
       </SideBarWrapper>
 
 
       {/* First Tab */}
-      <section className="md:mt-[36px] lg:mt-[24px]  p-[20px] md:p-0 md:px-[40px] lg:px-[60px]">
+      <section className="md:mt-[36px] lg:mt-[24px] p-[20px] md:p-0 md:px-[40px] lg:px-[60px]">
         <div className="flex justify-between">
           <div className="flex items-center space-x-3">
-            <p className="text-4xl">Images</p>
+            <p className="text-4xl">Newsletter</p>
             <div className="inline-flex items-start justify-start px-2 py-0.5 bg-black rounded-full">
               <p className="text-sm font-medium leading-tight text-white">
-              {Images.item.length}
+              {loadedData.item.length}
               </p>
             </div>
           </div>
@@ -492,7 +501,7 @@ const DashImages = () => {
             </div>
             <input
               type="search"
-              placeholder="Search image"
+              placeholder="Search newsletter"
               onChange={(e) => {
                 setSearchTerm(e.target.value);
               }}
@@ -529,9 +538,9 @@ const DashImages = () => {
             <div className="gap-5 items-center flex flex-wrap 2xl:hidden">
               {tab !== "archive" && (
                 <div
-                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2"
+                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2 cursor-pointer"
                   onClick={() => {
-                    archiveAll();
+                    updateMultiple("archive");
                   }}
                 >
                   <MdOutlineFolderOpen className="text-[#9b9fa2] text-xl" />
@@ -540,9 +549,9 @@ const DashImages = () => {
               )}
               {tab !== "draft" && (
                 <div
-                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2"
+                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2 cursor-pointer"
                   onClick={() => {
-                    archiveAll();
+                    updateMultiple("draft");
                   }}
                 >
                   <MdOutlineAssignment className="text-[#9b9fa2] text-xl" />
@@ -551,9 +560,9 @@ const DashImages = () => {
               )}
               {tab !== "publish" && (
                 <div
-                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2"
+                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2 cursor-pointer"
                   onClick={() => {
-                    archiveAll();
+                    updateMultiple("publish");
                   }}
                 >
                   <MdOutlineAssignment className="text-[#9b9fa2] text-xl" />
@@ -591,7 +600,7 @@ const DashImages = () => {
               <p className="text-base text-gray-700">Published</p>
               <div className="px-2 py-1 bg-white border rounded-full border-grey-100">
                 <p className="text-xs font-medium text-grey-200">
-                  {publishedImage.length}
+                  {publishedData.length}
                 </p>
               </div>
             </div>
@@ -609,7 +618,7 @@ const DashImages = () => {
               <p className="text-base text-gray-700">Draft</p>
               <div className="px-2 py-1 bg-white border rounded-full border-grey-100">
                 <p className="text-xs font-medium text-grey-200">
-                  {draftedImage.length}
+                  {draftedData.length}
                 </p>
               </div>
             </div>
@@ -627,7 +636,7 @@ const DashImages = () => {
               <p className="text-base text-gray-700">Archive</p>
               <div className="px-2 py-1 bg-white border rounded-full border-grey-100">
                 <p className="text-xs font-medium text-grey-200">
-                  {archivedImage.length}
+                  {archivedData.length}
                 </p>
               </div>
             </div>
@@ -636,9 +645,9 @@ const DashImages = () => {
             <div className="gap-5 items-center hidden flex-wrap 2xl:flex">
               {tab !== "archive" && (
                 <div
-                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2"
+                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2 cursor-pointer"
                   onClick={() => {
-                    archiveAll();
+                    updateMultiple("archive");
                   }}
                 >
                   <MdOutlineFolderOpen className="text-[#9b9fa2] text-xl" />
@@ -647,9 +656,9 @@ const DashImages = () => {
               )}
               {tab !== "draft" && (
                 <div
-                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2"
+                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2 cursor-pointer"
                   onClick={() => {
-                    archiveAll();
+                    updateMultiple("draft");
                   }}
                 >
                   <MdOutlineAssignment className="text-[#9b9fa2] text-xl" />
@@ -658,9 +667,9 @@ const DashImages = () => {
               )}
               {tab !== "publish" && (
                 <div
-                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2"
+                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2 cursor-pointer"
                   onClick={() => {
-                    archiveAll();
+                    updateMultiple("publish");
                   }}
                 >
                   <MdOutlineAssignment className="text-[#9b9fa2] text-xl" />
@@ -684,15 +693,15 @@ const DashImages = () => {
       {/* Table */}
       <div className=" p-[20px]  md:p-0 md:px-[40px] lg:px-[60px]">
         {/* Table Content */}
-        <div className="w-full">
-          <div className="flex flex-col md:flex-row flex-wrap gap-[20px] mt-[30px]">{imageList}</div>
+        <div className="w-full divide-y-[1px] border mt-[30px]">
+          {loadedDataList}
         </div>
         <div></div>
 
         {/* Pagination */}
         {tab === "draft" && (
           <Pagination
-            list={draftedImage}
+            list={draftedData}
             setlistStart={setDraftListStart}
             setlistEnd={setDraftListEnd}
           />
@@ -700,7 +709,7 @@ const DashImages = () => {
 
         {tab === "publish" && (
           <Pagination
-            list={publishedImage}
+            list={publishedData}
             setlistStart={setPublishListStart}
             setlistEnd={setPublishListEnd}
           />
@@ -708,7 +717,7 @@ const DashImages = () => {
 
         {tab === "archive" && (
           <Pagination
-            list={archivedImage}
+            list={archivedData}
             setlistStart={setArchiveListStart}
             setlistEnd={setArchiveListEnd}
           />
@@ -719,4 +728,4 @@ const DashImages = () => {
   );
 };
 
-export default DashImages;
+export default DashNewsletter;

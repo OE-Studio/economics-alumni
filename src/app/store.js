@@ -1,14 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import researchReducer from '../features/research/researchSlice';
-import trainingReducer from '../features/training/trainingSlice';
+import newsletterReducer from '../features/newsletter/newsletterSlice';
 import imageReducer from '../features/image/imageSlice';
+import impactReducer from '../features/impact/impactSlice';
+import eventReducer from '../features/event/eventSlice';
+import memberReducer from '../features/member/memberSlice';
+
 
  const store = configureStore({
   reducer: {
-    research: researchReducer,
-    training: trainingReducer,
-    image: imageReducer
+    newsletter: newsletterReducer,
+    image: imageReducer,
+    impact: impactReducer,
+    event: eventReducer,
+    member: memberReducer
   },
 });
 

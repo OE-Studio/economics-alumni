@@ -31,3 +31,8 @@
 .giveGradient{
   background: linear-gradient(101.64deg, #404040 -3.72%, #222222 102.36%);
 }
+
+
+.custom-select select{
+  
+}

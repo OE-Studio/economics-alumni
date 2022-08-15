@@ -11,8 +11,12 @@ import telegram from "../../assets/image/SocialMedia/telegram.svg";
 const Footer = () => {
   return (
     <div className="bg-[#747474] relative overflow-hidden font-inter ">
-      <img src={globe} alt="" className="absolute top-[70%] md:top-[80%]" />
-      <section className="container mx-auto p-4 py-10 md:p-10 lg:p-16 pb-60 md:pb-48 lg:pb-0 space-y-[58px]">
+      <img
+        src={globe}
+        alt=""
+        className="absolute top-[70%] md:top-[80%] lg:left-1/2 lg:-translate-x-1/2"
+      />
+      <section className="container mx-auto p-4 py-10 md:p-10 lg:p-16 pb-60 md:pb-48  space-y-[58px]">
         <div>
           <div className="flex flex-col gap-[58px] lg:gap-0 md:flex-row flex-wrap lg:justify-between lg:items-center">
             <div className="space-y-4">
@@ -20,61 +24,64 @@ const Footer = () => {
                 Connect with us
               </p>
               <div className="flex space-x-[19px]">
-                <a href="/#">
+                <a href="/#" className="hover:scale-110">
                   <img src={facebook} alt="" />
                 </a>
-                <a href="/#">
+                <a href="/#" className="hover:scale-110">
                   <img src={instagram} alt="" />
                 </a>
-                <a href="/#">
+                <a href="/#" className="hover:scale-110">
                   <img src={linkedin} alt="" />
                 </a>
-                <a href="/#">
+                <a href="/#" className="hover:scale-110">
                   <img src={twitter} alt="" />
                 </a>
-                <a href="/#">
+                <a href="/#" className="hover:scale-110">
                   <img src={telegram} alt="" />
                 </a>
               </div>
-              <p className="text-2xl font-semibold text-gray-400">
+              <a
+                href="tel:+234816904403"
+                className="text-2xl font-semibold text-gray-400"
+              >
                 (+234)816 190 4403
-              </p>
+              </a>
             </div>
             <div>
-              <div className="inline-flex gap-[32px] md:gap-[20px] lg:gap-0 xl:gap-12 items-center flex-wrap lg:justify-center">
+              <div className="inline-flex gap-[32px] md:gap-[20px] lg:gap-0 xl:gap-5 items-center flex-wrap lg:justify-center">
                 <Link
                   to="/impact"
-                  className=" w-[78px] md:text-sm font-medium text-gray-400"
+                  className=" w-[78px] md:text-sm font-medium hover:text-white text-gray-400"
                 >
                   Impact
                 </Link>
                 <Link
                   to="/about"
-                  className=" w-[78px] md:text-sm font-medium text-gray-400"
+                  className=" w-[78px] md:text-sm font-medium hover:text-white text-gray-400"
                 >
                   About us
                 </Link>
                 <Link
                   to="/gallery"
-                  className=" w-[78px] md:text-sm font-medium text-gray-400"
+                  className=" w-[78px] md:text-sm font-medium hover:text-white text-gray-400"
                 >
                   Gallery
                 </Link>
                 <Link
                   to="/newsletter"
-                  className=" w-[78px] md:text-sm font-medium text-gray-400"
+                  className=" w-[78px] md:text-sm font-medium hover:text-white text-gray-400"
                 >
                   Newsletter
                 </Link>
                 <Link
                   to="/give"
-                  className=" w-[78px] md:text-sm font-medium text-gray-400"
+                  className=" w-[78px] md:text-sm font-medium hover:text-white text-gray-400"
                 >
                   Give
                 </Link>
                 <Link
                   to="/register"
-                  className="flex items-center justify-center px-6 py-3 bg-gray-400"
+                  className="flex items-center justify-center px-6 py-3  hover:bg-white  bg-gray-400"
                 >
                   <p className="text-sm font-bold text-gray-500">
                     Alumni Registration
@@ -94,7 +101,7 @@ const Footer = () => {
 
           <div className="inline-flex space-x-1 lg:space-x-14 items-center justify-center">
             <p className=" text-sm font-medium leading-relaxed text-center text-gray-300">
-              All rigths resrvered
+              All rigths reserved
             </p>
             <p className=" text-sm font-medium leading-relaxed text-center text-gray-300">
               ©2022

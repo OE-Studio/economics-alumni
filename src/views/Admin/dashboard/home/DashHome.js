@@ -71,29 +71,37 @@ const DashHome = () => {
   };
 
   if (
-    data.research.status === "idle" ||
+    data.event.status === "idle" ||
     data.image.status === "idle" ||
-    data.training.status === "idle"
+    data.member.status === "idle" ||
+    data.newsletter.status === "idle" ||
+    data.impact.status === "idle"
   ) {
 recentList = <EmptyField />;
   } else if (
-    data.research.status === "pending" ||
+    data.event.status === "pending" ||
     data.image.status === "pending" ||
-    data.training.status === "pending"
+    data.member.status === "pending" ||
+    data.newsletter.status === "pending" ||
+    data.impact.status === "pending"
   ) {
     // eslint-disable-next-line
     recentList = <EmptyField />;
   }
 
   if (
-    data.research.status === "fulfilled" &&
-    data.image.status === "fulfilled" &&
-    data.training.status === "fulfilled"
+    data.event.status === "fulfilled" ||
+    data.image.status === "fulfilled" ||
+    data.member.status === "fulfilled" ||
+    data.newsletter.status === "fulfilled" ||
+    data.impact.status === "fulfilled"
   ) {
     let allData = [
-      ...data.research.item,
-      ...data.training.item,
+      ...data.event.item,
       ...data.image.item,
+      ...data.member.item,
+      ...data.newsletter.item,
+      ...data.impact.item,
     ];
 
     dataArray = [...allData];
@@ -124,7 +132,7 @@ recentList = <EmptyField />;
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-[24px] mt-[36px] lg:mt[58px]">
             <div className="p-[18px] lg:p-[26px] flex bg-grey-0 col-span-1 justify-between">
               <div className="space-y-[12px]">
-                <p className="text-4xl">50k</p>
+                <p className="text-4xl">{data.image.item.length}</p>
                 <p className="text-[12px] md:text-base font-medium text-grey-200">
                   Images
                 </p>
@@ -135,7 +143,7 @@ recentList = <EmptyField />;
             </div>
             <div className="p-[18px] lg:p-[26px] flex bg-grey-0 col-span-1 justify-between">
               <div className="space-y-[12px]">
-                <p className="text-4xl">50k</p>
+                <p className="text-4xl">{data.newsletter.item.length}</p>
                 <p className="text-[12px] md:text-base font-medium text-grey-200">
                   Newsletter
                 </p>
@@ -146,7 +154,7 @@ recentList = <EmptyField />;
             </div>
             <div className="p-[18px] lg:p-[26px] flex bg-grey-0 col-span-1 justify-between">
               <div className="space-y-[12px]">
-                <p className="text-4xl">50k</p>
+                <p className="text-4xl">{data.impact.item.length}</p>
                 <p className="text-[12px] md:text-base font-medium text-grey-200">
                   Impact
                 </p>
@@ -157,7 +165,7 @@ recentList = <EmptyField />;
             </div>
             <div className="p-[18px] lg:p-[26px] flex bg-grey-0 col-span-1 justify-between">
               <div className="space-y-[12px]">
-                <p className="text-4xl">50k</p>
+                <p className="text-4xl">{data.member.item.length}</p>
                 <p className="text-[12px] md:text-base font-medium text-grey-200">
                   Members
                 </p>
@@ -194,7 +202,7 @@ recentList = <EmptyField />;
             </div>
           </Link>
           <Link
-            to="/images"
+            to="/dashboard/newsletter"
             className="p-5 border border-grey-100 flex space-x-[16px]"
           >
             <div className="h-[48px] w-[48px] flex items-center bg-grey-50 justify-center">
@@ -208,16 +216,16 @@ recentList = <EmptyField />;
             </div>
           </Link>
           <Link
-            to="/dashboard/newsletter"
+            to="/dashboard/impacts"
             className="p-5 border border-grey-100 flex space-x-[16px]"
           >
             <div className="h-[48px] w-[48px] flex items-center bg-grey-50 justify-center">
               <MdOutlineFilterHdr className="text-xl" />
             </div>
             <div className="space-y-2">
-              <p className="text-base font-medium">Images</p>
+              <p className="text-base font-medium">Impact</p>
               <p className="text-sm font-medium leading-tight text-grey-200">
-                Show events and meetings{" "}
+              Share recent impact{" "}
               </p>
             </div>
           </Link>

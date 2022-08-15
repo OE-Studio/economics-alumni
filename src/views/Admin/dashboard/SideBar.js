@@ -30,7 +30,7 @@ const links = [
   },
   {
     name: "Impacts",
-    to: "/dashboard/impact",
+    to: "/dashboard/impacts",
     icon: <MdOutlineVolunteerActivism />,
   },
   {
@@ -40,7 +40,7 @@ const links = [
   },
   {
     name: "Members",
-    to: "/dashboard/impact",
+    to: "/dashboard/members",
     icon: <MdOutlineBadge />,
   },
 ];

@@ -2,8 +2,9 @@ import React from "react";
 import { MdPerson } from "react-icons/md";
 
 const ImpactCard = () => {
+  const delay = Math.random() * 100
   return (
-    <div className="flex space-x-4 justify-between lg:space-x-12 ">
+    <div className="flex space-x-4  lg:space-x-4 " data-aos="fade-up" data-aos-delay={delay.toString()}>
       <div className="flex flex-col items-center space-y-2">
         <div className="inline-flex items-start justify-start px-4 py-1 border rounded-full border-black self-start">
           <p className="text-sm font-semibold">2020</p>
