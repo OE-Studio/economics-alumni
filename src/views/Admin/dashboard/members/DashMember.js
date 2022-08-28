@@ -1,26 +1,13 @@
-import React, { useRef } from "react";
+import React from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { format } from "date-fns";
-
+import { CSVLink } from "react-csv";
 
 import {
-  MdPublic,
-  MdOutlineAssignment,
   MdOutlineSearch,
   MdOutlineDelete,
-  MdOutlineFolderOpen,
-  MdOutlineFeed,
+  MdOutlineFileDownload,
 } from "react-icons/md";
-
-import {
-  RiMoreFill,
-  RiEdit2Line,
-  RiDeleteBin6Line, RiFolderLine,
-} from "react-icons/ri";
-
-
-
 
 import UploadButton from "../../UploadButton";
 import SideBarWrapper from "../SideBarWrapper";
@@ -29,27 +16,75 @@ import EmptyField from "../EmptyField";
 import Pagination from "../Pagination";
 import EditForm from "./EditForm.js";
 
-
 // const baseURL = "http://localhost:3001";
 const baseURL = "https://uieaa.herokuapp.com";
 
+const tableHeaders = [
+  {
+    lable: "FullName",
+    customStyle: "w-[203px] pl-4",
+  },
+  {
+    lable: "Dep. Degree",
+    customStyle: "w-[140px] justify-center",
+  },
+  {
+    lable: "Alias",
+    customStyle: "w-[140px] justify-center",
+  },
+  {
+    lable: "Work",
+    customStyle: "w-[140px] justify-center",
+  },
+  {
+    lable: "Title",
+    customStyle: "w-[140px] justify-center",
+  },
+  {
+    lable: "Address",
+    customStyle: "w-[240px] justify-center",
+  },
+  {
+    lable: "Phone Number",
+    customStyle: "w-[140px] justify-center",
+  },
+  {
+    lable: "email",
+    customStyle: "w-[140px] justify-center",
+  },
+  {
+    lable: "Grad year.",
+    customStyle: "w-[140px] justify-center",
+  },
+  {
+    lable: "Part of set’s whatsapp",
+    customStyle: "w-[140px] justify-center text-center",
+  },
+  {
+    lable: "Admin in set’s whatsapp",
+    customStyle: "w-[140px] justify-center text-center",
+  },
+];
 
 const NewsletterComp = ({
-  title,
-  author,
-  date,
-  subTitle,
+  fullName,
+  degree,
+  alias,
+  workplace,
+  position,
+  address,
+  phoneNumber,
+  emailAddress,
+  yearGraduated,
+  isGroupPresent,
+  isAdmin,
   id,
-  last,
   toggleEditNotification,
   setEditId,
   handleClick,
   isChecked,
 }) => {
-  const [toggle, setToggle] = React.useState(false);
-
-  const popUp = useRef(null);
-
+  // eslint-disable-next-line
   const updateStatus = (status) => {
     const options = {
       headers: { "Content-Type": undefined },
@@ -71,6 +106,7 @@ const NewsletterComp = ({
       }
     });
   };
+  // eslint-disable-next-line
   const deleteEntry = () => {
     const options = {
       headers: { "Content-Type": undefined },
@@ -89,11 +125,58 @@ const NewsletterComp = ({
     });
   };
 
+  const tableValues = [
+    {
+      lable: fullName,
+      customStyle: "w-[203px] pl-10",
+    },
+    {
+      lable: degree,
+      customStyle: "w-[140px] justify-center",
+    },
+    {
+      lable: alias,
+      customStyle: "w-[140px] justify-center",
+    },
+    {
+      lable: workplace,
+      customStyle: "w-[140px] justify-center",
+    },
+    {
+      lable: position,
+      customStyle: "w-[140px] justify-center",
+    },
+    {
+      lable: address,
+      customStyle: "w-[240px] justify-center",
+    },
+    {
+      lable: phoneNumber,
+      customStyle: "w-[140px] justify-center",
+    },
+    {
+      lable: emailAddress,
+      customStyle: "w-[140px] justify-center",
+    },
+    {
+      lable: yearGraduated,
+      customStyle: "w-[140px] justify-center",
+    },
+    {
+      lable: isGroupPresent,
+      customStyle: "w-[140px] justify-center text-center",
+    },
+    {
+      lable: isAdmin,
+      customStyle: "w-[140px] justify-center text-center",
+    },
+  ];
+
   return (
     <div
-      className={`p-5 flex space-x-[16px]`}
-      onClick={() => { }}>
-      <div className="mt-1">
+      className={`flex w-fit h-12 border-b divide-x-[1px] relative divide-gray-300 bg-gray-50`}
+    >
+      <div className=" absolute top-1/2 -translate-y-1/2 ml-4">
         <input
           id={id}
           type="checkbox"
@@ -101,110 +184,28 @@ const NewsletterComp = ({
           checked={isChecked}
         />
       </div>
-      <div className="h-[48px] w-[48px] flex items-center bg-grey-50 justify-center">
-        <MdOutlineFeed className="text-xl" />
-      </div>
-      <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:justify-between w-full">
-        <div className="space-y-2">
-          <p className="text-base font-medium">{title}</p>
-          <p className="text-sm font-medium leading-tight text-grey-200">
-            {subTitle
-              .substring(0, 100)
-              .padEnd(103, subTitle.length > 103 ? "..." : "")}
-          </p>
-        </div>
-        <div className="flex md:flex-col md:items-end justify-between">
-          <p className="text-xs font-medium text-gray-500">
-            {date}
-          </p>
-          <div className=" py-1.5 px-1 cursor-pointer relative">
-            <RiMoreFill
-              className="editPopup text-xl text-[#737373]"
-              onClick={() => {
-                setToggle(!toggle);
-              }}
-            />
 
-            {toggle && (
-              <div
-                className={`editPopup absolute bg-white shadow-xl flex flex-col right-0 rounded-lg p-2 space-y-1.5 z-10 ${last && "bottom-10"
-                  }`}
-                ref={popUp}
-              >
-                <div
-                  className="flex space-x-2 p-2.5 items-center pr-4 lg:pr-6 hover:bg-gray-100 rounded-lg"
-                  onClick={() => {
-                    toggleEditNotification();
-                    setEditId(id);
-                    setToggle(false);
-                  }}
-                >
-                  <RiEdit2Line />
-                  <p>Edit</p>
-                </div>
-                <div
-                  className="flex space-x-2 p-2.5 items-center pr-4 lg:pr-6 hover:bg-gray-100 rounded-lg"
-                  onClick={() => {
-                    updateStatus("archive");
-                    setToggle(false);
-                  }}
-                >
-                  <RiFolderLine />
-                  <p>Archive</p>
-                </div>
-                <div
-                  className="flex space-x-2 p-2.5 items-center text-red-500 bg-[#F9F2F2] pr-4 lg:pr-6 hover:bg-red-500 hover:text-white rounded-lg"
-                  onClick={() => {
-                    deleteEntry();
-                    setToggle(false);
-                  }}
-                >
-                  <RiDeleteBin6Line />
-                  <p>Delete</p>
-                </div>
-              </div>
-            )}
+      {tableValues.map((header, index) => {
+        return (
+          <div
+            className={`inline-flex items-center ${header.customStyle}  bg-gray-50 `}
+            key={index}
+            onClick={() => {
+              toggleEditNotification();
+              setEditId(id);
+            }}
+          >
+            <p className="text-sm font-bold text-gray-500">{header.lable}</p>
           </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const SelectAllButton = ({ onChangeHandler, checkHandler }) => {
-  return (
-    <div className="flex border space-x-2.5 px-4 py-3 md:py-2  items-center group-checked:bg-[#ECECEC]">
-      <input
-        type="checkbox"
-        name="select_all"
-        id="select_all"
-        className="group placeholder:text-[#737373] placeholder:font-medium"
-        onChange={onChangeHandler}
-        checked={checkHandler}
-      />
-      <label
-        htmlFor="select_all"
-        className="text-base font-medium text-[#737373]  peer-checked:bg-[#ECECEC]"
-      >
-        Select All
-      </label>
+        );
+      })}
     </div>
   );
 };
 
 const DashMember = () => {
-
-
-  //   Tabs
-  const tabActiveClass =
-    " flex items-center space-x-4 p-4 border-b-2 border-grey-500 cursor-pointer hover:bg-[#f5f5f5] ";
-  const tabInactiveClass =
-    "flex items-center space-x-4 p-4 cursor-pointer hover:bg-[#f5f5f5]";
-
   // Select all
-  const [isCheckAllPublish, setIsCheckAllPublish] = React.useState(false);
-  const [isCheckAllDraft, setIsCheckAllDraft] = React.useState(false);
-  const [isCheckAllArchive, setIsCheckAllArchive] = React.useState(false);
+
   const [isCheck, setIsCheck] = React.useState([]);
 
   const handleClick = (e) => {
@@ -215,53 +216,36 @@ const DashMember = () => {
     }
   };
 
-
   const [toggleEdit, setToggleEdit] = React.useState(false);
   const toggleEditNotification = () => {
     setToggleEdit(!toggleEdit);
   };
 
+  const [listStart, setListStart] = React.useState(0);
+  const [listEnd, setListEnd] = React.useState(0);
 
-  const [draftListStart, setDraftListStart] = React.useState(0);
-  const [draftListEnd, setDraftListEnd] = React.useState(0);
-  const [publishListStart, setPublishListStart] = React.useState(0);
-  const [publishListEnd, setPublishListEnd] = React.useState(0);
-  const [archiveListStart, setArchiveListStart] = React.useState(0);
-  const [archiveListEnd, setArchiveListEnd] = React.useState(0);
   // eslint-disable-next-line
   const [editId, setEditId] = React.useState("");
 
-  const [tab, setTab] = React.useState("publish");
   const [searchTerm, setSearchTerm] = React.useState("");
 
-  const loadedData = useSelector((state) => state.newsletter);
+  const loadedData = useSelector((state) => state.member);
   let loadedDataList;
 
-  let publishedData = [];
-  let draftedData = [];
-  let archivedData = [];
+  let allData = [];
 
   if (loadedData.status === "fulfilled") {
-
-    let allData = loadedData.item.filter(
+    allData = loadedData.item.filter(
       // eslint-disable-next-line
       (item) => {
         if (searchTerm === "") {
           return item;
-        } else if (item.title.toLowerCase().includes(searchTerm.toLowerCase())) {
+        } else if (
+          item.fullName.toLowerCase().includes(searchTerm.toLowerCase())
+        ) {
           return item;
         }
-      });
-
-
-    publishedData = allData.filter(
-      (training) => training.status === "publish"
-    );
-    draftedData = allData.filter(
-      (training) => training.status === "draft"
-    );
-    archivedData = allData.filter(
-      (training) => training.status === "archive"
+      }
     );
   }
 
@@ -274,15 +258,19 @@ const DashMember = () => {
 
     const renderList = (List) => {
       loadedDataList = List.map((trainings, index, list) => {
-        let date = format(Date.parse(trainings.created_at), "dd/MM/yyyy");
-      
         return (
           <NewsletterComp
-            type="newsletter"
-            title={trainings.title}
-            author="Admin"
-            date={date}
-            subTitle={trainings.description}
+            fullName={trainings.fullName}
+            degree={trainings.degree}
+            alias={trainings.alias}
+            workplace={trainings.workplace}
+            position={trainings.position}
+            address={trainings.address}
+            phoneNumber={trainings.phoneNumber}
+            emailAddress={trainings.emailAddress}
+            yearGraduated={trainings.yearGraduated}
+            isGroupPresent={trainings.isGroupPresent}
+            isAdmin={trainings.isAdmin}
             id={trainings.uuid}
             key={index}
             toggleEditNotification={toggleEditNotification}
@@ -295,143 +283,26 @@ const DashMember = () => {
         );
       });
     };
+
     if (loadedData.item.length !== 0) {
-      if (tab === "publish") {
-        if (publishedData.length === 0) {
-          loadedDataList = <EmptyField />;
-        } else {
-          renderList(
-            publishedData.slice(
-              publishListStart,
-              publishedData.length < publishListEnd
-                ? publishedData.length
-                : publishListEnd
-            )
-          );
-        }
-      }
-
-      if (tab === "draft") {
-        if (draftedData.length === 0) {
-          loadedDataList = <EmptyField />;
-        } else {
-          renderList(
-            draftedData.slice(
-              draftListStart,
-              draftedData.length < draftListEnd
-                ? draftedData.length
-                : draftListEnd
-            )
-          );
-        }
-      }
-
-      if (tab === "archive") {
-        if (archivedData.length === 0) {
-          loadedDataList = <EmptyField />;
-        } else {
-          // archiveListStart
-          renderList(
-            archivedData.slice(
-              archiveListStart,
-              archivedData.length < archiveListEnd
-                ? archivedData.length
-                : archiveListEnd
-            )
-          );
-        }
-      }
+      renderList(
+        allData.slice(
+          listStart,
+          allData.length < listEnd ? allData.length : listEnd
+        )
+      );
     }
   } else if (loadedData.status === "failed") {
     loadedDataList = <EmptyField />;
   }
 
-
-
   // ACTION FUNCTIONS
 
-  const publishSelectAll = (e) => {
-    setIsCheckAllPublish(!isCheckAllPublish);
-    setIsCheck(
-      publishedData
-        .slice(
-          publishListStart,
-          publishedData.length < publishListEnd
-            ? publishedData.length
-            : publishListEnd
-        )
-        .map((li) => li.uuid)
-    );
-
-    if (isCheckAllPublish) {
-      setIsCheck([]);
-    }
-  };
-
-  const archiveSelectAll = (e) => {
-
-    setIsCheckAllArchive(!isCheckAllArchive);
-    setIsCheck(
-      archivedData
-        .slice(
-          archiveListStart,
-          archivedData.length < archiveListEnd
-            ? archivedData.length
-            : archiveListEnd
-        )
-        .map((li) => li.uuid)
-    );
-
-    if (isCheckAllArchive) {
-      setIsCheck([]);
-    }
-  };
-
-  const draftSelectAll = (e) => {
-    setIsCheckAllDraft(!isCheckAllDraft);
-    setIsCheck(
-      draftedData
-        .slice(
-          draftListStart,
-          draftedData.length < draftListEnd
-            ? draftedData.length
-            : draftListEnd
-        )
-        .map((li) => li.uuid)
-    );
-
-    if (isCheckAllDraft) {
-      setIsCheck([]);
-    }
-  };
-
-  const updateMultiple = (status) => {
-    const options = {
-      headers: { "Content-Type": undefined },
-      url: `${baseURL}/newsletter/update-multiple`,
-      method: "POST",
-      data: {
-        ids: isCheck,
-        status: status,
-      },
-    };
-
-    axios(options).then((result) => {
-      if (result.status !== 200) {
-        window.alert("Error updating");
-      }
-
-      if (result.status === 200) {
-        window.location.reload();
-      }
-    });
-  };
-
-  // eslint-disable-next-line
+  
   const deleteAll = () => {
     const options = {
       headers: { "Content-Type": undefined },
-      url: `${baseURL}/newsletter/delete-many`,
+      url: `${baseURL}/member/delete-many`,
       method: "POST",
       data: {
         ids: isCheck,
@@ -455,14 +326,36 @@ const DashMember = () => {
     setToggle(!toggle);
   };
 
+  let headers = [
+    { label: "Full name", key: "fullName" },
+    { label: "Degree earned in the Department", key: "degree" },
+    { label: "Alias while in school", key: "alias" },
+    { label: "Current work place", key: "workplace" },
+    { label: "Position or title", key: "position" },
+    { label: "Contact address", key: "address" },
+    { label: "Phone number", key: "phoneNumber" },
+    { label: "Email address", key: "emailAddress" },
+    { label: "Graduation year", key: "yearGraduated" },
+    { label: "Are you in your set’s whatsapp group?", key: "isGroupPresent" },
+    {
+      label: "Are you an “Admin” in your set’s whatsapp group?",
+      key: "isAdmin",
+    },
+  ];
 
   return (
     <div className="mb-10 relative">
-
       {/* CREATE FORMS */}
-      <SideBarWrapper toggleNotification={toggleNotification} toggle={toggle} setToggle={setToggle}>
-        
-        <CreateForm />
+      <SideBarWrapper
+        toggleNotification={toggleNotification}
+        toggle={toggle}
+        setToggle={setToggle}
+      >
+        <CreateForm
+          currentImage={loadedData.item.filter(
+            (research) => research.uuid === editId
+          )}
+        />
       </SideBarWrapper>
 
       <SideBarWrapper
@@ -473,9 +366,9 @@ const DashMember = () => {
           currentImage={loadedData.item.filter(
             (research) => research.uuid === editId
           )}
+          toggleNotification={toggleEditNotification}
         />
       </SideBarWrapper>
-
 
       {/* First Tab */}
       <section className="md:mt-[36px] lg:mt-[24px] p-[20px] md:p-0 md:px-[40px] lg:px-[60px]">
@@ -484,246 +377,107 @@ const DashMember = () => {
             <p className="text-4xl">Members</p>
             <div className="inline-flex items-start justify-start px-2 py-0.5 bg-black rounded-full">
               <p className="text-sm font-medium leading-tight text-white">
-              {loadedData.item.length}
+                {loadedData.item.length}
               </p>
             </div>
           </div>
-          <UploadButton customStyle="hidden md:inline-flex" clickHandler={() => { toggleNotification() }} />
+          <UploadButton
+            customStyle="hidden md:inline-flex"
+            clickHandler={() => {
+              toggleNotification();
+            }}
+          />
+
+          <CSVLink data={allData} headers={headers}>
+            <div
+              className={`hidden md:inline-flex space-x-3 items-center justify-start p-2.5 border border-grey-100 cursor-pointer text-[#737373] font-medium`}
+            >
+              <div className="h-[24px] w-[24px] flex items-center justify-center">
+                <MdOutlineFileDownload className="text-xl text-grey-200" />
+              </div>
+              <p className="text-base font-medium">Download Data</p>
+            </div>
+          </CSVLink>
         </div>
       </section>
 
       {/* Second Tab */}
       <section className="mt-[36px] md:mt-[48px] lg:mt-[24px] p-[20px] md:p-0 md:px-[40px] lg:px-[60px]">
-        <div className="flex items-stretch flex-wrap gap-[16px]">
+        <div className="flex items-stretch flex-wrap gap-[16px] justify-between">
           <div className="flex border space-x-2.5 px-4 py-3 md:py-2 focus-within:border-grey-500 items-center md:w-[280px] w-full">
             <div className="h-[24px] w-[24px] flex items-center justify-center">
               <MdOutlineSearch className="text-xl text-grey-500" />
             </div>
             <input
               type="search"
-              placeholder="Search newsletter"
+              placeholder="Search member"
               onChange={(e) => {
                 setSearchTerm(e.target.value);
               }}
               className="text-base placeholder:text-[#737373] focus:outline-none p-0 w-full placeholder:font-medium"
             />
           </div>
-          <div className="placeholder:text-[#737373] ">
-            {tab === "publish" && (
-              <SelectAllButton
-                onChangeHandler={publishSelectAll}
-                checkHandler={isCheckAllPublish}
-              />
+          <div className="placeholder:text-[#737373] "></div>
 
-            )}
-            {tab === "draft" && (
-              <SelectAllButton
-                onChangeHandler={draftSelectAll}
-                checkHandler={isCheckAllDraft}
-              />
+          {/* <UploadButton
+            customStyle=""
+            clickHandler={() => {
+              toggleNotification();
+            }}
+          /> */}
 
-            )}
-            {tab === "archive" && (
-              <SelectAllButton
-                onChangeHandler={archiveSelectAll}
-                checkHandler={isCheckAllArchive}
-              />
-
-            )}
-          </div>
-
-          <UploadButton customStyle="inline-flex md:hidden" clickHandler={() => { toggleNotification() }} />
-
-          {(isCheckAllArchive || isCheckAllDraft || isCheckAllPublish) && (
-            <div className="gap-5 items-center flex flex-wrap 2xl:hidden">
-              {tab !== "archive" && (
-                <div
-                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2 cursor-pointer"
-                  onClick={() => {
-                    updateMultiple("archive");
-                  }}
-                >
-                  <MdOutlineFolderOpen className="text-[#9b9fa2] text-xl" />
-                  <p className="text-base text-gray-700">Archive all</p>
-                </div>
-              )}
-              {tab !== "draft" && (
-                <div
-                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2 cursor-pointer"
-                  onClick={() => {
-                    updateMultiple("draft");
-                  }}
-                >
-                  <MdOutlineAssignment className="text-[#9b9fa2] text-xl" />
-                  <p className="text-base text-gray-700">Move to Draft</p>
-                </div>
-              )}
-              {tab !== "publish" && (
-                <div
-                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2 cursor-pointer"
-                  onClick={() => {
-                    updateMultiple("publish");
-                  }}
-                >
-                  <MdOutlineAssignment className="text-[#9b9fa2] text-xl" />
-                  <p className="text-base text-gray-700">Publish all</p>
-                </div>
-              )}
-
-              <div
-                className="flex items-center space-x-4 bg-[#F9F2F2] text-[#F90000] px-4 py-2"
-                onClick={() => { }}
-              >
-                <MdOutlineDelete className=" text-xl" />
-                <p className="text-base">Delete all</p>
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Third Tab */}
-      <section className="mt-[36px] md:mt-[48px] lg:mt-[24px] p-[20px] md:p-0 md:px-[40px] lg:px-[60px]">
-        <div className="w-full overflow-x-hidden lg:flex lg:justify-between lg:items-center border-b">
-          <div className="flex space-x-5 overflow-x-auto">
+          <CSVLink data={allData} headers={headers}>
             <div
-              className={
-                tab === "publish"
-                  ? tabActiveClass.toString()
-                  : tabInactiveClass.toString()
-              }
-              onClick={() => {
-                setTab("publish");
-              }}
+              className={`inline-flex md:hidden space-x-3 items-center justify-start p-2.5 border border-grey-100 cursor-pointer text-[#737373] font-medium`}
             >
-              <MdPublic className="text-[#9b9fa2] text-xl" />
-              <p className="text-base text-gray-700">Published</p>
-              <div className="px-2 py-1 bg-white border rounded-full border-grey-100">
-                <p className="text-xs font-medium text-grey-200">
-                  {publishedData.length}
-                </p>
+              <div className="h-[24px] w-[24px] flex items-center justify-center">
+                <MdOutlineFileDownload className="text-xl text-grey-200" />
               </div>
+              <p className="text-base font-medium">Download Data</p>
             </div>
+          </CSVLink>
+
+          <div className="gap-5 items-center flex flex-wrap 2xl:hidden">
             <div
-              className={
-                tab === "draft"
-                  ? tabActiveClass.toString()
-                  : tabInactiveClass.toString()
-              }
-              onClick={() => {
-                setTab("draft");
-              }}
+              className="flex items-center space-x-4 bg-[#F9F2F2] text-[#F90000] px-4 py-2"
+              onClick={() => { deleteAll()}}
             >
-              <MdOutlineAssignment className="text-[#9b9fa2] text-xl" />
-              <p className="text-base text-gray-700">Draft</p>
-              <div className="px-2 py-1 bg-white border rounded-full border-grey-100">
-                <p className="text-xs font-medium text-grey-200">
-                  {draftedData.length}
-                </p>
-              </div>
-            </div>
-            <div
-              className={
-                tab === "archive"
-                  ? tabActiveClass.toString()
-                  : tabInactiveClass.toString()
-              }
-              onClick={() => {
-                setTab("archive");
-              }}
-            >
-              <MdOutlineFolderOpen className="text-[#9b9fa2] text-xl" />
-              <p className="text-base text-gray-700">Archive</p>
-              <div className="px-2 py-1 bg-white border rounded-full border-grey-100">
-                <p className="text-xs font-medium text-grey-200">
-                  {archivedData.length}
-                </p>
-              </div>
+              <MdOutlineDelete className=" text-xl" />
+              <p className="text-base">Delete all</p>
             </div>
           </div>
-          {(isCheckAllArchive || isCheckAllDraft || isCheckAllPublish) && (
-            <div className="gap-5 items-center hidden flex-wrap 2xl:flex">
-              {tab !== "archive" && (
-                <div
-                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2 cursor-pointer"
-                  onClick={() => {
-                    updateMultiple("archive");
-                  }}
-                >
-                  <MdOutlineFolderOpen className="text-[#9b9fa2] text-xl" />
-                  <p className="text-base text-gray-700">Archive all</p>
-                </div>
-              )}
-              {tab !== "draft" && (
-                <div
-                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2 cursor-pointer"
-                  onClick={() => {
-                    updateMultiple("draft");
-                  }}
-                >
-                  <MdOutlineAssignment className="text-[#9b9fa2] text-xl" />
-                  <p className="text-base text-gray-700">Move to Draft</p>
-                </div>
-              )}
-              {tab !== "publish" && (
-                <div
-                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2 cursor-pointer"
-                  onClick={() => {
-                    updateMultiple("publish");
-                  }}
-                >
-                  <MdOutlineAssignment className="text-[#9b9fa2] text-xl" />
-                  <p className="text-base text-gray-700">Publish all</p>
-                </div>
-              )}
-
-              <div
-                className="flex items-center space-x-4 bg-[#F9F2F2] text-[#F90000] px-4 py-2"
-                onClick={() => { }}
-              >
-                <MdOutlineDelete className=" text-xl" />
-                <p className="text-base">Delete all</p>
-              </div>
-            </div>
-          )}
         </div>
       </section>
-
 
       {/* Table */}
-      <div className=" p-[20px]  md:p-0 md:px-[40px] lg:px-[60px]">
-        {/* Table Content */}
-        <div className="w-full divide-y-[1px] border mt-[30px]">
-          {loadedDataList}
+      <div className=" p-[20px]  md:p-0 md:mx-[40px] lg:mx-[60px] lg:p-1 mt-[30px] w-full overflow-scroll">
+        {/* Table Header */}
+        <div className="flex w-fit h-12 border border-gray-300 -ml-[1px] divide-x-[1px] divide-gray-300 bg-gray-50">
+          {tableHeaders.map((header, index) => {
+            return (
+              <div
+                className={`inline-flex items-center ${header.customStyle}  bg-gray-50`}
+                key={index}
+              >
+                <p className="text-sm font-bold text-gray-500 uppercase">
+                  {header.lable}
+                </p>
+              </div>
+            );
+          })}
         </div>
-        <div></div>
 
-        {/* Pagination */}
-        {tab === "draft" && (
-          <Pagination
-            list={draftedData}
-            setlistStart={setDraftListStart}
-            setlistEnd={setDraftListEnd}
-          />
-        )}
-
-        {tab === "publish" && (
-          <Pagination
-            list={publishedData}
-            setlistStart={setPublishListStart}
-            setlistEnd={setPublishListEnd}
-          />
-        )}
-
-        {tab === "archive" && (
-          <Pagination
-            list={archivedData}
-            setlistStart={setArchiveListStart}
-            setlistEnd={setArchiveListEnd}
-          />
-        )}
+        {/* Table Content */}
+        <div className=" pb-10 ">{loadedDataList}</div>
       </div>
-
+      {/* Pagination */}
+      <div className="p-[20px]  md:p-0 md:px-[40px] lg:px-[60px]">
+        <Pagination
+          list={allData}
+          setlistStart={setListStart}
+          setlistEnd={setListEnd}
+        />
+      </div>
     </div>
   );
 };

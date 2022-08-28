@@ -15,11 +15,11 @@ const GalleryHero = () => {
                     <p className="md:text-xl lg:text-xl font-medium leading-7 lg:leading-9 text-center text-white lg:w-[60%] w-[85%]">
                         Past events, organised workshops, and strategic meetings. See all our events in pictures.
                     </p>
-                    <div className="inline-flex space-x-4 items-center justify-start py-4 pl-5 pr-3.5 border rounded-full border-blue-800 border-opacity-95 font-campton">
+                    <a href="#gallery-container" className="inline-flex space-x-4 items-center justify-start py-4 pl-5 pr-3.5 border rounded-full border-blue-800 border-opacity-95 font-campton cursor-pointer">
                         <p className="text-base font-semibold text-blue-300 text-opacity-95">Explore our gallery below</p>
                         <RiArrowDownLine className="p-1.5 bg-[#FB7800] rounded-full box-content text-white"/>
                        
-                    </div>
+                    </a>
                 </div>
             </div>
         </section>

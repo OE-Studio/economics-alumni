@@ -16,17 +16,17 @@ const AboutContent = () => {
   let chairmanAddressIndicator = empty
 
   if (isInViewAlumni) {
-    alumniIndicator = "-ml-1 w-2 bg-black"
+    alumniIndicator = "-ml-[2.5px] w-1 bg-black"
     hODAddressIndicator = chairmanAddressIndicator = empty
   }
 
   if (isInViewhODAddress) {
-    hODAddressIndicator = "-ml-1 w-2 bg-black"
+    hODAddressIndicator = "-ml-[2.5px] w-1 bg-black"
     alumniIndicator = chairmanAddressIndicator = empty
   }
 
   if (isInViewchairmanAddress) {
-    chairmanAddressIndicator = "-ml-1 w-2 bg-black"
+    chairmanAddressIndicator = "-ml-[2.5px] w-1 bg-black"
     alumniIndicator = hODAddressIndicator = empty
   }
 

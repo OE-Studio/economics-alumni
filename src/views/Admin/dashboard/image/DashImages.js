@@ -20,6 +20,7 @@ import {
 import UploadButton from "../../UploadButton";
 import SideBarWrapper from "../SideBarWrapper";
 import ImageForm from "./ImageForm";
+import ImageFormEdit from "./ImageFormEdit";
 import EmptyField from "../EmptyField";
 import Pagination from "../Pagination";
 
@@ -279,7 +280,7 @@ const DashImages = () => {
     const renderList = (List) => {
       imageList = List.map((trainings, index, list) => {
         let date = format(Date.parse(trainings.created_at), "dd/MM/yyyy");
-        console.log(isCheck.includes(trainings.uuid))
+       
         return (
           <ImageCard
             title={trainings.title}
@@ -408,14 +409,14 @@ const DashImages = () => {
     }
   };
 
-  const archiveAll = () => {
+  const archiveAll = (status) => {
     const options = {
       headers: { "Content-Type": undefined },
       url: `${baseURL}/image/archive-multiple`,
       method: "POST",
       data: {
         ids: isCheck,
-        status: "archive",
+        status: status,
       },
     };
 
@@ -465,6 +466,10 @@ const DashImages = () => {
       {/* CREATE FORMS */}
       <SideBarWrapper toggleNotification={toggleNotification} toggle={toggle}>
         <ImageForm />
+      </SideBarWrapper>
+
+      <SideBarWrapper toggleNotification={toggleEditNotification} toggle={toggleEdit}>
+        <ImageFormEdit currentImage={Images.item.filter((image) => image.uuid === editId)}/>
       </SideBarWrapper>
 
 
@@ -529,9 +534,9 @@ const DashImages = () => {
             <div className="gap-5 items-center flex flex-wrap 2xl:hidden">
               {tab !== "archive" && (
                 <div
-                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2"
+                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2 cursor-pointer"
                   onClick={() => {
-                    archiveAll();
+                    archiveAll("archive");
                   }}
                 >
                   <MdOutlineFolderOpen className="text-[#9b9fa2] text-xl" />
@@ -540,9 +545,9 @@ const DashImages = () => {
               )}
               {tab !== "draft" && (
                 <div
-                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2"
+                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2 cursor-pointer"
                   onClick={() => {
-                    archiveAll();
+                    archiveAll("draft");
                   }}
                 >
                   <MdOutlineAssignment className="text-[#9b9fa2] text-xl" />
@@ -551,9 +556,9 @@ const DashImages = () => {
               )}
               {tab !== "publish" && (
                 <div
-                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2"
+                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2 cursor-pointer"
                   onClick={() => {
-                    archiveAll();
+                    archiveAll("publish");
                   }}
                 >
                   <MdOutlineAssignment className="text-[#9b9fa2] text-xl" />
@@ -636,9 +641,9 @@ const DashImages = () => {
             <div className="gap-5 items-center hidden flex-wrap 2xl:flex">
               {tab !== "archive" && (
                 <div
-                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2"
+                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2 cursor-pointer"
                   onClick={() => {
-                    archiveAll();
+                    archiveAll("archive");
                   }}
                 >
                   <MdOutlineFolderOpen className="text-[#9b9fa2] text-xl" />
@@ -647,9 +652,9 @@ const DashImages = () => {
               )}
               {tab !== "draft" && (
                 <div
-                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2"
+                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2 cursor-pointer"
                   onClick={() => {
-                    archiveAll();
+                    archiveAll("draft");
                   }}
                 >
                   <MdOutlineAssignment className="text-[#9b9fa2] text-xl" />
@@ -658,9 +663,9 @@ const DashImages = () => {
               )}
               {tab !== "publish" && (
                 <div
-                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2"
+                  className="flex space-x-4 items-center bg-[#f4f4f4] text-[#404040] px-4 py-2 cursor-pointer"
                   onClick={() => {
-                    archiveAll();
+                    archiveAll("publish");
                   }}
                 >
                   <MdOutlineAssignment className="text-[#9b9fa2] text-xl" />

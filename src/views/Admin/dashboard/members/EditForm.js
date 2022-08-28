@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  RiAddLine,  
-} from "react-icons/ri";
+
 
 import {
-  MdPublic,
-  MdOutlineFilterHdr,
-  MdOutlineFeed,
+  
   MdVerified,
   MdError,
 } from "react-icons/md";
@@ -16,31 +12,129 @@ import {
 // const baseURL = "http://localhost:3001";
 const baseURL = "https://uieaa.herokuapp.com";
 
-const EditForm = ({ currentImage }) => {
-  const [documentName, setDocumentName] = useState();
+const fields = [
+  {
+    label: "Full name",
+    placeholder: "Firstname Lastname",
+    name: "fullName",
+    type: "text"
+  },
+  {
+    label: "Degree earned in the Department",
+    placeholder: "BSc, MSc, MBA",
+    name: "degree",
+    type: "text"
+  },
+  {
+    label: "Alias while in school",
+    placeholder: "Nickname",
+    name: "alias",
+    type: "text"
+  },
+  {
+    label: "Current work place",
+    placeholder: "",
+    name: "workplace",
+    type: "text"
+  },
+  {
+    label: "Position or title",
+    placeholder: "",
+    name: "position",
+    type: "text"
+  },
+  {
+    label: "Contact address",
+    placeholder: "",
+    name: "address",
+    type: "text"
+  },
+  {
+    label: "Phone number",
+    placeholder: "",
+    name: "phoneNumber",
+    type: "text"
+  },
+  {
+    label: "Email address",
+    placeholder: "",
+    name: "emailAddress",
+    type: "email"
+  },
+  {
+    label: "Graduation year",
+    placeholder: "B.Sc 1988, MBA 1998",
+    name: "yearGraduated",
+    type: "numeric"
+  },
+  {
+    label: "Are you in your set’s whatsapp group?",
+    placeholder: "Yes or No",
+    name: "isGroupPresent",
+    type: "text"
+  },
+  {
+    label: "Are you an “Admin” in your set’s whatsapp group?",
+    placeholder: "Yes or No",
+    name: "isAdmin",
+    type: "text"
+  },
+];
 
-  const [imageURL, setImageURL] = useState("");
+function InputComponent({ label, placeholder, name, handleClick, formDetails }) {
+  return (
+    <div className="flex flex-col space-y-2 lg:space-y-0 lg:items-center lg:flex-row lg:justify-between w-full">
+      <p className="text-sm font-semibold leading-tight text-gray-500 lg:w-[30%]">{label}</p>
+      <input
+        required
+        name={name}
+        type="text"
+        value={formDetails[name]}
+        onChange={e => {
+          handleClick(name, e.target.value)
+        }}
+        placeholder={placeholder}
+        className="bg-white p-4 w-full lg:w-[60%] placeholder:text-[12px]"
+      />
+    </div>
+  );
+}
+
+const EditForm = ({ currentImage, toggleNotification }) => {
+
 
   const [formDetails, setFormDetails] = useState({
     title: "",
     description: "",
     fileImage: "",
-    fileDocument:""
+    fileDocument: ""
   });
 
   const [error, setError] = useState("");
-  const [image, setImage] = useState(true);
+
   const [message, setMessage] = useState(true);
   const [success, setSuccess] = useState("");
 
   useEffect(() => {
     let copiedShopCart = { ...formDetails };
     if (currentImage.length > 0) {
-      setImageURL(currentImage[0].imageURL);
-      copiedShopCart.title = currentImage[0].title;
-      copiedShopCart.description = currentImage[0].description;
-      copiedShopCart.fileImage = "";
-      copiedShopCart.fileDocument = "";
+
+
+      copiedShopCart.fullName = currentImage[0].fullName;
+      copiedShopCart.degree = currentImage[0].degree;
+      copiedShopCart.alias = currentImage[0].alias;
+      copiedShopCart.workplace = currentImage[0].workplace;
+      copiedShopCart.position = currentImage[0].position;
+      copiedShopCart.address = currentImage[0].address;
+      copiedShopCart.phoneNumber = currentImage[0].phoneNumber
+      copiedShopCart.emailAddress = currentImage[0].emailAddress
+      copiedShopCart.yearGraduated = currentImage[0].yearGraduated
+      copiedShopCart.isGroupPresent = currentImage[0].isGroupPresent
+      copiedShopCart.isAdmin = currentImage[0].isAdmin
+
+
+
+
       setFormDetails((formDetails) => ({
         ...copiedShopCart,
       }));
@@ -57,12 +151,6 @@ const EditForm = ({ currentImage }) => {
     }));
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      console.log("enter press here! ");
-    }
-  };
 
   const updateDocument = (result) => {
     const options = {
@@ -104,8 +192,9 @@ const EditForm = ({ currentImage }) => {
     });
   };
 
+  // eslint-disable-next-line
   const upload = (status) => {
-    const { title, description, fileImage, fileDocument  } = formDetails;
+    const { title, description, fileImage, fileDocument } = formDetails;
     console.log(formDetails)
     const data = new FormData();
     data.append("file", fileImage);
@@ -117,188 +206,52 @@ const EditForm = ({ currentImage }) => {
     updateDocument(data);
   };
 
- 
+
 
   return (
-    <div className="p-3 full lg:p-4 space-y-4">
-      <p className="text-2xl font-semibold text-gray-700">Edit Member</p>
-
-      <form
-        action=""
-        className="space-y-4 w-full"
-        encType="multipart/form-data"
-      >
-
-
-        <label
-          htmlFor="fileImageEdit"
-          className="flex items-center justify-center p-4 md:h-32 lg:h-40 2xl:h-64 bg-grey-50 border border-[#ECECEC] bg-cover hover:bg-contain bg-center bg-no-repeat"
-          id="display-image"
-          style={{ backgroundImage: `url(${imageURL.toString()})` }}
-        >
-          <input
-            required
-            type="file"
-            id="fileImageEdit"
-            name="documentImage"
-            // value={formDetails.file}
-            className="hidden"
-            onChange={(e) => {
-              let fileExt = e.target.files[0].type.split("/")[1];
-              if (
-                fileExt !== "jpg" &&
-                fileExt !== "jpeg" &&
-                fileExt !== "png"
-              ) {
-                e.target.value = "";
-                return setDocumentName("Invalid Image type");
-              }
-              setDocumentName(e.target.files[0].name);
-              handleClick("fileImage", e.target.files[0]);
-
-              // READ IMAGE FILE
-              const reader = new FileReader();
-              reader.addEventListener("load", () => {
-                const uploaded_image = reader.result;
-                document.querySelector(
-                  "#display-image"
-                ).style.backgroundImage = `url(${uploaded_image})`;
-              });
-              reader.readAsDataURL(e.target.files[0]);
-              setImage(true);
-            }}
-          />
-
-          {!image && (
-            <div className="flex flex-col items-center space-y-[10px] md:space-y-[20px]">
-              <div className="h-[64px] w-[64px] rounded-full flex items-center justify-center bg-white">
-                <MdOutlineFilterHdr className="text-xl text-grey-500" />
-              </div>
-              <p className="text-sm font-medium leading-tight text-gray-400">
-                Tap to upload image
-              </p>
-            </div>
-          )}
-        </label>
-
-
-        <div className="p-4 border rounded border-gray-200 w-full">
-          <input
-            type="file"
-            required
-            id="fileDocument"
-            name="documentFile"
-            // value={formDetails.file}
-            className="hidden"
-            onChange={(e) => {
-              let fileExt = e.target.files[0].type.split("/")[1];
-              if (fileExt !== "pdf" && fileExt !== "docx") {
-                e.target.value = "";
-                return setDocumentName("Only PDF File format is allowed");
-              }
-              setDocumentName(e.target.files[0].name);
-              handleClick("fileDocument", e.target.files[0]);
-            }}
-          />
-
-          <label
-            htmlFor="fileDocument"
-            className="flex items-center justify-center space-x-2.5 cursor-pointer"
-          >
-            <RiAddLine className="text-xl text-gray-500" />
-            <p className="text-base text-gray-400">Upload document</p>
-          </label>
-        </div>
-
-
-        <div className="flex flex-col space-y-3 w-full">
-          <p className="text-sm font-medium leading-tight  text-gray-400">
-          Newsletter title here
-          </p>
-
-          <input
-            required
-            name="documentTitle"
-            type="text"
-            value={formDetails.title}
-            className="text-base text-gray-600 bg-transparent 
-            focus:outline-grey-100
-            focus:outline-1
-            focus:bg-transparent border p-3 border-[#ECECEC]  rounded-none focus:rounded-none focus:border-0"
-            placeholder=""
-            onKeyPress={(e) => handleKeyPress(e)}
-            onChange={(e) => {
-              handleClick("title", e.target.value);
-            }}
-          />
-        </div>
-
-        <div className="flex flex-col space-y-3 w-full">
-          <p className="text-sm font-medium leading-tight  text-gray-400">
-          Newsletter description
-          </p>
-          <textarea
-            required
-            placeholder=""
-            id="documentDescription"
-            name="documentDescription"
-            value={formDetails.description}
-            rows="4"
-            cols="50"
-            className="text-base text-gray-600 bg-transparent 
-            focus:outline-grey-100
-            focus:outline-1
-            focus:bg-transparent border p-3 border-[#ECECEC]  rounded-none focus:rounded-none focus:border-0 resize-none"
-            // defaultValue="Document Description."
-            onChange={(e) => {
-              handleClick("description", e.target.value);
-            }}
-          />
-        </div>
-
-
-        <p className="text-sm">{documentName}</p>
-
-
+    <section className="p-4 pb-0 md:pb-0 font-inter">
+      <div className="bg-[#F8F8F8] space-y-5 p-4 lg:p-4 lg:mx-auto">
+        {fields.map((field, index) => {
+          return (
+            <InputComponent
+              key={index}
+              label={field.label}
+              placeholder={field.placeholder}
+              name={field.name}
+              handleClick={handleClick}
+              formDetails={formDetails}
+            />
+          );
+        })}
         {message && success && (
-          <div className=" bg-[#64B300] flex text-white font-semibold space-x-4 p-4 items center left-1/2 -translate-x-1/2 fixed top-[2vh] md:top-[70vh] lg:top-[75vh] mt-[18px] z-90 w-full  lg:w-124 md:w-[80vw]">
+          <div className=" bg-[#64B300] flex text-white font-semibold space-x-4 p-4 items center mt-[18px] z-90 w-full  lg:w-124 md:w-[80vw]">
             <MdVerified className="text-xl" />
             <span>{success}</span>
           </div>
         )}
         {message && error && (
-          <div className=" bg-[#b30000] flex text-white font-semibold space-x-4 p-4 items center left-1/2 -translate-x-1/2 fixed top-[2vh] md:top-[72vh] lg:top-[77vh] mt-[18px] z-90 w-full  lg:w-124 md:w-[80vw]">
+          <div className=" bg-[#b30000] flex text-white font-semibold space-x-4 p-4 items center  mt-[18px] z-90 w-full  lg:w-124 md:w-[80vw]">
             <MdError className="text-xl" />
             <span>{error}</span>
           </div>
         )}
 
+        <hr />
+        <div className="flex flex-col lg:flex-row lg:space-x-6 space-y-6 lg:space-y-0 justify-end">
 
+          <div className="inline-flex items-center justify-end  py-2  px-8 bg-blue-600"
+            onClick={() => {
+              toggleNotification()
+            }}
 
-        <button
-          type="submit"
-          className="flex items-center justify-between px-8 py-4 bg-black shadow w-full"
-          onClick={(e) => {
-            e.preventDefault();
-            upload("publish");
-          }}
-        >
-         <p className="text-base font-bold text-white">Publish</p>
-          <MdPublic className="text-xl text-white" />
-        </button>
-        <button
-          type="submit"
-          className="flex items-center justify-between px-8 py-4 bg-white shadow border  border-black w-full text-[#404040]"
-          onClick={(e) => {
-            e.preventDefault();
-            upload("draft");
-          }}
-        >
-           <p className="text-base font-bold">Save as draft</p>
-          <MdOutlineFeed className="text-xl " />
-        </button>
-      </form>
-    </div>
+          >
+            <p className="text-base font-semibold text-white uppercase">
+              Close
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 

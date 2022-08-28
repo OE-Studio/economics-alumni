@@ -25,8 +25,7 @@ const Tradition = () => {
             </div>
             <p className="text-2xl font-semibold">Leadership</p>
             <p className="text-sm leading-relaxed text-gray-500">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit at
-              bibendum sed tincidunt purus,{" "}
+            Our alumni lead people and projects at local and international bodies like the CBN, UN, and World Bank.
             </p>
           </div>
           <div className="md:w-[45%] space-y-4" data-aos="fade-up" data-aos-delay="100">
@@ -35,8 +34,7 @@ const Tradition = () => {
             </div>
             <p className="text-2xl font-semibold">Excellence</p>
             <p className="text-sm leading-relaxed text-gray-500">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit at
-              bibendum sed tincidunt purus,{" "}
+            Our alumni earn distinguished awards for their excellence and dedication to humanity in their respective fields.
             </p>
           </div>
           <div className="md:w-[45%] space-y-4" data-aos="fade-up" data-aos-delay="150">
@@ -45,8 +43,7 @@ const Tradition = () => {
             </div>
             <p className="text-2xl font-semibold">Partnership</p>
             <p className="text-sm leading-relaxed text-gray-500">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit at
-              bibendum sed tincidunt purus,{" "}
+            Excellent networking reach helps us partner with individuals and organisations to make impact.
             </p>
           </div>
           <div className="md:w-[45%] space-y-4" data-aos="fade-up" data-aos-delay="200">
@@ -55,8 +52,7 @@ const Tradition = () => {
             </div>
             <p className="text-2xl font-semibold">Impact</p>
             <p className="text-sm leading-relaxed text-gray-500">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit at
-              bibendum sed tincidunt purus,{" "}
+            Completed and ongoing projects executed and support programmes for students.
             </p>
           </div>
         </div>

@@ -12,8 +12,10 @@ const GiveHero = () => {
                 <div className="flex flex-col items-center space-y-6 lg:space-y-10">
                     <p className=" text-3xl md:text-5xl lg:text-[80px]  font-bold leading-12 text-center text-white w-[85%]">
                         Let’s make impact together, give.</p>
-                    <p className="md:text-xl lg:text-xl font-medium leading-7 lg:leading-9 text-center text-white lg:w-[60%] w-[85%]">
-                        Learn about the alumni, our history, the department of economics at UI and how we network with friends to foster meaningful and  impact-driven engagements
+                    <p className="md:text-xl lg:text-2xl font-medium leading-7 lg:leading-9 text-center text-white lg:w-[60%] w-[85%]">
+                        Join us on the journey to impact, as we shape lives and make learning and living easier and more enjoyable.
+                        Reach out to the Alumni Secretariat on <a href="tel:08161904403" className="underline text-[#ECD844] cursor-pointer">08161904403</a>
+
                     </p>
 
                 </div>

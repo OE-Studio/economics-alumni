@@ -10,7 +10,7 @@ import telegram from "../../assets/image/SocialMedia/telegram.svg";
 
 const Footer = () => {
   return (
-    <div className="bg-[#747474] relative overflow-hidden font-inter ">
+    <div className="bg-[#747474] relative overflow-hidden font-inter">
       <img
         src={globe}
         alt=""

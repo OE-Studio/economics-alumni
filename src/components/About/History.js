@@ -9,7 +9,7 @@ function History() {
         <div className=" flex flex-col md:flex-row bg-[#eff8ff] w-full justify-between  lg:px-20 lg:py-20 py-6 px-2 space-y-8 md:space-y-0">
           <p className="text-2xl lg:text-4xl font-semibold leading-10 md:w-[30%]">
             History of the
-            Department of 
+            Department of
             Economics UI.
           </p>
           <div className=" md:w-[70%] lg:w-[60%] space-y-6">
@@ -32,12 +32,12 @@ function History() {
               eighty students in the master’s degree programme in Economics and
               thirty-seven in the M.Phil/Ph.D. programmes.
             </p>
-            <p className="text-xl font-bold text-[#2E2E2E] uppercase inline-flex items-center self-start border-b-2 border-[#2E2E2E]">
+            <a href="https://economics.ui.edu.ng/about-us" target="_blank" rel="noreferrer" className="font-bold text-[#2E2E2E] uppercase inline-flex items-center self-start border-b-2 border-[#2E2E2E]">
               Read more here
               <span className="ml-2">
                 <MdNorthEast className="font-bold" />
               </span>
-            </p>
+            </a>
           </div>
         </div>
       </section>

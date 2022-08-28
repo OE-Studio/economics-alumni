@@ -14,7 +14,7 @@ import {
 } from "react-icons/md";
 
 
-// const baseURL = "http://localhost.:3001";
+// const baseURL = "http://localhost:3001";
 const baseURL = "https://uieaa.herokuapp.com";
 
 const CreateForm = () => {
@@ -64,6 +64,7 @@ const CreateForm = () => {
         if (result.status === 200 && !result.data.success) {
           setError(result.data.message);
           setMessage(true);
+          setError("");
           setTimeout(() => {
             setMessage(false);
           }, 3000);
@@ -82,6 +83,7 @@ const CreateForm = () => {
           setMessage(true);
           setTimeout(() => {
             setMessage(false);
+            setSuccess("")
             window.location.reload();
           }, 3000);
           return;
@@ -265,7 +267,6 @@ const CreateForm = () => {
           id="display-image"
         >
           <input
-            required
             type="file"
             id="impactImage"
             name="documentImage"

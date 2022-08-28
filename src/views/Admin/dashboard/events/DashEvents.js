@@ -233,7 +233,7 @@ const DashEvents = () => {
   const [tab, setTab] = React.useState("publish");
   const [searchTerm, setSearchTerm] = React.useState("");
 
-  const loadedData = useSelector((state) => state.member);
+  const loadedData = useSelector((state) => state.event);
   let loadedDataList;
 
   let publishedData = [];

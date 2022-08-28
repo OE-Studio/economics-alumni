@@ -574,8 +574,8 @@ const DashImpact = () => {
               )}
 
               <div
-                className="flex items-center space-x-4 bg-[#F9F2F2] text-[#F90000] px-4 py-2"
-                onClick={() => { }}
+                className="flex items-center space-x-4 bg-[#F9F2F2] text-[#F90000] px-4 py-2 cursor-pointer"
+                onClick={() => {deleteAll() }}
               >
                 <MdOutlineDelete className=" text-xl" />
                 <p className="text-base">Delete all</p>
@@ -681,8 +681,8 @@ const DashImpact = () => {
               )}
 
               <div
-                className="flex items-center space-x-4 bg-[#F9F2F2] text-[#F90000] px-4 py-2"
-                onClick={() => { }}
+                className="flex items-center space-x-4 bg-[#F9F2F2] text-[#F90000] px-4 py-2 cursor-pointer"
+                onClick={() => { deleteAll()}}
               >
                 <MdOutlineDelete className=" text-xl" />
                 <p className="text-base">Delete all</p>

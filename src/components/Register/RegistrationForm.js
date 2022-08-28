@@ -5,11 +5,13 @@ import {
   MdError,
 } from "react-icons/md";
 
+
 function InputComponent({ label, placeholder, name, handleClick }) {
   return (
-    <div className="flex flex-col lg:flex-row lg:justify-between w-full">
+    <div className="flex flex-col space-y-2 lg:space-y-0 lg:items-center lg:flex-row lg:justify-between w-full">
       <p className="text-sm font-semibold leading-tight text-gray-500 lg:w-[30%]">{label}</p>
       <input
+        required
         name={name}
         type="text"
         onChange={e => {
@@ -26,63 +28,74 @@ function InputComponent({ label, placeholder, name, handleClick }) {
 const fields = [
   {
     label: "Full name",
-    placeholder: "",
-    name: "fullName"
+    placeholder: "Firstname Lastname",
+    name: "fullName",
+    type: "text"
   },
   {
     label: "Degree earned in the Department",
-    placeholder: "",
-    name: "degree"
+    placeholder: "BSc, MSc, MBA",
+    name: "degree",
+    type: "text"
   },
   {
     label: "Alias while in school",
-    placeholder: "",
-    name: "alias"
+    placeholder: "Nickname",
+    name: "alias",
+    type: "text"
   },
   {
     label: "Current work place",
     placeholder: "",
-    name: "workplace"
+    name: "workplace",
+    type: "text"
   },
   {
     label: "Position or title",
     placeholder: "",
-    name: "position"
+    name: "position",
+    type: "text"
   },
   {
     label: "Contact address",
     placeholder: "",
-    name: "address"
+    name: "address",
+    type: "text"
   },
   {
     label: "Phone number",
     placeholder: "",
-    name: "phoneNumber"
+    name: "phoneNumber",
+    type: "text"
   },
   {
     label: "Email address",
     placeholder: "",
-    name: "emailAddress"
+    name: "emailAddress",
+    type: "email"
   },
   {
     label: "Graduation year",
-    placeholder: "",
-    name: "yearGraduated"
+    placeholder: "B.Sc 1988, MBA 1998",
+    name: "yearGraduated",
+    type: "numeric"
   },
   {
     label: "Are you in your set’s whatsapp group?",
-    placeholder: "",
-    name: "isGroupPresent"
+    placeholder: "Yes or No",
+    name: "isGroupPresent",
+    type: "text"
   },
   {
     label: "Are you an “Admin” in your set’s whatsapp group?",
-    placeholder: "",
-    name: "isAdmin"
+    placeholder: "Yes or No",
+    name: "isAdmin",
+    type: "text"
   },
 ];
 
 
-// const baseURL = "http://localhost.:3001";
+// const baseURL = "http://localhost:3001";
 const baseURL = "https://uieaa.herokuapp.com";
 
 const RegistrationForm = () => {
@@ -114,17 +127,23 @@ const RegistrationForm = () => {
     }));
   };
 
-  const uploadDocument = (result) => {
+
+
+
+
+  const uploadDocument = (data) => {
     const options = {
-      headers: { "Content-Type": undefined },
+      headers: {
+        "Content-Type": 'application/json',
+      },
       url: `${baseURL}/member/upload-member`,
       method: "POST",
-      data: result,
+      data: data,
     };
 
     axios(options)
       .then((result) => {
-        console.log(result);
+
         if (result.status !== 200) {
           setError("Failed! Try Again");
           setTimeout(() => {
@@ -133,51 +152,87 @@ const RegistrationForm = () => {
         }
 
         if (result.status === 200 && !result.data.success) {
+          console.log("here")
           setError(result.data.message);
           setMessage(true);
           setTimeout(() => {
             setMessage(false);
+            setError("")
           }, 3000);
           return;
         }
 
         if (result.status === 200 && result.data.success) {
-          if (result.data.newNewsletter.status === "draft") {
-            setSuccess("Image drafted successfully");
-          }
 
-          if (result.data.newNewsletter.status === "publish") {
-            setSuccess("Newsletter uploaded successfully");
-          }
-
+          setSuccess("Member uploaded successfully");
           setMessage(true);
           setTimeout(() => {
             setMessage(false);
+            setSuccess("")
           }, 3000);
           return;
         }
       })
       .catch((error) => {
-        console.log(error.response.data);
+        if (!error.response.data) {
+          setMessage(true);
+          setError("Check your Internet & Try Again");
+          setTimeout(() => {
+            setMessage(false);
+            setError("")
+          }, 3000);
+
+          return;
+        }
+
+        console.log(!error.response.data);
       });
   };
 
 
-  const upload = (status) => {
-    const data = new FormData();
-    for (var key in formDetails) {
-      data.append(key, formDetails[key]);
-    }
-    uploadDocument(data);
+  const upload = () => {
+
+    // const data = new FormData();
+    // const { fullName,
+    //   degree,
+    //   alias,
+    //   workplace,
+    //   position,
+    //   address,
+    //   phoneNumber,
+    //   emailAddress,
+    //   yearGraduated,
+    //   isGroupPresent,
+    //   isAdmin, } = formDetails;
+
+    // data.append("fullName", fullName);
+    // data.append("degree", degree);
+    // data.append("alias", alias);
+    // data.append("workplace", workplace);
+    // data.append("position", position);
+    // data.append("address", address);
+    // data.append("phoneNumber", phoneNumber);
+    // data.append("emailAddress", emailAddress);
+    // data.append("yearGraduated", yearGraduated);
+    // data.append("isGroupPresent", isGroupPresent);
+    // data.append("isAdmin", isAdmin);
+
+    // Loop Data append
+    // for (var key in formDetails) {
+    //   data.append(key, formDetails[key]);
+    // }
+
+    uploadDocument({ ...formDetails });
   };
 
 
   return (
     <section className="my-10 p-4 md:p-10 lg:px-16 pb-0 md:pb-0 container mx-auto font-inter">
       <div className="bg-[#F8F8F8] space-y-5 p-4 lg:p-10 lg:w-[60%] lg:mx-auto">
-      {fields.map((field, index) => {
+        {fields.map((field, index) => {
           return (
             <InputComponent
+              key={index}
               label={field.label}
               placeholder={field.placeholder}
               name={field.name}
@@ -186,27 +241,30 @@ const RegistrationForm = () => {
           );
         })}
         {message && success && (
-          <div className=" bg-[#64B300] flex text-white font-semibold space-x-4 p-4 items center left-1/2 -translate-x-1/2 fixed top-[2vh] md:top-[70vh] lg:top-[75vh] mt-[18px] z-90 w-full  lg:w-124 md:w-[80vw]">
+          <div className=" bg-[#64B300] flex text-white font-semibold space-x-4 p-4 items center mt-[18px] z-90 w-full  lg:w-124 md:w-[80vw]">
             <MdVerified className="text-xl" />
             <span>{success}</span>
           </div>
         )}
         {message && error && (
-          <div className=" bg-[#b30000] flex text-white font-semibold space-x-4 p-4 items center left-1/2 -translate-x-1/2 fixed top-[2vh] md:top-[72vh] lg:top-[77vh] mt-[18px] z-90 w-full  lg:w-124 md:w-[80vw]">
+          <div className=" bg-[#b30000] flex text-white font-semibold space-x-4 p-4 items center  mt-[18px] z-90 w-full  lg:w-124 md:w-[80vw]">
             <MdError className="text-xl" />
             <span>{error}</span>
           </div>
         )}
         <div className="flex flex-col lg:flex-row lg:space-x-6 space-y-6 lg:space-y-0 lg:justify-between">
-          <div className="inline-flex items-center justify-center lg:w-[45%] h-14  pt-5 pb-4 border border-gray-300">
+          <div className="inline-flex items-center justify-center lg:w-[45%] h-14  pt-5 pb-4 border border-gray-300" onClick={() => {
+            window.location.reload()
+          }}>
             <p className="text-base font-semibold text-gray-500 uppercase">
               Clear all answers
             </p>
           </div>
           <div className="inline-flex items-center justify-center lg:w-[45%]  h-14  pt-5 pb-4 bg-blue-600"
-          onClick={()=>{
-            upload("publish")
-          }}
+            onClick={() => {
+              upload()
+            }}
+
           >
             <p className="text-base font-semibold text-white uppercase">
               Submit

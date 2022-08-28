@@ -8,7 +8,7 @@ const initialState = {
 
 export const fetchImage = createAsyncThunk(
   'image/fetchImage', async () => {
-    const response = axios.get("https://htprtp.herokuapp.com/image/get-image")
+    const response = axios.get("https://uieaa.herokuapp.com/image/get-image")
     return response
   }
 )

@@ -19,7 +19,7 @@ const Actions = () => {
               our events in pictures.{" "}
             </p>
 
-            <Link to="/gallery" className="text-xl font-bold text-[#ECD844] uppercase inline-flex items-center border-b-2 border-yellow-300">
+            <Link to="/gallery" className="font-bold text-[#ECD844] uppercase inline-flex items-center border-b-2 border-yellow-300">
               Gallery
               <span className="ml-2">
                 <MdNorthEast className="font-bold" />
@@ -42,7 +42,7 @@ const Actions = () => {
                 department of Economics. If you have not registred, please take
                 a few minutes to do so.
               </p>
-              <p className="text-xl font-bold text-[#ECD844] uppercase inline-flex items-center self-start border-b-2 border-yellow-300">
+              <p className=" font-bold text-[#ECD844] uppercase inline-flex items-center self-start border-b-2 border-yellow-300">
                 Register
                 <span className="ml-2">
                   <MdNorthEast className="font-bold" />
@@ -65,7 +65,7 @@ const Actions = () => {
                 activities, achievements of the department, its current
                 students, and its alumni.
               </p>
-              <Link to="/newsletter" className="text-xl font-bold text-[#9747FF] uppercase inline-flex items-center self-start border-b-2 border-[#9747FF]">
+              <Link to="/newsletter" className="font-bold text-[#9747FF] uppercase inline-flex items-center self-start border-b-2 border-[#9747FF]">
                 newsletter
                 <span className="ml-2">
                   <MdNorthEast className="font-bold" />
