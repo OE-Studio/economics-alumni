@@ -112,14 +112,15 @@ function UpcomingEvents() {
   }
 
   return (
-    <div className="bg-[#F8FCFF] lg:pt-36 pt-20 font-inter">
+    <div className="bg-[#F8FCFF] lg:pt-36 pt-20 font-inter overflow-hidden">
       <section className="container mx-auto p-4 md:p-10 lg:p-20  space-y-12 lg:space-y-12 ">
         <p className="text-4xl lg:text-[64px] leading-[105%] font-bold ">
           <span className="text-[#D0D0D0]">Our upcoming </span>
           <br className="hidden lg:block" />
           events
         </p>
-        <div className="flex flex-wrap lg:flex-nowrap overflow-scroll w-auto md:gap-[25px] gap-[1%] flex-col md:flex-row space-y-6 md:space-y-0">
+        <div className="overflow-scroll">
+        <div className="flex flex-wrap lg:flex-nowrap w-fit md:gap-[25px] gap-[1%] flex-col md:flex-row space-y-6 md:space-y-0">
           {dataList}
 
           {/* USELESS CARDS */}
@@ -153,9 +154,9 @@ function UpcomingEvents() {
                 Button Text
               </button>
             </div>
-          </div>
+          </div> */}
 
-          <div className="md:w-[330px] lg:w-[340px] bg-white shadow-2xl shadow-[#0000000F] p-[22px] space-y-[24px] lg:space-y-[60px] flex flex-col justify-between">
+          {/* <div className="md:w-[330px] lg:w-[340px] bg-white shadow-2xl shadow-[#0000000F] p-[22px] space-y-[24px] lg:space-y-[60px] flex flex-col justify-between">
             <div className="space-y-[40px]">
               <div className="space-y-[12px]">
                 <p className="transform text-xs font-medium text-gray-400 uppercase">
@@ -191,6 +192,7 @@ function UpcomingEvents() {
               </button>
             </div>
           </div> */}
+        </div>
         </div>
       </section>
     </div>
