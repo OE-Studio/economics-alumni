@@ -3,7 +3,14 @@
 }
 
 .heroGradient{
-  background: linear-gradient(117.01deg, #007DF0 -22.06%, #030D6C 65.18%);
+  background: linear-gradient(117.01deg, #FEFCED -22.06%, #F2F5F7 89.74%);
+}
+
+.heroImage{
+  background: linear-gradient(359.62deg, #141414 0.27%, rgba(70, 70, 70, 0.476852) 55.89%, rgba(255, 255, 255, 0) 106.58%), url("../src/assets/image/heroImage.png");
+  background-repeat: no-repeat;
+  background-size:cover;
+
 }
 
 

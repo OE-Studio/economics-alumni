@@ -11,49 +11,39 @@ const Hero = () => {
 
   
 
-  useEffect(() => {
-    
-   
-    
-    let y= 5450
-     
-    
- 
-   
-
-
-
-    let phi = 0;
-    const globe = createGlobe(canvasRef.current, {
-      devicePixelRatio: 2,
-      width: window.innerWidth,
-      height: 1000 * 3.5,
-      phi: 0,
-      theta: -0.17,
-      dark: 1,
-      diffuse: 1.2,
-      mapSamples: 16000,
-      mapBrightness: 5,
-      baseColor: [0.3, 0.3, 0.3],
-      markerColor: [0.3, 0.3, 0.3],
-      glowColor: [0, 0, 0],
-      offset: [window.innerWidth, y],
-      markers: [
-        // longitude latitude
-        // { location: [37.7595, -122.4367], size: 0.03 },
-        // { location: [40.7128, -74.006], size: 0.1 },
-      ],
-      onRender: (state) => {
-        // Called on every animation frame.
-        // `state` will be an empty object, return updated params.
-        state.phi = phi;
-        phi += 0.01;
-      },
-    });
-    return () => {
-      globe.destroy();
-    };
-  }, []);
+  // useEffect(() => {    
+  //   let y= 5450
+  //   let phi = 0;
+  //   const globe = createGlobe(canvasRef.current, {
+  //     devicePixelRatio: 2,
+  //     width: window.innerWidth,
+  //     height: 1000 * 3.5,
+  //     phi: 0,
+  //     theta: -0.17,
+  //     dark: 1,
+  //     diffuse: 1.2,
+  //     mapSamples: 16000,
+  //     mapBrightness: 5,
+  //     baseColor: [0.3, 0.3, 0.3],
+  //     markerColor: [0.3, 0.3, 0.3],
+  //     glowColor: [0, 0, 0],
+  //     offset: [window.innerWidth, y],
+  //     markers: [
+  //       // longitude latitude
+  //       // { location: [37.7595, -122.4367], size: 0.03 },
+  //       // { location: [40.7128, -74.006], size: 0.1 },
+  //     ],
+  //     onRender: (state) => {
+  //       // Called on every animation frame.
+  //       // `state` will be an empty object, return updated params.
+  //       state.phi = phi;
+  //       phi += 0.01;
+  //     },
+  //   });
+  //   return () => {
+  //     globe.destroy();
+  //   };
+  // }, []);
 
   return (
     <section className="p-4 md:p-10 lg:px-16 pb-0 md:pb-0 container mx-auto">
@@ -79,10 +69,9 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="w-full  flex justify-center  h-[30vh]">
+        {/* <div className="w-full  flex justify-center  h-[30vh]">
           <canvas ref={canvasRef} className="mix-blend-screen w-screen" id="canvasSpace" />
-          {/* <img src={globe} alt="" className="lg:h-[60vh]" /> */}
-        </div>
+        </div> */}
       </div>
     </section>
   );

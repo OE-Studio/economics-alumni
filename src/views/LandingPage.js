@@ -18,9 +18,10 @@ const LandingPage = () => {
   return (
     <>
       <div className="relative w-screen overflow-hidden pb-10">
-        <div className="heroGradient w-full h-[80%] absolute -z-10"></div>
+        <div className="heroImage bg-cover w-full h-[80%] 2xl:h-[80vh] absolute -z-10"></div>
         <Navbar />
         <Hero />
+        <div className="h-[40px] xl:h-[15vh]"></div>
         <Update />
       </div>
       <Tradition />

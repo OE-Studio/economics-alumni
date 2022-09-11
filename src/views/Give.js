@@ -7,7 +7,7 @@ const Give = () => {
   return (
     <>
     <div className="relative w-screen overflow-hidden">
-        <div className="giveGradient w-full h-[100%] absolute -z-10"></div>
+        <div className="heroGradient w-full h-[100%] absolute -z-10"></div>
         <Navbar />
         <GiveHero/>
         

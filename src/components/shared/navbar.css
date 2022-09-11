@@ -25,7 +25,6 @@
 }
 
 .nav-link {
-  
   width: 100%;
   border-bottom: 1px solid white;
   display: block;
@@ -52,6 +51,7 @@
     top: unset;
     justify-content: space-between;
     flex-direction: row;
+    align-items: center;
     z-index: 1;
     left: 0;
     height: unset;
@@ -64,7 +64,7 @@
   }
 
   .nav-link {
-    padding: 1rem 1rem;
+    
     width: 100%;
     border-bottom: unset;
     display: block;
