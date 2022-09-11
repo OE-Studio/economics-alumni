@@ -1,6 +1,5 @@
 // import logo from "../../assets/image/logoHeader.svg";
 import logoImpact from "../../assets/image/logoImpactNew.svg";
-import logoMain from "../../assets/image/logoMain.svg";
 
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
