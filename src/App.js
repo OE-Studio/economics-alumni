@@ -40,7 +40,7 @@ function App() {
 
 
   const dispatch = useDispatch()
- 
+
   const newsletterStatus = useSelector(state => state.newsletter.status)
   const impactStatus = useSelector(state => state.impact.status)
   const imageStatus = useSelector(state => state.image.status)
@@ -70,25 +70,25 @@ function App() {
 
   return (
     <div className="App">
-      
-      <ScrollToTop/>
-      <Routes>
-      <Route exact path="/" element={<LandingPage />} />
-      <Route exact path="/about" element={<About />} />
-      <Route exact path="/impact" element={<Impact />} />
-      <Route exact path="/contact-us" element={<ContactUs />} />
-      <Route exact path="/newsletter" element={<Newsletter />} />
-      <Route exact path="/projects" element={<Projects />} />
-      <Route exact path="/events" element={<Events />} />
-      <Route exact path="/gallery" element={<Gallery />} />
-      <Route exact path="/portal" element={<LandingPage />} />
-      <Route exact path="/give" element={<Give />} />
-      <Route exact path="/register" element={<Register />} />
 
-      {/* DASHBOARD PAGES */}
-      <Route exact path="/dashboard" element={<Dashboard />}>
+      <ScrollToTop />
+      <Routes>
+        <Route exact path="/" element={<LandingPage />} />
+        <Route exact path="/about" element={<About />} />
+        <Route exact path="/impact" element={<Impact />} />
+        <Route exact path="/contact-us" element={<ContactUs />} />
+        <Route exact path="/newsletter" element={<Newsletter />} />
+        <Route exact path="/projects" element={<Projects />} />
+        <Route exact path="/events" element={<Events />} />
+        <Route exact path="/gallery" element={<Gallery />} />
+        <Route exact path="/portal" element={<LandingPage />} />
+        <Route exact path="/give" element={<Give />} />
+        <Route exact path="/register" element={<Register />} />
+
+        {/* DASHBOARD PAGES */}
+        <Route exact path="/dashboard" element={<Dashboard />}>
           <Route exact path="/dashboard/" element={<DashHome />} />
-          <Route exact path="/dashboard/images" element={<DashImages/>} />
+          <Route exact path="/dashboard/images" element={<DashImages />} />
           <Route exact path="/dashboard/newsletter" element={<DashNewsletter />} />
           <Route exact path="/dashboard/impacts" element={<DashImpact />} />
           <Route exact path="/dashboard/events" element={<DashEvents />} />
@@ -96,7 +96,7 @@ function App() {
           {/* <Route exact path="/dashboard/events" element={<Login />} /> */}
 
         </Route>
-      
+
       </Routes>
     </div>
   );

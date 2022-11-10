@@ -14,7 +14,7 @@ const links = [
     to: "/about",
   },
   {
-    name: "Footprint",
+    name: "Footprints",
     to: "/impact",
   },
   {

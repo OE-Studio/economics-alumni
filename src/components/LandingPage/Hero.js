@@ -1,7 +1,7 @@
 import React from "react";
 // import hero from "../../assets/image/heroImg.svg";
 // import globe from "../../assets/image/globe.svg";
-// import createGlobe from "cobe";
+// import createGlobe from "cobe"; 
 import { MdSouth } from "react-icons/md"
 import {Link} from "react-router-dom"
 

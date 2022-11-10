@@ -101,7 +101,7 @@ const Footer = () => {
 
           <div className="inline-flex space-x-1 lg:space-x-14 items-center justify-center">
             <p className=" text-sm font-medium leading-relaxed text-center text-gray-300">
-              All rigths reserved
+              All rights reserved
             </p>
             <p className=" text-sm font-medium leading-relaxed text-center text-gray-300">
               ©2022

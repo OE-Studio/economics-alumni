@@ -13,7 +13,7 @@ function Update() {
         <div className="flex space-x-6 lg:space-x-8  " data-aos="fade-up" data-aos-delay="100">
           <MdEventNote className="text-[#FB9600] bg-white p-4 shadow-xl shadow-[#0000000D] text-2xl box-content aspect-square" />
           <div className="flex flex-col">
-            <p className=" text-5xl md:text-4xl lg:text-5xl 2xl:text-7xl leading-none">1986</p>
+            <p className=" text-5xl md:text-4xl lg:text-5xl 2xl:text-7xl leading-none">1958</p>
             <p className="lg:text-lg leading-none text-gray-400">
               Year established
             </p>

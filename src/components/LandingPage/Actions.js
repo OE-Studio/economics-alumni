@@ -39,7 +39,7 @@ const Actions = () => {
               </p>
               <p className="text-base font-medium leading-relaxed text-white">
                 The UI ECO Alumni is updating records of each alumnus of the UI
-                department of Economics. If you have not registred, please take
+                department of Economics. If you have not registered, please take
                 a few minutes to do so.
               </p>
               <p className=" font-bold text-[#ECD844] uppercase inline-flex items-center self-start border-b-2 border-yellow-300">
