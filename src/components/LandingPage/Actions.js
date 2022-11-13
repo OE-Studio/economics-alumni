@@ -3,10 +3,7 @@ import gallery from "../../assets/image/gallery.svg";
 import registration from "../../assets/image/registration.svg";
 import newsletter from "../../assets/image/newsletter.png";
 import { Link } from "react-router-dom"
-
-
 import { MdNorthEast } from "react-icons/md";
-
 const Actions = () => {
   return (
     <section className="container mx-auto p-4 pt-16 md:p-10 lg:p-20  space-y-12 lg:space-y-12 lg:pt-36">
