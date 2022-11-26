@@ -38,6 +38,7 @@ const CreateForm = () => {
   const [image, setImage] = useState(false);
   const [message, setMessage] = useState(true);
   const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleClick = (item_id, e) => {
     let copiedShopCart = { ...formDetails };
@@ -91,7 +92,7 @@ const CreateForm = () => {
           if (result.data.newEvent.status === "publish") {
             setSuccess("Event uploaded successfully");
           }
-
+          setLoading(false);
           setMessage(true);
           setTimeout(() => {
             setMessage(false);
@@ -107,7 +108,8 @@ const CreateForm = () => {
 
 
   const upload = (status) => {
-    const { title, description, fileImage, eventTime, eventDate, eventLocation, buttonLabel, buttonLink} = formDetails;
+    setLoading(true);
+    const { title, description, fileImage, eventTime, eventDate, eventLocation, buttonLabel, buttonLink } = formDetails;
     const data = new FormData();
     data.append("file", fileImage);
     data.append("title", title);
@@ -249,7 +251,7 @@ const CreateForm = () => {
                 console.log(formDetails.eventDate)
               }}
               style={{
-                "&::-webkit-calendar-picker-indicator": {
+                "&::WebkitCalendarPickerIndicator": {
                   display: "none",
                   "-webkit-appearance": "none",
                 },
@@ -281,7 +283,7 @@ const CreateForm = () => {
                 handleClick("eventTime", e.target.value);
               }}
               style={{
-                "&::-webkit-calendar-picker-indicator": {
+                "&::WebkitCalendarPickerIndicator": {
                   display: "none",
                   "-webkit-appearance": "none",
                 },
@@ -387,17 +389,19 @@ const CreateForm = () => {
         )}
 
         <button
+          disabled={loading}
           type="submit"
-          className="flex items-center justify-between px-8 py-4 bg-black shadow  w-full"
+          className="flex items-center justify-between px-8 py-4 bg-black shadow w-full disabled:opacity-50 disabled:cursor-not-allowed"
           formAction="publish"
         >
-          <p className="text-base font-bold text-white">Publish</p>
+          <p className="text-base font-bold text-white">{loading ? <span className="basic" /> : "Publish"}</p>
           <MdPublic className="text-xl text-white" />
         </button>
         <button
+          disabled={loading}
           type="submit"
           formAction="draft"
-          className="flex items-center justify-between px-8 py-4 bg-white shadow border  border-black w-full text-[#404040]"
+          className="flex items-center justify-between px-8 py-4 bg-white shadow border  border-black w-full text-[#404040] disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <p className="text-base font-bold">Save as draft</p>
           <MdOutlineFeed className="text-xl " />

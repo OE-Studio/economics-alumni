@@ -12,7 +12,7 @@ const Dashboard = () => {
       {/* Sidebar */}
       <SideBar />
       {/* Main Dashboard */}
-      <section className="md:ml-[100px] lg:ml-[284px] font-inter">
+      <section className="md:ml-[100px] lg:ml-[284px] font-inter overflow-x-hidden">
         <MobileNav />
         {/* Top Section */}
         <div className="hidden md:flex p-[20px] md:p-0 md:px-[40px] lg:px-[60px] md:h-[96px] w-full  justify-between items-center border-b">

@@ -28,6 +28,8 @@ const CreateForm = () => {
   const [error, setError] = useState("");
   const [image, setImage] = useState(false);
   const [message, setMessage] = useState(true);
+  const [loading, setLoading] = useState(false);
+  
   const [success, setSuccess] = useState("");
 
   const handleClick = (item_id, e) => {
@@ -61,31 +63,36 @@ const CreateForm = () => {
           setError("Failed! Try Again");
           setTimeout(() => {
             setMessage(false);
+            window.location.reload();
           }, 3000);
         }
 
         if (result.status === 200 && !result.data.success) {
           setError(result.data.message);
+          setLoading(false);
           setMessage(true);
           setTimeout(() => {
             setMessage(false);
+            window.location.reload();
           }, 3000);
           return;
         }
 
         if (result.status === 200 && result.data.success) {
           if (result.data.newNewsletter.status === "draft") {
-            setSuccess("Image drafted successfully");
+            setSuccess("Newsletter drafted successfully");
           }
 
           if (result.data.newNewsletter.status === "publish") {
             setSuccess("Newsletter uploaded successfully");
           }
-
+          setLoading(false);
           setMessage(true);
           setTimeout(() => {
             setMessage(false);
-          }, 3000);
+            setSuccess("")
+            window.location.reload();
+          }, 1000);
           return;
         }
       })
@@ -96,6 +103,7 @@ const CreateForm = () => {
 
 
   const upload = (status) => {
+    setLoading(true)
     const { title, description, fileImage, fileDocument  } = formDetails;
     const data = new FormData();
     data.append("file", fileImage);
@@ -215,10 +223,11 @@ const CreateForm = () => {
             <p className="text-base text-gray-400">Upload document</p>
           </label>
         </div>
+        <p className="text-sm">{documentName}</p>
 
         <div className="flex flex-col space-y-3 w-full">
           <p className="text-sm font-medium leading-tight  text-gray-400">
-            Image title here
+            Newsletter title here
           </p>
 
           <input
@@ -240,7 +249,7 @@ const CreateForm = () => {
 
         <div className="flex flex-col space-y-3 w-full">
           <p className="text-sm font-medium leading-tight  text-gray-400">
-            Image description
+            Newsletter description
           </p>
           <textarea
             required
@@ -261,7 +270,7 @@ const CreateForm = () => {
           />
         </div>
 
-        <p className="text-sm">{documentName}</p>
+        
 
         {message && success && (
           <div className=" bg-[#64B300] flex text-white font-semibold space-x-4 p-4 items center left-1/2 -translate-x-1/2 fixed top-[2vh] md:top-[70vh] lg:top-[75vh] mt-[18px] z-90 w-full  lg:w-124 md:w-[80vw]">
@@ -277,17 +286,19 @@ const CreateForm = () => {
         )}
 
         <button
+        disabled={loading}
           type="submit"
-          className="flex items-center justify-between px-8 py-4 bg-black shadow  w-full"
+          className="flex items-center justify-between px-8 py-4 bg-black shadow  w-full disabled:opacity-50 disabled:cursor-not-allowed"
           formAction="publish"
         >
-          <p className="text-base font-bold text-white">Publish</p>
+          <p className="text-base font-bold text-white">{loading ? <span className="basic text-center"/> : "Publish"}</p>
           <MdPublic className="text-xl text-white" />
         </button>
         <button
+        disabled={loading}
           type="submit"
           formAction="draft"
-          className="flex items-center justify-between px-8 py-4 bg-white shadow border  border-black w-full text-[#404040]"
+          className="flex items-center justify-between px-8 py-4 bg-white shadow border  border-black w-full text-[#404040] disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <p className="text-base font-bold">Save as draft</p>
           <MdOutlineFeed className="text-xl " />

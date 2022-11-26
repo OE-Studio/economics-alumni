@@ -7,12 +7,12 @@ import Navbar from '../components/shared/Navbar'
 const Impact = () => {
   return (
     <>
-    <div className="relative w-screen overflow-hidden font-inter">
+      <div className="relative w-screen overflow-hidden font-inter">
         <div className="heroGradient w-full h-[100%] absolute -z-10"></div>
         <Navbar />
         <ImpactHero />
       </div>
-<ImpactList/>
+      <ImpactList />
       <Footer />
     </>
   )

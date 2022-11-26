@@ -19,6 +19,7 @@ const baseURL = "https://uieaa.herokuapp.com";
 
 const CreateForm = () => {
   const [documentName, setDocumentName] = useState();
+  const [loading, setLoading] = useState(false);
   const [impactType, setImpactType] = useState("Individual");
   const [typeDropdown, setTypeDropdown] = useState(false);
   const [formDetails, setFormDetails] = useState({
@@ -27,7 +28,7 @@ const CreateForm = () => {
     description: "",
     impactDate: "",
     impactImage: "",
-    
+
   });
   const [error, setError] = useState("");
   const [image, setImage] = useState(false);
@@ -79,7 +80,7 @@ const CreateForm = () => {
           if (result.data.newImpact.status === "publish") {
             setSuccess("Impact uploaded successfully");
           }
-
+          setLoading(false);
           setMessage(true);
           setTimeout(() => {
             setMessage(false);
@@ -95,7 +96,8 @@ const CreateForm = () => {
   };
 
   const upload = (status) => {
-    const { impactType,impactSetYear, description, impactDate, impactImage } = formDetails;
+    setLoading(true);
+    const { impactType, impactSetYear, description, impactDate, impactImage } = formDetails;
     const data = new FormData();
     data.append("file", impactImage);
     data.append("description", description);
@@ -115,7 +117,7 @@ const CreateForm = () => {
     window.navigator.onLine ? setInternet(true) : setInternet(false);
   }, [internet]);
 
-  
+
   return (
     <div className="p-3 full lg:p-4 space-y-4">
       <p className="text-2xl font-semibold text-[#404040]">New Impact</p>
@@ -217,6 +219,7 @@ const CreateForm = () => {
           >
             <input
               type="date"
+              required
               id="pickDate"
               className="text-base 
             font-semibold text-left bg-white focus:bg-transparent  rounded-none focus:rounded-none focus:border-0 focus:outline-none w-full p-3 px-5"
@@ -225,7 +228,7 @@ const CreateForm = () => {
                 handleClick("impactDate", e.target.value);
               }}
               style={{
-                "&::-webkit-calendar-picker-indicator": {
+                "&::WebkitCalendarPickerIndicator": {
                   display: "none",
                   "-webkit-appearance": "none",
                 },
@@ -327,16 +330,19 @@ const CreateForm = () => {
 
         <button
           type="submit"
-          className="flex items-center justify-between px-8 py-4 bg-black shadow  w-full"
+          className="flex items-center justify-between px-8 py-4 bg-black shadow  w-full disabled:opacity-50 disabled:cursor-not-allowed"
           formAction="publish"
+          disabled={loading}
         >
-          <p className="text-base font-bold text-white">Publish</p>
+          <p className="text-base font-bold text-white">{loading ? <span className="basic" /> : "Publish"}</p>
           <MdPublic className="text-xl text-white" />
         </button>
         <button
           type="submit"
           formAction="draft"
-          className="flex items-center justify-between px-8 py-4 bg-white shadow border  border-black w-full text-[#404040]"
+          disabled={loading}
+          className="flex items-center justify-between px-8 py-4 bg-white shadow border  border-black w-full text-[#404040] disabled:opacity-50 disabled:cursor-not-allowed"
+
         >
           <p className="text-base font-bold">Save as draft</p>
           <MdOutlineFeed className="text-xl " />

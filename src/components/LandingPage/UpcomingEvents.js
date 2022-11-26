@@ -51,14 +51,14 @@ const EventCard = ({
           <div className="h-[20px] w-[1px] bg-[#4b8cad]" />
           <p className="text-sm">{eventLocation}</p>
         </div>
-        <a
+        {buttonLink && <a
           href={buttonLink}
           target="_blank"
           rel="noreferrer"
           className="bg-[#007DF0] text-white uppercase w-full p-3 font-medium block text-center "
         >
           {buttonLabel}
-        </a>
+        </a>}
       </div>
     </div>
   );

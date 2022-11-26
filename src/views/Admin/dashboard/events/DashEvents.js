@@ -487,7 +487,7 @@ const DashEvents = () => {
               </p>
             </div>
           </div>
-          <UploadButton customStyle="hidden md:inline-flex" clickHandler={() => { toggleNotification() }} />
+          <UploadButton type ="Event" customStyle="hidden md:inline-flex" clickHandler={() => { toggleNotification() }} />
         </div>
       </section>
 
@@ -531,7 +531,7 @@ const DashEvents = () => {
             )}
           </div>
 
-          <UploadButton customStyle="inline-flex md:hidden" clickHandler={() => { toggleNotification() }} />
+          <UploadButton type ="Event" customStyle="inline-flex md:hidden" clickHandler={() => { toggleNotification() }} />
 
           {(isCheckAllArchive || isCheckAllDraft || isCheckAllPublish) && (
             <div className="gap-5 items-center flex flex-wrap 2xl:hidden">

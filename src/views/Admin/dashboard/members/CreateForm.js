@@ -228,7 +228,10 @@ const RegistrationForm = () => {
 
   return (
     <section className="p-4 pb-0 md:pb-0 font-inter">
+      <p className="text-3xl mb-3">Member</p>
+
       <div className="bg-[#F8F8F8] space-y-5 p-4 lg:p-4 lg:mx-auto">
+
         {fields.map((field, index) => {
           return (
             <InputComponent
@@ -263,7 +266,7 @@ const RegistrationForm = () => {
 
           >
             <p className="text-base font-semibold text-white uppercase">
-              Close
+              Upload
             </p>
           </div>
         </div>

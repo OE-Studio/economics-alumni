@@ -32,6 +32,7 @@ const EditForm = ({ currentImage }) => {
   const [image, setImage] = useState(true);
   const [message, setMessage] = useState(true);
   const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     let copiedShopCart = { ...formDetails };
@@ -83,6 +84,7 @@ const EditForm = ({ currentImage }) => {
       if (result.status === 200 && !result.data.success) {
         setError(result.data.message);
         setMessage(true);
+        setLoading(false)
         setTimeout(() => {
           setMessage(false);
         }, 3000);
@@ -92,9 +94,10 @@ const EditForm = ({ currentImage }) => {
 
       if (result.status === 200 && result.data.success) {
         setSuccess("Newsletter updated successfully");
-        window.location.reload();
         setMessage(true);
+        setLoading(false)
         setTimeout(() => {
+          window.location.reload();
           setMessage(false);
         }, 3000);
         return
@@ -105,6 +108,7 @@ const EditForm = ({ currentImage }) => {
   };
 
   const upload = (status) => {
+    setLoading(true)
     const { title, description, fileImage, fileDocument  } = formDetails;
     console.log(formDetails)
     const data = new FormData();
@@ -210,6 +214,8 @@ const EditForm = ({ currentImage }) => {
           </label>
         </div>
 
+        <p className="text-sm">{documentName}</p>
+
 
         <div className="flex flex-col space-y-3 w-full">
           <p className="text-sm font-medium leading-tight  text-gray-400">
@@ -257,7 +263,7 @@ const EditForm = ({ currentImage }) => {
         </div>
 
 
-        <p className="text-sm">{documentName}</p>
+        
 
 
         {message && success && (
@@ -276,19 +282,21 @@ const EditForm = ({ currentImage }) => {
 
 
         <button
+        disabled={loading}
           type="submit"
-          className="flex items-center justify-between px-8 py-4 bg-black shadow w-full"
+          className="flex items-center justify-between px-8 py-4 bg-black shadow w-full disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={(e) => {
             e.preventDefault();
             upload("publish");
           }}
         >
-         <p className="text-base font-bold text-white">Publish</p>
+         <p className="text-base font-bold text-white">{loading ? <span className="basic" /> : "Publish"}</p>
           <MdPublic className="text-xl text-white" />
         </button>
         <button
+        disabled={loading}
           type="submit"
-          className="flex items-center justify-between px-8 py-4 bg-white shadow border  border-black w-full text-[#404040]"
+          className="flex items-center justify-between px-8 py-4 bg-white shadow border  border-black w-full text-[#404040] disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={(e) => {
             e.preventDefault();
             upload("draft");

@@ -7,7 +7,7 @@
 }
 
 .heroImage{
-  background: linear-gradient(359.62deg, #141414 0.27%, rgba(70, 70, 70, 0.476852) 55.89%, rgba(255, 255, 255, 0) 106.58%), url("../src/assets/image/heroImage.png");
+  background: linear-gradient(360deg, #002344 11.36%, rgba(0, 104, 200, 0.32) 108.07%), url("../src/assets/image/heroImage.png");
   background-repeat: no-repeat;
   background-size:cover;
 
@@ -40,6 +40,26 @@
 }
 
 
-.custom-select select{
-  
-}
+
+
+
+.basic:before {
+  content: '';
+  display: block;
+  height: 24px;
+  width: 24px;
+  -webkit-animation: spin .5s infinite linear;
+          animation: spin .5s infinite linear;
+  border: 6px rgb(237, 237, 237) solid;
+  border-left-color: grey;
+  border-radius: 100%; }
+
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }

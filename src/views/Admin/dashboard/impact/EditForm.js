@@ -31,6 +31,7 @@ const EditForm = ({ currentImage }) => {
   });
 
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false)
   const [image, setImage] = useState(true);
   const [message, setMessage] = useState(true);
   const [success, setSuccess] = useState("");
@@ -93,11 +94,12 @@ const EditForm = ({ currentImage }) => {
 
       if (result.status === 200 && result.data.success) {
         setSuccess("Newsletter updated successfully");
-        window.location.reload();
+        setLoading(false)
         setMessage(true);
         setTimeout(() => {
           setMessage(false);
-        }, 3000);
+          window.location.reload();
+        }, 1000);
         return
       }
     }).catch((error) => {
@@ -106,6 +108,7 @@ const EditForm = ({ currentImage }) => {
   };
 
   const upload = (status) => {
+    setLoading(true)
     const { impactType,impactSetYear, description, impactDate, impactImage } = formDetails;
     const data = new FormData();
     data.append("file", impactImage);
@@ -228,7 +231,7 @@ const EditForm = ({ currentImage }) => {
                 handleClick("impactDate", e.target.value);
               }}
               style={{
-                "&::-webkit-calendar-picker-indicator": {
+                "&::WebkitCalendarPickerIndicator": {
                   display: "none",
                   "-webkit-appearance": "none",
                 },
@@ -264,7 +267,7 @@ const EditForm = ({ currentImage }) => {
           />
         </div>
 
-        <label
+       {imageURL && <label
           htmlFor="fileImageEdit"
           className="flex items-center justify-center p-4 md:h-32 lg:h-40 2xl:h-64 bg-grey-50 border border-[#ECECEC] bg-cover hover:bg-contain bg-center bg-no-repeat"
           id="display-image"
@@ -315,7 +318,7 @@ const EditForm = ({ currentImage }) => {
               </p>
             </div>
           )}
-        </label>
+        </label>}
 
 
         {message && success && (
@@ -334,19 +337,20 @@ const EditForm = ({ currentImage }) => {
 
 
         <button
+        disabled={loading}
           type="submit"
-          className="flex items-center justify-between px-8 py-4 bg-black shadow w-full"
+          className="flex items-center justify-between px-8 py-4 bg-black shadow w-full disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={(e) => {
             e.preventDefault();
             upload("publish");
           }}
         >
-         <p className="text-base font-bold text-white">Publish</p>
+         <p className="text-base font-bold text-white">{loading ? <span className="basic text-center"/> : "Update"}</p>
           <MdPublic className="text-xl text-white" />
         </button>
         <button
-          type="submit"
-          className="flex items-center justify-between px-8 py-4 bg-white shadow border  border-black w-full text-[#404040]"
+        disabled={loading}          type="submit"
+          className="flex items-center justify-between px-8 py-4 bg-white shadow border  border-black w-full text-[#404040] disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={(e) => {
             e.preventDefault();
             upload("draft");

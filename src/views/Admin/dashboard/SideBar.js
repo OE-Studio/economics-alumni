@@ -29,7 +29,7 @@ const links = [
     icon: <MdOutlineFeed />,
   },
   {
-    name: "Impacts",
+    name: "Footprints",
     to: "/dashboard/impacts",
     icon: <MdOutlineVolunteerActivism />,
   },
@@ -66,7 +66,7 @@ function SideLinks({ to, name, icon }) {
 
 const SideBar = () => {
   return (
-    <section className="fixed md:w-[100px]  lg:w-[284px] top-0 h-full left-0 border hidden md:block font-inter bg-[#f9f9f9] border-[#c3c3c3]">
+    <section className="fixed md:w-[100px]  lg:w-[284px] top-0 h-full left-0 border hidden md:block font-inter bg-[#f9f9f9] border-[#c3c3c3] z-50">
       <Link to="/dashboard" className="lg:px-[40px] pt-[18px] pb-[53px]  block w-full ">
         <div className="lg:border p-2">
         <img src={logo} alt="" className=" hidden lg:block " />

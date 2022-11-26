@@ -484,14 +484,14 @@ const DashImpact = () => {
       <section className="md:mt-[36px] lg:mt-[24px] p-[20px] md:p-0 md:px-[40px] lg:px-[60px]">
         <div className="flex justify-between">
           <div className="flex items-center space-x-3">
-            <p className="text-4xl">Impact</p>
+            <p className="text-4xl">Footprints</p>
             <div className="inline-flex items-start justify-start px-2 py-0.5 bg-black rounded-full">
               <p className="text-sm font-medium leading-tight text-white">
                 {loadedData.item.length}
               </p>
             </div>
           </div>
-          <UploadButton customStyle="hidden md:inline-flex" clickHandler={() => { toggleNotification() }} />
+          <UploadButton type ="Footprint" customStyle="hidden md:inline-flex" clickHandler={() => { toggleNotification() }} />
         </div>
       </section>
 
@@ -504,7 +504,7 @@ const DashImpact = () => {
             </div>
             <input
               type="search"
-              placeholder="Search impact"
+              placeholder="Search footprints"
               onChange={(e) => {
                 setSearchTerm(e.target.value);
               }}
@@ -535,7 +535,7 @@ const DashImpact = () => {
             )}
           </div>
 
-          <UploadButton customStyle="inline-flex md:hidden" clickHandler={() => { toggleNotification() }} />
+          <UploadButton type ="Footprint" customStyle="inline-flex md:hidden" clickHandler={() => { toggleNotification() }} />
 
           {(isCheckAllArchive || isCheckAllDraft || isCheckAllPublish) && (
             <div className="gap-5 items-center flex flex-wrap 2xl:hidden">

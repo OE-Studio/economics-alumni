@@ -484,7 +484,7 @@ const DashImages = () => {
               </p>
             </div>
           </div>
-          <UploadButton customStyle="hidden md:inline-flex" clickHandler={() => { toggleNotification() }} />
+          <UploadButton type ="Image" customStyle="hidden md:inline-flex" clickHandler={() => { toggleNotification() }} />
         </div>
       </section>
 

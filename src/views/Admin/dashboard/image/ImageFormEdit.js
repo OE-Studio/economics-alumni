@@ -27,6 +27,7 @@ const ImageForm = ({ currentImage }) => {
   const [image, setImage] = useState(true);
   const [message, setMessage] = useState(true);
   const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     let copiedShopCart = { ...formDetails };
@@ -77,20 +78,22 @@ const ImageForm = ({ currentImage }) => {
       if (result.status === 200 && !result.data.success) {
         setError(result.data.message);
         setMessage(true);
+        setLoading(false);
         setTimeout(() => {
           setMessage(false);
-        }, 3000);
+        }, 1500);
         return
       }
 
 
       if (result.status === 200 && result.data.success) {
         setSuccess("Image updated successfully");
-        window.location.reload();
+        setLoading(false);
         setMessage(true);
         setTimeout(() => {
+          window.location.reload();
           setMessage(false);
-        }, 3000);
+        }, 1500);
         return
       }
     }).catch((error) => {
@@ -229,19 +232,21 @@ const ImageForm = ({ currentImage }) => {
 
 
         <button
+        disabled={loading}
           type="submit"
-          className="flex items-center justify-between px-8 py-4 bg-blue-500 shadow rounded w-full"
+          className="flex items-center justify-between px-8 py-4 bg-blue-500 shadow rounded w-full disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={(e) => {
             e.preventDefault();
             publishResearch();
           }}
         >
-          <p className="text-base font-bold text-white">Publish image</p>
+          <p className="text-base font-bold text-white">{loading ? <span className="basic" /> : "Publish Image"}</p>
           <RiGlobalLine className="text-xl text-white" />
         </button>
         <button
+        disabled={loading}
           type="submit"
-          className="flex items-center justify-between px-8 py-4 bg-white shadow border rounded border-blue-500 w-full text-[#404040]"
+          className="flex items-center justify-between px-8 py-4 bg-white shadow border rounded border-blue-500 w-full text-[#404040] disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={(e) => {
             e.preventDefault();
             draftResearch();

@@ -42,7 +42,7 @@ const Footer = () => {
               </div>
               <a
                 href="tel:+234816904403"
-                className="text-2xl font-semibold text-gray-400"
+                className="text-2xl font-semibold block text-gray-400"
               >
                 (+234)816 190 4403
               </a>

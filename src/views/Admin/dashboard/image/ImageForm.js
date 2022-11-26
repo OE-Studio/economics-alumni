@@ -111,12 +111,12 @@ const ImageForm = () => {
   };
 
 
-   // WIFI
-   const [internet, setInternet] = React.useState(true)
+  // WIFI
+  const [internet, setInternet] = React.useState(true)
 
-   React.useEffect(() => {
-     window.navigator.onLine ? setInternet(true) : setInternet(false)
-   }, [internet])
+  React.useEffect(() => {
+    window.navigator.onLine ? setInternet(true) : setInternet(false)
+  }, [internet])
 
   return (
     <div className="p-3 full lg:p-4 space-y-4">
@@ -187,6 +187,8 @@ const ImageForm = () => {
           )}
         </label>
 
+        <p className="text-sm">{documentName}</p>
+
         <div className="flex flex-col space-y-3 w-full">
           <p className="text-sm font-medium leading-tight  text-gray-400">
             Image title here
@@ -231,7 +233,7 @@ const ImageForm = () => {
           />
         </div>
 
-        <p className="text-sm">{documentName}</p>
+
 
         {message && success && (
           <div className=" bg-[#64B300] flex text-white font-semibold space-x-4 p-4 items center left-1/2 -translate-x-1/2 fixed top-[2vh] md:top-[70vh] lg:top-[75vh] mt-[18px] z-90 w-full  lg:w-124 md:w-[80vw]">

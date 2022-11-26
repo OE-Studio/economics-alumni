@@ -239,7 +239,7 @@ const EditForm = ({ currentImage }) => {
                 handleClick("eventDate", e.target.value);
               }}
               style={{
-                "&::-webkit-calendar-picker-indicator": {
+                "&::WebkitCalendarPickerIndicator": {
                   display: "none",
                   "-webkit-appearance": "none",
                 },
@@ -271,7 +271,7 @@ const EditForm = ({ currentImage }) => {
                 handleClick("eventTime", e.target.value);
               }}
               style={{
-                "&::-webkit-calendar-picker-indicator": {
+                "&::WebkitCalendarPickerIndicator": {
                   display: "none",
                   "-webkit-appearance": "none",
                 },

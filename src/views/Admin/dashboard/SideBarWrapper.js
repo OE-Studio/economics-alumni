@@ -16,7 +16,7 @@ const SideBarWrapper = ({ toggleNotification, toggle, children, setToggle }) => 
   return (
     <div
     id="backgroundOverlay"
-      className={`transition duration-1000 ease-in-out ${notificationClass} z-30  w-full  lg:w-screen md:h-screen bg-[#545050ae] backdrop-blur-[5px] bg-white top-0`}
+      className={`transition duration-1000 ease-in-out ${notificationClass} z-[60]  w-full  lg:w-screen md:h-screen bg-[#545050ae] bg-white top-0`}
       onClick={(e) => {
         if (e.target.id === "backgroundOverlay") {
           setToggle(!toggle);

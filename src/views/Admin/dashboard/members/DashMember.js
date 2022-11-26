@@ -34,7 +34,7 @@ const tableHeaders = [
   },
   {
     lable: "Work",
-    customStyle: "w-[140px] justify-center",
+    customStyle: "w-[240px] justify-center",
   },
   {
     lable: "Title",
@@ -50,11 +50,11 @@ const tableHeaders = [
   },
   {
     lable: "email",
-    customStyle: "w-[140px] justify-center",
+    customStyle: "w-[200px] justify-center",
   },
   {
     lable: "Grad year.",
-    customStyle: "w-[140px] justify-center",
+    customStyle: "w-[140px] text-center justify-center",
   },
   {
     lable: "Part of set’s whatsapp",
@@ -132,7 +132,7 @@ const NewsletterComp = ({
     },
     {
       lable: degree,
-      customStyle: "w-[140px] justify-center",
+      customStyle: "w-[140px] justify-center text-center",
     },
     {
       lable: alias,
@@ -140,15 +140,15 @@ const NewsletterComp = ({
     },
     {
       lable: workplace,
-      customStyle: "w-[140px] justify-center",
+      customStyle: "w-[240px] justify-center text-center",
     },
     {
       lable: position,
-      customStyle: "w-[140px] justify-center",
+      customStyle: "w-[140px] justify-center text-center",
     },
     {
       lable: address,
-      customStyle: "w-[240px] justify-center",
+      customStyle: "w-[240px] justify-center text-center",
     },
     {
       lable: phoneNumber,
@@ -156,11 +156,11 @@ const NewsletterComp = ({
     },
     {
       lable: emailAddress,
-      customStyle: "w-[140px] justify-center",
+      customStyle: "w-[200px] justify-center",
     },
     {
       lable: yearGraduated,
-      customStyle: "w-[140px] justify-center",
+      customStyle: "w-[140px] text-center justify-center",
     },
     {
       lable: isGroupPresent,
@@ -234,6 +234,21 @@ const DashMember = () => {
 
   let allData = [];
 
+  const titleCase = function titleCase(string) {
+
+    if(string!==""){
+      var sentence = string.trim().toLowerCase().split(" ");
+      for (var i = 0; i < sentence.length; i++) {
+        if(sentence[i] !==""){
+          sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+        }
+      }
+      sentence.toString();
+      return sentence.join("\n");
+    }
+    return(string)
+  };
+
   if (loadedData.status === "fulfilled") {
     allData = loadedData.item.filter(
       // eslint-disable-next-line
@@ -258,16 +273,27 @@ const DashMember = () => {
 
     const renderList = (List) => {
       loadedDataList = List.map((trainings, index, list) => {
+        
         return (
           <NewsletterComp
-            fullName={trainings.fullName}
+            fullName={titleCase(trainings.fullName)
+              .substring(0, 15)
+              .padEnd(18, trainings.position.length > 18 ? "..." : "")}
             degree={trainings.degree}
             alias={trainings.alias}
-            workplace={trainings.workplace}
-            position={trainings.position}
-            address={trainings.address}
+            workplace={titleCase(trainings.workplace)
+              .substring(0, 25)
+              .padEnd(28, trainings.workplace.length > 28 ? "..." : "")}
+            position={titleCase(trainings.position)
+              .substring(0, 15)
+              .padEnd(18, trainings.position.length > 18 ? "..." : "")}
+            address={titleCase(trainings.address)
+              .substring(0, 25)
+              .padEnd(28, trainings.address.length > 28 ? "..." : "")}
             phoneNumber={trainings.phoneNumber}
-            emailAddress={trainings.emailAddress}
+            emailAddress={trainings.emailAddress
+              .substring(0, 25)
+              .padEnd(28, trainings.emailAddress.length > 28 ? "..." : "")}
             yearGraduated={trainings.yearGraduated}
             isGroupPresent={trainings.isGroupPresent}
             isAdmin={trainings.isAdmin}
@@ -298,7 +324,6 @@ const DashMember = () => {
 
   // ACTION FUNCTIONS
 
-  
   const deleteAll = () => {
     const options = {
       headers: { "Content-Type": undefined },
@@ -317,7 +342,7 @@ const DashMember = () => {
       if (result.status === 200) {
         window.location.reload();
       }
-    });
+    }).catch((error) => {console.log(error)});
   };
 
   // Form Overlay
@@ -382,6 +407,7 @@ const DashMember = () => {
             </div>
           </div>
           <UploadButton
+            type="Member"
             customStyle="hidden md:inline-flex"
             clickHandler={() => {
               toggleNotification();
@@ -420,6 +446,7 @@ const DashMember = () => {
           <div className="placeholder:text-[#737373] "></div>
 
           {/* <UploadButton
+          type ="Member"
             customStyle=""
             clickHandler={() => {
               toggleNotification();
@@ -437,20 +464,22 @@ const DashMember = () => {
             </div>
           </CSVLink>
 
-          <div className="gap-5 items-center flex flex-wrap 2xl:hidden">
+          {isCheck.length > 0 && <div className="gap-5 items-center flex flex-wrap hover:cursor-pointer">
             <div
               className="flex items-center space-x-4 bg-[#F9F2F2] text-[#F90000] px-4 py-2"
-              onClick={() => { deleteAll()}}
+              onClick={() => {
+                deleteAll();
+              }}
             >
               <MdOutlineDelete className=" text-xl" />
               <p className="text-base">Delete all</p>
             </div>
-          </div>
+          </div>}
         </div>
       </section>
 
       {/* Table */}
-      <div className=" p-[20px]  md:p-0 md:mx-[40px] lg:mx-[60px] lg:p-1 mt-[30px] w-full overflow-scroll">
+      <div className=" p-[20px]  md:p-0 md:mx-[40px] lg:mx-[60px] lg:p-1 mt-[30px] w-full overflow-scroll lg:pr-20">
         {/* Table Header */}
         <div className="flex w-fit h-12 border border-gray-300 -ml-[1px] divide-x-[1px] divide-gray-300 bg-gray-50">
           {tableHeaders.map((header, index) => {
