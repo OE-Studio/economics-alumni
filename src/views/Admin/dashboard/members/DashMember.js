@@ -292,8 +292,8 @@ const DashMember = () => {
               .padEnd(28, trainings.address.length > 28 ? "..." : "")}
             phoneNumber={trainings.phoneNumber}
             emailAddress={trainings.emailAddress
-              .substring(0, 25)
-              .padEnd(28, trainings.emailAddress.length > 28 ? "..." : "")}
+              .substring(0, 15)
+              .padEnd(18, trainings.emailAddress.length > 18 ? "..." : "")}
             yearGraduated={trainings.yearGraduated}
             isGroupPresent={trainings.isGroupPresent}
             isAdmin={trainings.isAdmin}
@@ -472,7 +472,7 @@ const DashMember = () => {
               }}
             >
               <MdOutlineDelete className=" text-xl" />
-              <p className="text-base">Delete all</p>
+              <p className="text-base">Delete</p>
             </div>
           </div>}
         </div>

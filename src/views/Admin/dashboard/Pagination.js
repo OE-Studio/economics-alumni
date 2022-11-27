@@ -43,7 +43,7 @@ const Pagination = ({ list, setlistStart, setlistEnd }) => {
         !setPagination &&        
         <div className="flex py-4 justify-between">
             <div className=" inline-flex items-center p-2 rounded-lg">
-                <p className="text-base">{currentPage} / {totalPages}</p>
+                {/* <p className="text-base">{currentPage} / {totalPages}</p> */}
                 <RiArrowDownSLine className="text-xl" />
             </div>
 
