@@ -53,7 +53,7 @@ const Footer = () => {
                   to="/impact"
                   className=" w-[78px] md:text-sm font-medium hover:text-white text-gray-400"
                 >
-                  Impact
+                  Footprint
                 </Link>
                 <Link
                   to="/about"
