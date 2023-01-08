@@ -62,7 +62,7 @@ const Footer = () => {
                   Footprint
                 </Link>
                 <Link
-                  to="/event"
+                  to="/events"
                   className=" md:text-sm font-medium hover:text-white text-gray-400"
                 >
                   Upcoming events
