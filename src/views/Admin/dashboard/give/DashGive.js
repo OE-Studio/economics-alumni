@@ -10,7 +10,7 @@ import {
   MdOutlineSearch,
   MdOutlineDelete,
   MdOutlineFolderOpen,
-  MdOutlineFeed,
+  MdOutlineVolunteerActivism
 } from "react-icons/md";
 
 import {
@@ -34,9 +34,8 @@ import EditForm from "./EditForm.js";
 const baseURL = "https://uieaa.herokuapp.com";
 
 
-const NewsletterComp = ({
+const RequestComp = ({
   title,
-  author,
   date,
   subTitle,
   id,
@@ -53,7 +52,7 @@ const NewsletterComp = ({
   const updateStatus = (status) => {
     const options = {
       headers: { "Content-Type": undefined },
-      url: `${baseURL}/newsletter/update-status`,
+      url: `${baseURL}/give/update-status`,
       method: "POST",
       data: {
         uuid: id,
@@ -74,7 +73,7 @@ const NewsletterComp = ({
   const deleteEntry = () => {
     const options = {
       headers: { "Content-Type": undefined },
-      url: `${baseURL}/newsletter/delete/${id}`,
+      url: `${baseURL}/event/delete/${id}`,
       method: "DELETE",
     };
 
@@ -102,7 +101,7 @@ const NewsletterComp = ({
         />
       </div>
       <div className="h-[48px] w-[48px] flex items-center bg-grey-50 justify-center">
-        <MdOutlineFeed className="text-xl" />
+        <MdOutlineVolunteerActivism className="text-xl text-[#9D9D9D]" />
       </div>
       <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:justify-between w-full">
         <div className="space-y-2">
@@ -192,7 +191,7 @@ const SelectAllButton = ({ onChangeHandler, checkHandler }) => {
   );
 };
 
-const DashNewsletter = () => {
+const DashGive = () => {
 
 
   //   Tabs
@@ -234,7 +233,7 @@ const DashNewsletter = () => {
   const [tab, setTab] = React.useState("publish");
   const [searchTerm, setSearchTerm] = React.useState("");
 
-  const loadedData = useSelector((state) => state.newsletter);
+  const loadedData = useSelector((state) => state.give);
   let loadedDataList;
 
   let publishedData = [];
@@ -275,9 +274,9 @@ const DashNewsletter = () => {
     const renderList = (List) => {
       loadedDataList = List.map((trainings, index, list) => {
         let date = format(Date.parse(trainings.created_at), "dd/MM/yyyy");
-      
+
         return (
-          <NewsletterComp
+          <RequestComp
             type="newsletter"
             title={trainings.title}
             author="Admin"
@@ -287,7 +286,7 @@ const DashNewsletter = () => {
             key={index}
             toggleEditNotification={toggleEditNotification}
             setEditId={setEditId}
-            imageURL={trainings.documentURL}
+
             last={index === list.length - 1}
             handleClick={handleClick}
             isChecked={isCheck.includes(trainings.uuid)}
@@ -408,7 +407,7 @@ const DashNewsletter = () => {
   const updateMultiple = (status) => {
     const options = {
       headers: { "Content-Type": undefined },
-      url: `${baseURL}/newsletter/update-multiple`,
+      url: `${baseURL}/give/update-multiple`,
       method: "POST",
       data: {
         ids: isCheck,
@@ -431,7 +430,7 @@ const DashNewsletter = () => {
   const deleteAll = () => {
     const options = {
       headers: { "Content-Type": undefined },
-      url: `${baseURL}/newsletter/delete-many`,
+      url: `${baseURL}/give/delete-many`,
       method: "POST",
       data: {
         ids: isCheck,
@@ -461,7 +460,7 @@ const DashNewsletter = () => {
 
       {/* CREATE FORMS */}
       <SideBarWrapper toggleNotification={toggleNotification} toggle={toggle} setToggle={setToggle}>
-        
+
         <CreateForm />
       </SideBarWrapper>
 
@@ -481,14 +480,14 @@ const DashNewsletter = () => {
       <section className="md:mt-[36px] lg:mt-[24px] p-[20px] md:p-0 md:px-[40px] lg:px-[60px]">
         <div className="flex justify-between">
           <div className="flex items-center space-x-3">
-            <p className="text-4xl">Newsletter</p>
+            <p className="text-4xl">Give</p>
             <div className="inline-flex items-start justify-start px-2 py-0.5 bg-black rounded-full">
               <p className="text-sm font-medium leading-tight text-white">
-              {loadedData.item.length}
+                {loadedData.item.length}
               </p>
             </div>
           </div>
-          <UploadButton type ="Upload Newsletter" customStyle="hidden md:inline-flex" clickHandler={() => { toggleNotification() }} />
+          <UploadButton type ="New Request" customStyle="hidden md:inline-flex" clickHandler={() => { toggleNotification() }} />
         </div>
       </section>
 
@@ -501,7 +500,7 @@ const DashNewsletter = () => {
             </div>
             <input
               type="search"
-              placeholder="Search newsletter"
+              placeholder="Search requests"
               onChange={(e) => {
                 setSearchTerm(e.target.value);
               }}
@@ -532,7 +531,7 @@ const DashNewsletter = () => {
             )}
           </div>
 
-          <UploadButton type ="Upload Newsletter" customStyle="inline-flex md:hidden" clickHandler={() => { toggleNotification() }} />
+          <UploadButton type ="New Request" customStyle="inline-flex md:hidden" clickHandler={() => { toggleNotification() }} />
 
           {(isCheckAllArchive || isCheckAllDraft || isCheckAllPublish) && (
             <div className="gap-5 items-center flex flex-wrap 2xl:hidden">
@@ -571,8 +570,8 @@ const DashNewsletter = () => {
               )}
 
               <div
-                className="flex items-center space-x-4 bg-[#F9F2F2] text-[#F90000] px-4 py-2"
-                onClick={() => { }}
+                className="flex items-center space-x-4 bg-[#F9F2F2] text-[#F90000] px-4 py-2 cursor-pointer"
+                onClick={() => {deleteAll() }}
               >
                 <MdOutlineDelete className=" text-xl" />
                 <p className="text-base">Delete all</p>
@@ -678,8 +677,8 @@ const DashNewsletter = () => {
               )}
 
               <div
-                className="flex items-center space-x-4 bg-[#F9F2F2] text-[#F90000] px-4 py-2"
-                onClick={() => { }}
+                className="flex items-center space-x-4 bg-[#F9F2F2] text-[#F90000] px-4 py-2 cursor-pointer"
+                onClick={() => {deleteAll() }}
               >
                 <MdOutlineDelete className=" text-xl" />
                 <p className="text-base">Delete all</p>
@@ -728,4 +727,4 @@ const DashNewsletter = () => {
   );
 };
 
-export default DashNewsletter;
+export default DashGive;

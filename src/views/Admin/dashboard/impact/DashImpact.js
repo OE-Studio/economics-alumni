@@ -491,7 +491,7 @@ const DashImpact = () => {
               </p>
             </div>
           </div>
-          <UploadButton type ="Footprint" customStyle="hidden md:inline-flex" clickHandler={() => { toggleNotification() }} />
+          <UploadButton type ="Upload Footprint" customStyle="hidden md:inline-flex" clickHandler={() => { toggleNotification() }} />
         </div>
       </section>
 
@@ -535,7 +535,7 @@ const DashImpact = () => {
             )}
           </div>
 
-          <UploadButton type ="Footprint" customStyle="inline-flex md:hidden" clickHandler={() => { toggleNotification() }} />
+          <UploadButton type ="Upload Footprint" customStyle="inline-flex md:hidden" clickHandler={() => { toggleNotification() }} />
 
           {(isCheckAllArchive || isCheckAllDraft || isCheckAllPublish) && (
             <div className="gap-5 items-center flex flex-wrap 2xl:hidden">

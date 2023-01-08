@@ -33,6 +33,9 @@ import { fetchEvent } from './features/event/eventSlice';
 import DashMember from './views/Admin/dashboard/members/DashMember';
 import { fetchMember } from './features/member/memberSlice';
 
+import DashGive from './views/Admin/dashboard/give/DashGive';
+import { fetchGive } from './features/give/giveSlice';
+
 function App() {
   useEffect(() => {
     Aos.init({ duration: 2000 });
@@ -46,6 +49,7 @@ function App() {
   const imageStatus = useSelector(state => state.image.status)
   const eventStatus = useSelector(state => state.event.status)
   const memberStatus = useSelector(state => state.member.status)
+  const giveStatus = useSelector(state => state.give.status)
 
   useEffect(() => {
 
@@ -64,8 +68,11 @@ function App() {
     if (memberStatus === "idle") {
       dispatch(fetchMember())
     }
+    if (giveStatus === "idle") {
+      dispatch(fetchGive())
+    }
     return () => { }
-  }, [dispatch, impactStatus, newsletterStatus, imageStatus, eventStatus, memberStatus])
+  }, [dispatch, impactStatus, newsletterStatus, imageStatus, eventStatus, memberStatus, giveStatus])
 
 
   return (
@@ -93,6 +100,7 @@ function App() {
           <Route exact path="/dashboard/impacts" element={<DashImpact />} />
           <Route exact path="/dashboard/events" element={<DashEvents />} />
           <Route exact path="/dashboard/members" element={<DashMember />} />
+          <Route exact path="/dashboard/give" element={<DashGive />} />
           {/* <Route exact path="/dashboard/events" element={<Login />} /> */}
 
         </Route>

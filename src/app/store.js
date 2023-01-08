@@ -5,6 +5,7 @@ import imageReducer from '../features/image/imageSlice';
 import impactReducer from '../features/impact/impactSlice';
 import eventReducer from '../features/event/eventSlice';
 import memberReducer from '../features/member/memberSlice';
+import giveReducer from '../features/give/giveSlice';
 
 
  const store = configureStore({
@@ -13,7 +14,8 @@ import memberReducer from '../features/member/memberSlice';
     image: imageReducer,
     impact: impactReducer,
     event: eventReducer,
-    member: memberReducer
+    member: memberReducer,
+    give: giveReducer
   },
 });
 

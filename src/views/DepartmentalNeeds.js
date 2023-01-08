@@ -1,4 +1,7 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import EmptyField from "./Admin/dashboard/EmptyField";
+
 
 const DepartmentalNeedsComp = ({ need, index }) => {
   return (
@@ -20,17 +23,67 @@ const DepartmentalNeedsComp = ({ need, index }) => {
 };
 
 
-const deptNeeds=[
-    {
-        need:"Join us on the journey to impact, as we shape lives and make learning and living easier and more enjoyable"
 
-},  {
-    need:"Join us on the journey to impact, as we shape lives and make learning and living easier and more enjoyable"
-
-},]
 
 
 const DepartmentalNeeds = () => {
+// eslint-disable-next-line 
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const data = useSelector((state) => state.give);
+  let dataList;
+
+  const renderList = (List) => {
+    dataList = List.map((item, index, list) => {
+
+      return (
+        <DepartmentalNeedsComp
+          title={item.title}
+          need={item.description}
+           index={index+1}
+        />
+      );
+    });
+  };
+
+  // Empty States
+  if (data.status === "idle") {
+    dataList = <EmptyField />;
+  } else if (data.status === "pending") {
+    dataList = <EmptyField />;
+  }
+
+  // Populate
+  if (data.status === "fulfilled") {
+    let allPublishedData = data.item.filter(
+      // eslint-disable-next-line
+      (item) => item.status === "publish"
+    );
+
+    let allResearch = allPublishedData.reverse().filter(
+      // eslint-disable-next-line
+      (item) => {
+        if (searchTerm === "") {
+          return item;
+        } else if (
+          item.description.toLowerCase().includes(searchTerm.toLowerCase())
+        ) {
+          return item;
+        }
+      }
+    );
+
+    if (allResearch.length === 0) {
+      dataList = <EmptyField />;
+    }
+
+    if (allResearch.length > 0) {
+      renderList(allResearch);
+    }
+  }
+
+
+
+
   return (
     <div className="container mx-auto p-4 py-10">
       <p className="text-2xl lg:text-center font-semibold uppercase">
@@ -38,16 +91,7 @@ const DepartmentalNeeds = () => {
       </p>
       <div className="divide-y lg:w-[60%] flex flex-col  lg:mx-auto">
 
-        {deptNeeds.map((need,index)=>{
-            return(
-                <DepartmentalNeedsComp
-                need={need.need}
-                index={index+1}
-                key={index}
-                />
-                
-            )
-        })}
+        {dataList}
        
       </div>
     </div>

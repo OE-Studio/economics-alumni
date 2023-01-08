@@ -10,7 +10,7 @@ const UploadButton = ({clickHandler, customStyle, type}) => {
             <div className="h-[24px] w-[24px] flex items-center justify-center">
               <MdOutlineAdd className="text-xl text-grey-200" />
             </div>
-            <p className="text-base font-medium">Upload {type}</p>
+            <p className="text-base font-medium">{type}</p>
           </div>
   )
 }

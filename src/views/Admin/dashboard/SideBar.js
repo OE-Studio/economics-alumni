@@ -10,7 +10,11 @@ import {
   MdOutlineBadge,
   MdOutlineLogout,
   MdOutlineCalendarToday,
+  // MdOutlineFootprint,
 } from "react-icons/md";
+import FootPrintIcon from "../../../components/FootprintIcon";
+
+
 
 const links = [
   {
@@ -31,10 +35,10 @@ const links = [
   {
     name: "Footprints",
     to: "/dashboard/impacts",
-    icon: <MdOutlineVolunteerActivism />,
+    icon: <FootPrintIcon/>,
   },
   {
-    name: "Upcoming events",
+    name: "Events",
     to: "/dashboard/events",
     icon: <MdOutlineCalendarToday />,
   },
@@ -43,7 +47,16 @@ const links = [
     to: "/dashboard/members",
     icon: <MdOutlineBadge />,
   },
+  {
+    name: "Give",
+    to: "/dashboard/give",
+    icon: <MdOutlineVolunteerActivism />,
+  },
 ];
+
+
+
+
 
 function SideLinks({ to, name, icon }) {
   const { pathname } = useLocation();
