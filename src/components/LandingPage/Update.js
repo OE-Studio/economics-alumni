@@ -2,8 +2,8 @@ import React from "react";
 import { HiUserGroup } from "react-icons/hi";
 import {
   MdEventNote,
-  MdFrontHand,
 } from "react-icons/md";
+import FootPrintUpdate from "../icons/FootPrintUpdate";
 
 
 function Update() {
@@ -31,11 +31,11 @@ function Update() {
         </div>
 
         <div className="flex space-x-6 lg:space-x-8" data-aos="fade-up" data-aos-delay="300">
-          <MdFrontHand className="text-[#FB9600] bg-white p-4 shadow-xl shadow-[#0000000D] text-2xl box-content aspect-square" />
+          <FootPrintUpdate className="text-[#FB9600] bg-white p-4 shadow-xl shadow-[#0000000D] text-2xl box-content aspect-square" />
           <div className="flex flex-col">
-            <p className="text-5xl md:text-4xl lg:text-5xl 2xl:text-7xl leading-none">50+</p>
+            <p className="text-5xl md:text-4xl lg:text-5xl 2xl:text-7xl leading-none">17+</p>
             <p className="lg:text-lg leading-none text-gray-400">
-              Impact
+              Footprint
             </p>
           </div>
         </div>

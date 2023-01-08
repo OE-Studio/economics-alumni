@@ -4,10 +4,10 @@ import {
   MdMilitaryTech,
   MdAutoAwesome,
   MdBusinessCenter,
-  MdFrontHand,
 } from "react-icons/md";
 
 import tradition from "../../assets/image/tradition.png"
+import FootPrintBody from "../icons/FootPrintBody";
 
 const Tradition = () => {
   return (
@@ -48,9 +48,9 @@ const Tradition = () => {
           </div>
           <div className="md:w-[45%] space-y-4" data-aos="fade-up" data-aos-delay="200">
             <div className="inline-flex items-center justify-center p-3.5 bg-[#F6F0FF]">
-              <MdFrontHand className="text-[#9747FF] text-4xl" />
+              <FootPrintBody className="text-[#9747FF] text-4xl" />
             </div>
-            <p className="text-2xl font-semibold">Impact</p>
+            <p className="text-2xl font-semibold">Footprint</p>
             <p className="text-sm leading-relaxed text-gray-500">
             Completed and ongoing projects executed and support programmes for students.
             </p>

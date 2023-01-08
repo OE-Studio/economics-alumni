@@ -10,7 +10,7 @@ const ImpactHero = () => {
             <div className="flex flex-col justify-between lg:items-center  space-y-4 lg:space-y-10">
                 <div className="flex flex-col items-center space-y-6 lg:space-y-10">
                     <p className=" text-3xl md:text-5xl lg:text-[80px]  font-bold leading-12 text-center text-black w-[85%]">
-                        We are impact-driven</p>
+                        See our footprints</p>
                     <p className="md:text-xl lg:text-xl font-medium leading-7 lg:leading-9 text-center text-black lg:w-[60%] w-[85%]">
                         Learn about the alumni, our history, the department of economics at UI and how we network with friends to foster meaningful and  impact-driven engagements
                     </p>
