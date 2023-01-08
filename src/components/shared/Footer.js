@@ -49,6 +49,12 @@ const Footer = () => {
             </div>
             <div>
               <div className="inline-flex gap-[32px] md:gap-[20px] lg:gap-0 xl:gap-5 items-center flex-wrap lg:justify-center">
+              <Link
+                  to="/about"
+                  className=" w-[78px] md:text-sm font-medium hover:text-white text-gray-400"
+                >
+                  About us
+                </Link>
                 <Link
                   to="/impact"
                   className=" w-[78px] md:text-sm font-medium hover:text-white text-gray-400"
@@ -56,10 +62,10 @@ const Footer = () => {
                   Footprint
                 </Link>
                 <Link
-                  to="/about"
-                  className=" w-[78px] md:text-sm font-medium hover:text-white text-gray-400"
+                  to="/event"
+                  className=" md:text-sm font-medium hover:text-white text-gray-400"
                 >
-                  About us
+                  Upcoming events
                 </Link>
                 <Link
                   to="/gallery"
