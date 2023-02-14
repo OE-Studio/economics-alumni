@@ -24,19 +24,19 @@ const Footer = () => {
                 Connect with us
               </p>
               <div className="flex space-x-[19px]">
-                <a href="/#" className="hover:scale-110">
+                <a href="https://web.facebook.com/groups/2924763884442898" target="_blank" rel="noopener noreferrer" className="hover:scale-110">
                   <img src={facebook} alt="" />
                 </a>
-                <a href="/#" className="hover:scale-110">
+                <a href="https://www.instagram.com/ui_eco_alumni/" target="_blank" rel="noopener noreferrer" className="hover:scale-110">
                   <img src={instagram} alt="" />
                 </a>
-                <a href="/#" className="hover:scale-110">
+                <a href="https://www.linkedin.com/company/ui-economics-department-alumni" target="_blank" rel="noopener noreferrer" className="hover:scale-110">
                   <img src={linkedin} alt="" />
                 </a>
-                <a href="/#" className="hover:scale-110">
+                <a href="https://twitter.com/UIEconAlumni?t=294jdQg8lV_qGH_8OXpqZw&s=09" target="_blank" rel="noopener noreferrer" className="hover:scale-110">
                   <img src={twitter} alt="" />
                 </a>
-                <a href="/#" className="hover:scale-110">
+                <a href="https://t.me/joinchat/cqwg61817QpjZTA8" target="_blank" rel="noopener noreferrer" className="hover:scale-110">
                   <img src={telegram} alt="" />
                 </a>
               </div>
